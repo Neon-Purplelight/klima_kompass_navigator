@@ -1,0 +1,11 @@
+body { padding-top: 80px; }
+
+
+.navbar-custom .navbar-brand {
+    font-size: 50px;
+    color:#7fff00;
+}
+
+.navbar-custom .navlink {
+    color: #7fff00;
+}
