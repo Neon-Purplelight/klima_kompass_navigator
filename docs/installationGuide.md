@@ -22,8 +22,8 @@ Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um
 Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie die Umgebung aktivieren, in den geklonten Ordner wechseln und die Hauptdatei ausführen:
 
 ```python
-conda activate pnnatlas
-cd voller/pfad/zum/gewünschten/installations/ordner/
+conda activate klima_kompass_navigator
+cd ../klima_kompass_navigator/
 python app.py
 ```
 
@@ -51,7 +51,7 @@ This file guides you through the installation of the necessary components to run
 After the initial installation, you can simply run the web application by activating the environment, navigating to the cloned folder, and executing the main file:
 
 ```python
-conda activate pnnatlas
-cd full/path/to/pnnatlas/folder/
+conda activate klima_kompass_navigator
+cd ../klima_kompass_navigator/
 python app.py
 ```
