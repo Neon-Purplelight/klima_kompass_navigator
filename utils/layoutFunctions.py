@@ -49,9 +49,9 @@ def make_CC_licenseBanner():
     banner = html.Div([
         html.Hr(className="mt-2 mb-2"),
         html.P([
-            "See source code ",
-            dcc.Link("here",
-                     href="https://de.wikipedia.org/wiki/HTTP_404",
+            "Link zum ",
+            dcc.Link("Quellcode",
+                     href="https://github.com/Neon-Purplelight/klima_kompass_navigator",
                      target="_blank"),
         ]),
         html.A([
@@ -111,7 +111,9 @@ def make_start_page_sidebar():
                     html.Hr(),
                     html.H4("Verwendete Datensätze:"),
                     html.P([
-                        "Die hier verwendeten Datensätze wurden z.T. weiter prozessiert. Wie genau, können Sie im Soucr Code unter [GitHub link] einsehen."
+                        "Die hier verwendeten Datensätze wurden z.T. weiter prozessiert. Wie genau, können Sie im ",
+                        html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator", target="_blank", style={"color": "white"}),
+                        " einsehen."
                     ]),
                 ],
                 id='collapse_more_info_start_page',
