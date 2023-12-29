@@ -14,7 +14,7 @@ Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um
 - Aktivieren Sie die neu erstellte Umgebung:  
 `conda activate pklima_kompass_navigator`
 - Installieren Sie die erforderlichen Pakete:  
-`conda install --file requirements.txt`
+`pip install -r requirements.txt`
 - Starten Sie den Navigator:  
 `python app.py`
 - Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser, und Sie sollten die Webanwendung durchsuchen können.
@@ -43,7 +43,7 @@ This file guides you through the installation of the necessary components to run
 - Activate the newly created environment:
 `conda activate pklima_kompass_navigator`
 - Install the required packages:
-`conda install --file requirements.txt`
+`pip install -r requirements.txt`
 - Start the navigator:
 `python app.py`
 - The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`).  Open this address in any browser, and you should be able to browse the web application.
