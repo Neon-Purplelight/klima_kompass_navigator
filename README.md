@@ -4,7 +4,7 @@ Ein **kostenloses** und **offenes** Muster-Dashboard, das sich mit den Auswirkun
 
 ## Installation auf Ihrem Computer
 
-Sie können auf den Navigator kostenlos unter [https://klima-kompass-navigator.onrender.com/](https://klima-kompass-navigator.onrender.com/) ausführen. Wenn Sie jedoch bevorzugen, können Sie es auch lokal auf Ihrem Computer ausführen, um darauf auch offline zugreifen zu können.
+Sie können auf den Navigator kostenlos unter [https://klima-kompass-navigator.onrender.com/](https://klima-kompass-navigator.onrender.com/) ausführen. Wenn Sie es jedoch bevorzugen, können Sie den Navigator auch lokal auf Ihrem Computer ausführen, um darauf auch offline zugreifen zu können.
 
 Befolgen Sie die Schritte auf dieser [Seite](docs/installationGuide.md), um die erforderlichen Komponenten zu installieren und Ihren eigenen Navigator auszuführen.
 
