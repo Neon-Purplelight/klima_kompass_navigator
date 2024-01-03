@@ -114,7 +114,6 @@ layout = html.Div(
 # ...
 # Callbacks
 # ...
-# Callback to update the selected graph based on the user's choice
 # Callback to update the selected graph and map based on the user's choice
 @callback(
     [Output('month-checklist', 'options'),
@@ -139,8 +138,5 @@ def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
         with open('data/originalData/map_with_selected_years.html', 'r') as file:
             map_html = file.read()
 
-    # Zurücksetzen der Checkboxen nur beim Wechsel zwischen Monats- und Jahresansicht
-    if prev_checklist_value and len(prev_checklist_value) > 0 and selected_plot != prev_checklist_value[0]:
-        return options, map_html
-
+    # Zurücksetzen der Checkboxen immer beim Wechsel der Ansicht
     return options, map_html

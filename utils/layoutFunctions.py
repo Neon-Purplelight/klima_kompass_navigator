@@ -1151,6 +1151,9 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     # Add GeoJSON layers for the selected months
     for selected_month in selected_months:
         # Find the corresponding filename from available_months
+        if selected_month not in display_names_months:
+            continue  # Skip if the selected_month is not in the list
+
         filename = available_months[display_names_months.index(selected_month)]
         shapefile_path = os.path.join(shapefile_folder_months, f'{filename}.shp')
 
@@ -1266,9 +1269,12 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
         {esri_imagery_layer}
     """
 
-    # Add GeoJSON layers for the selected months
+    # Add GeoJSON layers for the selected years
     for selected_year in selected_years:
-        # Find the corresponding filename from available_months
+        # Find the corresponding filename from available_years
+        if selected_year not in display_names_years:
+            continue  # Skip if the selected_year is not in the list
+
         filename = available_years[display_names_years.index(selected_year)]
         shapefile_path = os.path.join(shapefile_folder_years, f'{filename}.shp')
 
