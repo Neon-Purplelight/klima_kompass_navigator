@@ -1,7 +1,6 @@
 # Import necessary libraries and modules
-from dash import dcc, html, Input, Output, callback
+from dash import html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
-from pathlib import Path
 from utils import layoutFunctions as lf
 
 # ------------------------------------------------------------------------------
@@ -80,7 +79,6 @@ layout = html.Div(
                         # Move the card with month checklist here
                         dbc.Card(
                             dbc.CardBody([
-                                html.H4("Wähle Monate aus", className="card-title"),
                                 dbc.Checklist(
                                     id='month-checklist',
                                     options=[{'label': month, 'value': month} for month in display_names_months],
@@ -117,15 +115,32 @@ layout = html.Div(
 # Callbacks
 # ...
 # Callback to update the selected graph based on the user's choice
+# Callback to update the selected graph and map based on the user's choice
 @callback(
-    Output('map-iframe_months', 'srcDoc'),
-    [Input('month-checklist', 'value')]
+    [Output('month-checklist', 'options'),
+     Output('map-iframe_months', 'srcDoc')],
+    [Input('hydro-1-plot-selector', 'value'),
+     Input('month-checklist', 'value')],
+    [State('month-checklist', 'value')],
+    prevent_initial_call=False  # Erlaubt das Auslösen des Callbacks beim ersten Laden
 )
-def update_map(selected_items):
-    # Use the create_static_map_html_years function to generate the HTML content
-    lf.create_static_map_html_months(selected_items, available_months, display_names_months, shapefile_folder_months)
-    # Read the generated HTML content and return it
-    with open('data\originalData\map_with_selected_months.html', 'r') as file:        
-        map_html = file.read()
+def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
+    options = []
+    map_html = ""
 
-    return map_html
+    if selected_plot == 'months' or selected_plot is None:
+        options = [{'label': month, 'value': month} for month in display_names_months]
+        lf.create_static_map_html_months(selected_items, available_months, display_names_months, shapefile_folder_months)
+        with open('data/originalData/map_with_selected_months.html', 'r') as file:
+            map_html = file.read()
+    elif selected_plot == 'years':
+        options = [{'label': year, 'value': year} for year in display_names_years]
+        lf.create_static_map_html_years(selected_items, available_years, display_names_years, shapefile_folder_years)
+        with open('data/originalData/map_with_selected_years.html', 'r') as file:
+            map_html = file.read()
+
+    # Zurücksetzen der Checkboxen nur beim Wechsel zwischen Monats- und Jahresansicht
+    if prev_checklist_value and len(prev_checklist_value) > 0 and selected_plot != prev_checklist_value[0]:
+        return options, map_html
+
+    return options, map_html

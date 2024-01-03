@@ -1062,12 +1062,11 @@ def create_co2_treemap_per_capita(df_filtered):
 # ------------------------------------------------------------------------------
 # hydro_1 functions
 # ------------------------------------------------------------------------------
-def make_hydro_1_settings(default_value='average_temp', options=None):
-    # Klima_1 settings
+def make_hydro_1_settings(default_value='months', options=None):
     if options is None:
         options = [
             {'label': 'Veränderungen des arktischen Eisschildes Innerhalb eines Jahres', 'value': 'months'},
-            {'label': 'Veränderungen des arktischen Eisschildes Innerhalb mehrerer Jahre', 'value': 'years'}
+            {'label': 'Veränderungen des arktischen Eisschildes Innerhalb mehrerer Jahre', 'value': 'years'},
         ]
 
     plot_cards = dbc.CardGroup(
@@ -1095,7 +1094,7 @@ def make_hydro_1_settings(default_value='average_temp', options=None):
 
     return plot_cards
 
-def create_static_map_html_months(selected_items=[], available_months=[], display_names_months=[], shapefile_folder_months=[]):
+def create_static_map_html_months(selected_months=[], available_months=[], display_names_months=[], shapefile_folder_months=[]):
     # Define the bounding box coordinates
     bounding_box = [
         [74, 4],
@@ -1150,7 +1149,7 @@ def create_static_map_html_months(selected_items=[], available_months=[], displa
     """
 
     # Add GeoJSON layers for the selected months
-    for selected_month in selected_items:
+    for selected_month in selected_months:
         # Find the corresponding filename from available_months
         filename = available_months[display_names_months.index(selected_month)]
         shapefile_path = os.path.join(shapefile_folder_months, f'{filename}.shp')
@@ -1208,6 +1207,124 @@ def create_static_map_html_months(selected_items=[], available_months=[], displa
 
     # Set the output file path within the data\originalData directory
     output_file = os.path.join('data', 'originalData', 'map_with_selected_months.html')
+
+    # Save the HTML content to a file
+    with open(output_file, 'w') as file:
+        file.write(html_content)
+
+def create_static_map_html_years(selected_years=[], available_years=[], display_names_years=[], shapefile_folder_years=[]):
+    # Define the bounding box coordinates
+    bounding_box = [
+        [74, 4],
+        [81, 4],
+        [81, 39],
+        [74, 39]
+    ]
+
+    # Define the Esri World Imagery basemap
+    esri_imagery_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+    esri_imagery_options = {
+        'attribution': 'Map data &copy; <a href="https://www.esri.com/">Esri</a>',
+        'maxZoom': 18
+    }
+    esri_imagery_layer = f'L.tileLayer("{esri_imagery_url}", {esri_imagery_options}).addTo(map)'
+
+    # Generate the Leaflet map HTML
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard with Static Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    </head>
+    <body>
+
+    <!-- Create a map div with a specific id -->
+    <div id="map" style="width: 100%; height: 500px; margin: auto; display: block;"></div>
+
+    <script>
+        // Define the bounding box coordinates
+        var boundingBox = {bounding_box};
+
+        // Calculate the center of the bounding box
+        var centerLat = (boundingBox[0][0] + boundingBox[2][0]) / 2;
+        var centerLon = (boundingBox[0][1] + boundingBox[2][1]) / 2;
+
+        // Create the Leaflet map centered at the calculated center with an initial zoom level of 4
+        var map = L.map('map').setView([centerLat, centerLon], 4);
+
+        // Set max bounds to restrict panning
+        map.setMaxBounds(boundingBox);
+        map.on('drag', function () {{
+            map.panInsideBounds(boundingBox, {{ animate: false }});
+        }});
+
+        // Add a tile layer (Esri World Imagery in this case)
+        {esri_imagery_layer}
+    """
+
+    # Add GeoJSON layers for the selected months
+    for selected_year in selected_years:
+        # Find the corresponding filename from available_months
+        filename = available_years[display_names_years.index(selected_year)]
+        shapefile_path = os.path.join(shapefile_folder_years, f'{filename}.shp')
+
+        if not os.path.exists(shapefile_path):
+            raise FileNotFoundError(f'Shapefile not found: {shapefile_path}')
+
+        gdf = gpd.read_file(shapefile_path)
+
+        # Convert the GeoDataFrame to GeoJSON
+        geojson_data = gdf.to_crs(epsg='4326').to_json()
+
+        # Add the GeoJSON data as a GeoJSON layer to the Leaflet map with style options
+        geojson_layer = f'''
+        var geojsonLayer_{selected_year} = L.geoJSON({geojson_data}, {{
+            style: {{
+                color: 'white',
+                fillOpacity: 0.8,
+                weight: 0
+            }},
+            onEachFeature: function(feature, layer) {{
+                layer.bindTooltip('<b>{selected_year}</b>', {{ sticky: true }});
+                var isOrange = false;  // Flag to track color state
+
+                layer.on('click', function () {{
+                    if (isOrange) {{
+                        layer.setStyle({{
+                            color: 'white',
+                            fillOpacity: 0.8,
+                            weight: 0
+                        }});
+                    }} else {{
+                        layer.setStyle({{
+                            color: 'orange',
+                            fillOpacity: 0.8,
+                            weight: 2
+                        }});
+                    }}
+                    isOrange = !isOrange;  // Toggle the flag
+                }});
+            }}
+        }}).addTo(map);
+        '''
+        html_content += geojson_layer
+
+    # Complete the HTML content
+    html_content += """
+    </script>
+
+    <!-- You can add more content to your dashboard here -->
+
+    </body>
+    </html>
+    """
+
+    # Set the output file path within the data\originalData directory
+    output_file = os.path.join('data', 'originalData', 'map_with_selected_years.html')
 
     # Save the HTML content to a file
     with open(output_file, 'w') as file:
