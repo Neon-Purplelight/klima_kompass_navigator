@@ -72,10 +72,26 @@ layout = html.Div(
         dbc.Row(lf.make_NavBar()),  # Navigation Bar
         dbc.Row(
             [
-                dbc.Col(lf.make_klima_1_sidebar(), width=4),
+                dbc.Col(lf.make_hydro_1_sidebar(), width=4),
                 dbc.Col(
                     [
                         lf.make_hydro_1_settings(),
+                        html.Div([
+                            dbc.Button("ℹ️ Info", id="info-button_hydro_1_settings", color="primary", className="mr-1"),
+                            dbc.Collapse(
+                                dbc.Card(
+                                    dbc.CardBody(
+                                        [
+                                            html.P("Das Laden der jeweiligen Eisschilde kann ein bis zwei Sekunden dauern."),
+                                            html.P("Der Standart Kartenausschnitt zentriert um die norwegische Inselgruppe Spitzbergen. Der Beobachtungsraum kann jedoch auch durch klicken und ziehen auf der Karte verschoben werden."),
+                                            html.P("Bei Auswahl mehrerer Monate oder Jahre kann es zu überlappungen kommen. Um einen besseren visuellen Vergleich zu ermöglichen lassen sich die verschiedenen Eisschilde durch anklicken hervorheben."),
+                                        ],
+                                        className="card-text",
+                                    ),
+                                ),
+                                id="info-card_hydro_1_settings",
+                            ),
+                        ]),
                         # Move the card with month checklist here
                         dbc.Card(
                             dbc.CardBody([
@@ -109,8 +125,6 @@ layout = html.Div(
 )
 
 
-
-
 # ...
 # Callbacks
 # ...
@@ -140,3 +154,31 @@ def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
 
     # Zurücksetzen der Checkboxen immer beim Wechsel der Ansicht
     return options, map_html
+
+# Add callback to show/hide the info modal for hydro_1
+@callback(
+    Output("info-card_hydro_1", "style"),
+    [Input("info-button_hydro_1", "n_clicks")],
+    prevent_initial_call=True
+)
+def toggle_info_card(n_clicks):
+    return {"display": "none"} if n_clicks % 2 == 0 else {"display": "block"}
+
+# Callback to toggle the collapse state of the more info section in hydro_1
+@callback(
+    Output('collapse_more_info_hydro_1', 'is_open'),
+    Input('more_info_button_hydro_1', 'n_clicks'),
+    State('collapse_more_info_hydro_1', 'is_open'),
+    prevent_initial_call=True
+)
+def toggle_collapse_more_info(n_clicks, is_open):
+    return not is_open
+
+# Add callback to show/hide the info modal for hydro_1_settings
+@callback(
+    Output("info-card_hydro_1_settings", "style"),
+    [Input("info-button_hydro_1_settings", "n_clicks")],
+    prevent_initial_call=True
+)
+def toggle_info_card_settings(n_clicks):
+    return {"display": "none"} if n_clicks % 2 == 0 else {"display": "block"}

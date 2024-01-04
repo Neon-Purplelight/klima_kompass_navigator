@@ -1062,11 +1062,88 @@ def create_co2_treemap_per_capita(df_filtered):
 # ------------------------------------------------------------------------------
 # hydro_1 functions
 # ------------------------------------------------------------------------------
+def make_hydro_1_sidebar():
+    # Bootstrap Sidebar
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink("Arktischer Eisschild", href="/hydro_1", id="navlink")),
+            #dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
+            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+        ],
+        brand=html.Span("Hydrologie:", style={"text-decoration": "underline"}),
+        brand_href="https://de.wikipedia.org/wiki/Hydrologie",
+        color="primary",
+        dark=True,
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                    html.P([
+                    "Die Dashboards auf dieser Seite bieten Einblicke in die dynamischen Veränderungen des arktischen Eisschildes um die norwegische Inselgruppe ",
+                    html.A("Spitzbergen ", href="https://de.wikipedia.org/wiki/Spitzbergen_(Inselgruppe)", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    "(Sie können auf der Karte jedoch auch andere Regionen betrachten). Die Darstellung findet zum einen auf einer monatlichen Basis (Januar bis Dezember 2023) und zum anderen auf einer jährlichen Basis (2007 bis 2023) statt. Die Darstellung der monatlichen Veränderungen von Januar bis Dezember vermittelt den Eindruck, als ob der arktische Eisschild 'atmet', da er auf Wetterbedingungen reagiert. Dieser dynamische Prozess zeigt, wie sich das Eis im Laufe eines Jahres entwickelt und verändert. Die Analyse der jährlichen Veränderungen über den Zeitraum von 2007 bis 2023 bietet einen tieferen Einblick in die langfristigen Trends des arktischen Eisschildes. Hier wird der Fokus auf klimatische Veränderungen gelegt, wodurch Muster und Trends sichtbar werden. Dieser Ansicht gibt einen Überblick über die Entwicklung des Eisschildes im Kontext des Klimawandels und ermöglicht es, längerfristige Trends und Veränderungen zu identifizieren.",
+                    ]),
+                ],
+                className='mb-3',
+                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                        html.P([
+                        "Der Klimawandel hat erhebliche Auswirkungen auf die arktischen Eisschilde, die eine zentrale Rolle im globalen Klimasystem spielen. Die steigenden Temperaturen in der Arktis führen zu einer ",
+                        html.A("beschleunigten Eisschmelze", href="https://www.ardalpha.de/wissen/umwelt/klima/klimawandel/eisschmelze-antarktis-arktis-polkappen-schmelzen-nordpol-suedpol-100.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", insbesondere auf Grönland und der Arktischen Ozeanregion. Dies hat weitreichende Konsequenzen, da die schwindenden Eismassen den Meeresspiegel ansteigen lassen und potenziell zu katastrophalen Überschwemmungen in küstennahen Gebieten führen können. Darüber hinaus, hat der Rückgang der Eismassen auch Auswirkungen auf ",
+                        html.A("Meeresströmungen", href="https://www.sueddeutsche.de/wissen/golfstrom-klimawandel-amoc-groenland-1.5374481", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", welche einen bedeutenden Einfluss im globalen Klimasystem ausüben."
+                        ]),
+                        html.P([
+                            "Schließlich spielt die Arktis auch eine entscheidende Rolle hinsichtlich ihrer ",
+                            html.A("Albedo-Funktion", href="https://studyflix.de/erdkunde/albedo-5698", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " , d.h. ihrer Fähigkeit Sonnenlicht zu reflektieren. Das helle Eis der arktischen Region reflektiert einen beträchtlichen Teil der einfallenden Sonnenstrahlung zurück ins Weltall. Mit zunehmender Eisschmelze und dem Rückgang der Eisbedeckung reduziert sich die Albedo der Arktis jedoch, da dunklere Wasseroberflächen mehr Sonnenlicht absorbieren und somit zusätzlich zur Erwärmung des Wassers beiträgt, was wiederum die Eisschmelze weiter vorantreibt."
+                        ]),      
+                        html.Hr(),
+                        html.H4("Verwendete Datensätze:"),
+                        html.P([  
+                            "Die verwendeten Shapefiles basieren auf den täglichen Eisanalysen des U.S. National Ice Center (",
+                            html.A("USNIC", href="https://usicecenter.gov/About", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") Den vollen Datenkatalog der USNIC finden Sie ",
+                            html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ".",
+                        ]),
+                    ],
+                    className='mb-3',
+                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                ),
+                id='collapse_more_info_hydro_1',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
 def make_hydro_1_settings(default_value='months', options=None):
     if options is None:
         options = [
-            {'label': 'Veränderungen des arktischen Eisschildes Innerhalb eines Jahres', 'value': 'months'},
-            {'label': 'Veränderungen des arktischen Eisschildes Innerhalb mehrerer Jahre', 'value': 'years'},
+            {'label': 'Veränderungen des arktischen Eisschildes innerhalb eines Jahres', 'value': 'months'},
+            {'label': 'Veränderungen des arktischen Eisschildes innerhalb mehrerer Jahre', 'value': 'years'},
         ]
 
     plot_cards = dbc.CardGroup(
@@ -1138,14 +1215,11 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
         // Create the Leaflet map centered at the calculated center with an initial zoom level of 4
         var map = L.map('map').setView([centerLat, centerLon], 4);
 
-        // Set max bounds to restrict panning
-        map.setMaxBounds(boundingBox);
-        map.on('drag', function () {{
-            map.panInsideBounds(boundingBox, {{ animate: false }});
-        }});
-
         // Add a tile layer (Esri World Imagery in this case)
         {esri_imagery_layer}
+
+        // Add Zoom Control
+        L.control.zoom({{ position: 'topright' }}).addTo(map);
     """
 
     # Add GeoJSON layers for the selected months
@@ -1215,6 +1289,9 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     with open(output_file, 'w') as file:
         file.write(html_content)
 
+import os
+import geopandas as gpd
+
 def create_static_map_html_years(selected_years=[], available_years=[], display_names_years=[], shapefile_folder_years=[]):
     # Define the bounding box coordinates
     bounding_box = [
@@ -1258,12 +1335,6 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
 
         // Create the Leaflet map centered at the calculated center with an initial zoom level of 4
         var map = L.map('map').setView([centerLat, centerLon], 4);
-
-        // Set max bounds to restrict panning
-        map.setMaxBounds(boundingBox);
-        map.on('drag', function () {{
-            map.panInsideBounds(boundingBox, {{ animate: false }});
-        }});
 
         // Add a tile layer (Esri World Imagery in this case)
         {esri_imagery_layer}
