@@ -29,7 +29,7 @@ app.validation_layout = html.Div([
     klima_2.layout,
     hydro_1.layout,
     hydro_2.layout,
-    # pedo_1.layout,
+    pedo_1.layout,
     pedo_2.layout,
     oeko_1.layout,
     oeko_2.layout,
