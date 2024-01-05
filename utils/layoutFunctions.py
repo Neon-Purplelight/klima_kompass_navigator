@@ -1483,3 +1483,52 @@ def make_pedo_1_settings():
     )
 
     return plot_cards
+
+def make_dought_tabs(date_values_oberboden, date_values_gesamtboden):
+    return dcc.Tabs(
+        style={'color': 'primary'},
+        children=[
+            dcc.Tab(
+                label='Zeitskala',
+                children=[
+                    dcc.Slider(
+                        id='time-slider-drought',
+                        min=0,
+                        max=len(date_values_oberboden) - 1,
+                        step=1,
+                        marks={i: date_values_oberboden[i].strftime("%d.%m.%Y") for i in range(0, len(date_values_oberboden), len(date_values_oberboden)//10)},
+                        value=0,
+                        tooltip={'placement': 'bottom', 'always_visible': True},
+                        className='my-custom-slider slider slider-success',  # Füge diese Zeile hinzu
+                    ),
+                    html.Div([
+                        html.Div(id='plots-container-timescale'),
+                    ], style={'display': 'flex'}),
+            ]),
+
+            dcc.Tab(label='Vergleich', children=[
+                dcc.Dropdown(
+                    id='time-dropdown-gesamtboden',
+                    options=[
+                        {'label': date.strftime("%d.%m.%Y"), 'value': date} for date in date_values_gesamtboden
+                    ],
+                    multi=True,
+                    value=None,
+                    placeholder='Wähle Datum',
+                ),
+                dcc.Dropdown(
+                    id='data-dropdown-gesamtboden',
+                    options=[
+                        {'label': 'Gesamtboden', 'value': 'gesamtboden'},
+                        {'label': 'Oberboden', 'value': 'oberboden'},
+                    ],
+                    value=None,
+                    multi=True,
+                    placeholder='Wähle Daten',
+                ),
+                html.Div([
+                    html.Div(id='plots-container-gesamtboden'),
+                ], style={'display': 'flex'}),
+            ]),
+        ],
+    )

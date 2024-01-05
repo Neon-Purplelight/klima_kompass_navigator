@@ -1,18 +1,14 @@
 # Importieren Sie die erforderlichen Bibliotheken und Module
 import base64
-from datetime import datetime, timedelta
 from io import BytesIO
-
-import dash
-from dash import dcc, html, Input, Output, callback
-import dash_bootstrap_components as dbc
 import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
+
+from dash import html, Input, Output, callback
+import dash_bootstrap_components as dbc
+from dash.exceptions import PreventUpdate
 
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
-from dash.exceptions import PreventUpdate
 
 # Setzen Sie den Matplotlib-Backend für den nicht-interaktiven Gebrauch
 import matplotlib
@@ -24,14 +20,12 @@ matplotlib.use('Agg')
 topsoil_file_path = 'data\originalData\SMI_Oberboden_monatlich.nc'
 lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 
-# Laden Sie Daten für Gesamtboden
 total_soil_file_path = 'data\originalData\SMI_Gesamtboden_monatlich.nc'
 lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
 
 # ...
 # LAYOUT
 # ...
-# Definieren Sie die Layout-Struktur mit Navigationsleiste, Seitenleiste, Einstellungen und ausgewähltem Graph-Container
 layout = html.Div(
     [
         # Navigationsleiste
@@ -63,48 +57,8 @@ layout = html.Div(
                                 id="info-card_hydro_1_settings",
                             ),
                         ]),
-                        # Tabs for Timescale and Vergleich
-                        dcc.Tabs([
-                            dcc.Tab(label='Timescale', children=[
-                                dcc.Slider(
-                                    id='time-slider-oberboden',
-                                    min=0,
-                                    max=len(date_values_oberboden) - 1,
-                                    step=1,
-                                    marks={i: date_values_oberboden[i].strftime("%d.%m.%Y") for i in range(0, len(date_values_oberboden), len(date_values_oberboden)//10)},
-                                    value=0,
-                                    tooltip={'placement': 'bottom', 'always_visible': True},
-                                ),
-                                html.Div([
-                                    html.Div(id='plots-container-timescale'),
-                                ], style={'display': 'flex'}),
-                            ]),
-
-                            dcc.Tab(label='Vergleich', children=[
-                                dcc.Dropdown(
-                                    id='time-dropdown-gesamtboden',
-                                    options=[
-                                        {'label': date.strftime("%d.%m.%Y"), 'value': date} for date in date_values_gesamtboden
-                                    ],
-                                    multi=True,
-                                    value=None,
-                                    placeholder='Select time',
-                                ),
-                                dcc.Dropdown(
-                                    id='data-dropdown-gesamtboden',
-                                    options=[
-                                        {'label': 'Gesamtboden', 'value': 'gesamtboden'},
-                                        {'label': 'Oberboden', 'value': 'oberboden'},
-                                    ],
-                                    value=None,
-                                    multi=True,
-                                    placeholder='Select data',
-                                ),
-                                html.Div([
-                                    html.Div(id='plots-container-gesamtboden'),
-                                ], style={'display': 'flex'}),
-                            ]),
-                        ]),
+                        # Tabs für Timescale und Vergleich
+                        lf.make_dought_tabs(date_values_oberboden, date_values_gesamtboden),
                     ]
                 ),
             ]
@@ -118,9 +72,9 @@ layout = html.Div(
 # ...
 @callback(
     Output('plots-container-timescale', 'children'),
-    [Input('time-slider-oberboden', 'value')]
+    [Input('time-slider-drought', 'value')]
 )
-def update_maps_timescale(time_idx):
+def update_timescale_tab(time_idx):
     plots = []
     plt.clf()
     plt.cla()
@@ -157,7 +111,7 @@ def update_maps_timescale(time_idx):
     [Input('data-dropdown-gesamtboden', 'value'),
      Input('time-dropdown-gesamtboden', 'value')]
 )
-def update_maps_gesamtboden(selected_datasets, selected_times):
+def update_comparison_tab(selected_datasets, selected_times):
     if selected_times is None or not selected_times:
         raise PreventUpdate
 
