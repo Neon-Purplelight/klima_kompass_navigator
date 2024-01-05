@@ -6,4 +6,4 @@ from app import flask_server, app
 application = app.server
 
 if __name__ == "__main__":
-    flask_server.run(debug=True)
+    application.run(debug=True)
