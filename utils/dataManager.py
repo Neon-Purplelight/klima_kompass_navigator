@@ -1,5 +1,7 @@
 # Import necessary library
 import pandas as pd
+import netCDF4 as nc
+
 
 ################################################################################
 # Data processing
@@ -40,6 +42,20 @@ def read_temp_data(pathToFile: str):
     df_temp = pd.read_csv(pathToFile, skiprows=1)
 
     return df_temp
+
+def preprocess_netcdf_data(pathToFile: str):
+    dataset = nc.Dataset(pathToFile, 'r')
+    lats = dataset.variables['lat'][:]
+    lons = dataset.variables['lon'][:]
+    data = dataset.variables['SMI'][:]
+    time_var = dataset.variables['time']
+    time_data = time_var[:]
+    units = time_var.units
+    date_values = nc.num2date(time_data, units)
+    # Setze das Datum auf den ersten Tag jedes Monats
+    date_values = [date.replace(day=1) for date in date_values]
+    dataset.close()
+    return lats, lons, data, date_values
 
 # For temp rolling-average: Skip 
 # def preprocess_temperature_data(df_temp):

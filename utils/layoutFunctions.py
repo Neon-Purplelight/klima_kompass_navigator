@@ -23,7 +23,7 @@ def make_NavBar():
             dbc.NavItem(dbc.NavLink('Klimatologie', href='/klima_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Hydrologie', href='/hydro_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Pedologie', href='/pedo_1', id='navlink')),
-            dbc.NavItem(dbc.NavLink('Ökologie', href='/oeko_1', id='navlink')),
+            #dbc.NavItem(dbc.NavLink('Ökologie', href='/oeko_1', id='navlink')),
             dbc.DropdownMenu(
                 children=[
                     dbc.DropdownMenuItem('Lorem', id='citeDropdown'),
@@ -1289,9 +1289,6 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     with open(output_file, 'w') as file:
         file.write(html_content)
 
-import os
-import geopandas as gpd
-
 def create_static_map_html_years(selected_years=[], available_years=[], display_names_years=[], shapefile_folder_years=[]):
     # Define the bounding box coordinates
     bounding_box = [
@@ -1406,3 +1403,83 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     # Save the HTML content to a file
     with open(output_file, 'w') as file:
         file.write(html_content)
+
+# ------------------------------------------------------------------------------
+# pedo_1 functions
+# ------------------------------------------------------------------------------
+def make_pedo_1_sidebar():
+    # Bootstrap Sidebar
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
+            #dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
+            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+        ],
+        brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
+        brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
+        color="primary",
+        dark=True,
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                    html.P([
+                    "Der Boden spielt eine entscheidende Rolle in unserem Ökosystem, und seine Feuchtigkeit beeinflusst maßgeblich die Umwelt. Durch die Analyse von Standardized Moisture Index (SMI)-Werten für Ober- und Gesamtböden in Deutschland können wir den Einfluss des Klimawandels auf Dürren besser verstehen. Der SMI ist ein Indikator, der die Bodenfeuchte im Vergleich zu historischen Werten bewertet. Niedrige SMI-Werte deuten auf Trockenheit hin, was wiederum Auswirkungen auf die Landwirtschaft, Wasserversorgung und Ökosysteme haben kann.",
+                    ]),
+                    html.P([
+                    "Unser interaktives Dashboard ermöglicht einen eingehenden historischen Vergleich von Dürren in Deutschland anhand von SMI-Werten. Frühere Jahre zeigen möglicherweise eine stabile Bodenfeuchte, während neuere Daten auf eine Verschlechterung hindeuten könnten. Diese Analyse ist von entscheidender Bedeutung, um Muster zu erkennen und künftige Herausforderungen im Zusammenhang mit dem Klimawandel vorherzusagen. Eine verbesserte Kenntnis der Dürreentwicklung kann dazu beitragen, geeignete Anpassungs- und Schutzmaßnahmen zu entwickeln.",
+                    ]),
+                    html.P([
+                    "Die Erkenntnisse aus unserem Dashboard verdeutlichen, dass der Klimawandel bereits messbare Auswirkungen auf die Bodenfeuchte in Deutschland hat. Um dieser Herausforderung zu begegnen, ist eine nachhaltige Bewirtschaftung unserer Ressourcen unerlässlich. Dies könnte die Förderung wassersparender landwirtschaftlicher Praktiken, den Schutz natürlicher Wassereinzugsgebiete und die Entwicklung innovativer Technologien zur Wasserrückgewinnung umfassen. Indem wir diese Erkenntnisse nutzen, können wir gemeinsam daran arbeiten, eine resilientere und nachhaltigere Zukunft zu gestalten.",
+                    ]),
+                ],
+                className='mb-3',
+                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                        html.P("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
+                        html.H4("Verwendete Datensätze:"),
+                        html.P(["Lorem ipsum"]),
+                    ],
+                    className='mb-3',
+                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                ),
+                id='collapse_more_info_hydro_1',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
+def make_pedo_1_settings():
+    plot_cards = dbc.CardGroup(
+        [
+            dbc.Card(
+                [
+                    dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
+                ],
+                color="primary",
+            ),
+        ]
+    )
+
+    return plot_cards
