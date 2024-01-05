@@ -1,121 +1,121 @@
-# Importieren Sie die erforderlichen Bibliotheken und Module
-import base64
-from datetime import datetime, timedelta
-from io import BytesIO
+# # Importieren Sie die erforderlichen Bibliotheken und Module
+# import base64
+# from datetime import datetime, timedelta
+# from io import BytesIO
 
-import dash
-from dash import dcc, html, Input, Output, callback
-import dash_bootstrap_components as dbc
-import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
+# import dash
+# from dash import dcc, html, Input, Output, callback
+# import dash_bootstrap_components as dbc
+# import matplotlib.pyplot as plt
+# import numpy as np
+# from pathlib import Path
 
-from utils import dataManager as dm
-from utils import layoutFunctions as lf
-from dash.exceptions import PreventUpdate
+# from utils import dataManager as dm
+# from utils import layoutFunctions as lf
+# from dash.exceptions import PreventUpdate
 
-# Setzen Sie den Matplotlib-Backend für den nicht-interaktiven Gebrauch
-import matplotlib
-matplotlib.use('Agg')
+# # Setzen Sie den Matplotlib-Backend für den nicht-interaktiven Gebrauch
+# import matplotlib
+# matplotlib.use('Agg')
 
-# ------------------------------------------------------------------------------
-# Laden Sie die erforderlichen Daten
-# ------------------------------------------------------------------------------
-topsoil_file_path = 'data\originalData\SMI_Oberboden_monatlich.nc'
-lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
+# # ------------------------------------------------------------------------------
+# # Laden Sie die erforderlichen Daten
+# # ------------------------------------------------------------------------------
+# topsoil_file_path = 'data\originalData\SMI_Oberboden_monatlich.nc'
+# lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 
-# Laden Sie Daten für Gesamtboden
+# # Laden Sie Daten für Gesamtboden
 # total_soil_file_path = 'data\originalData\SMI_Gesamtboden_monatlich.nc'
 # lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
 
-# ...
-# LAYOUT
-# ...
-# Definieren Sie die Layout-Struktur mit Navigationsleiste, Seitenleiste, Einstellungen und ausgewähltem Graph-Container
-layout = html.Div(
-    [
-        # Navigationsleiste
-        dbc.Row(lf.make_NavBar()),
+# # ...
+# # LAYOUT
+# # ...
+# # Definieren Sie die Layout-Struktur mit Navigationsleiste, Seitenleiste, Einstellungen und ausgewähltem Graph-Container
+# layout = html.Div(
+#     [
+#         # Navigationsleiste
+#         dbc.Row(lf.make_NavBar()),
 
-        # Hauptinhalt
-        dbc.Row(
-            [
-                # Seitenleiste
-                dbc.Col(lf.make_pedo_1_sidebar(), width=4),
+#         # Hauptinhalt
+#         dbc.Row(
+#             [
+#                 # Seitenleiste
+#                 dbc.Col(lf.make_pedo_1_sidebar(), width=4),
 
-                # Hauptinhalt-Bereich
-                dbc.Col(
-                    [
-                        # Einstellungen und Informationen
-                        lf.make_pedo_1_settings(),
-                        html.Div([
-                            dbc.Button("ℹ️ Info", id="info-button_hydro_1_settings", color="primary", className="mr-1"),
-                            dbc.Collapse(
-                                dbc.Card(
-                                    dbc.CardBody(
-                                        [
-                                            html.P("Lorem"),
-                                            html.P("Ipsum"),
-                                        ],
-                                        className="card-text",
-                                    ),
-                                ),
-                                id="info-card_hydro_1_settings",
-                            ),
-                        ]),
-                        # # Tabs for Timescale and Vergleich
-                        # dcc.Tabs([
-                        #     dcc.Tab(label='Timescale', children=[
-                        #         dcc.Slider(
-                        #             id='time-slider-oberboden',
-                        #             min=0,
-                        #             max=len(date_values_oberboden) - 1,
-                        #             step=1,
-                        #             marks={i: date_values_oberboden[i].strftime("%d.%m.%Y") for i in range(0, len(date_values_oberboden), len(date_values_oberboden)//10)},
-                        #             value=0,
-                        #             tooltip={'placement': 'bottom', 'always_visible': True},
-                        #         ),
-                        #         html.Div([
-                        #             html.Div(id='plots-container-timescale'),
-                        #         ], style={'display': 'flex'}),
-                        #     ]),
+#                 # Hauptinhalt-Bereich
+#                 dbc.Col(
+#                     [
+#                         # Einstellungen und Informationen
+#                         lf.make_pedo_1_settings(),
+#                         html.Div([
+#                             dbc.Button("ℹ️ Info", id="info-button_hydro_1_settings", color="primary", className="mr-1"),
+#                             dbc.Collapse(
+#                                 dbc.Card(
+#                                     dbc.CardBody(
+#                                         [
+#                                             html.P("Lorem"),
+#                                             html.P("Ipsum"),
+#                                         ],
+#                                         className="card-text",
+#                                     ),
+#                                 ),
+#                                 id="info-card_hydro_1_settings",
+#                             ),
+#                         ]),
+#                         # Tabs for Timescale and Vergleich
+#                         dcc.Tabs([
+#                             dcc.Tab(label='Timescale', children=[
+#                                 dcc.Slider(
+#                                     id='time-slider-oberboden',
+#                                     min=0,
+#                                     max=len(date_values_oberboden) - 1,
+#                                     step=1,
+#                                     marks={i: date_values_oberboden[i].strftime("%d.%m.%Y") for i in range(0, len(date_values_oberboden), len(date_values_oberboden)//10)},
+#                                     value=0,
+#                                     tooltip={'placement': 'bottom', 'always_visible': True},
+#                                 ),
+#                                 html.Div([
+#                                     html.Div(id='plots-container-timescale'),
+#                                 ], style={'display': 'flex'}),
+#                             ]),
 
-                        #     dcc.Tab(label='Vergleich', children=[
-                        #         dcc.Dropdown(
-                        #             id='time-dropdown-gesamtboden',
-                        #             options=[
-                        #                 {'label': date.strftime("%d.%m.%Y"), 'value': date} for date in date_values_gesamtboden
-                        #             ],
-                        #             multi=True,
-                        #             value=None,
-                        #             placeholder='Select time',
-                        #         ),
-                        #         dcc.Dropdown(
-                        #             id='data-dropdown-gesamtboden',
-                        #             options=[
-                        #                 {'label': 'Gesamtboden', 'value': 'gesamtboden'},
-                        #                 {'label': 'Oberboden', 'value': 'oberboden'},
-                        #             ],
-                        #             value=None,
-                        #             multi=True,
-                        #             placeholder='Select data',
-                        #         ),
-                        #         html.Div([
-                        #             html.Div(id='plots-container-gesamtboden'),
-                        #         ], style={'display': 'flex'}),
-                        #     ]),
-                        # ]),
-                    ]
-                ),
-            ]
-        ),
-        dbc.Row([lf.make_CC_licenseBanner()]),
-    ],
-)
+#                             dcc.Tab(label='Vergleich', children=[
+#                                 dcc.Dropdown(
+#                                     id='time-dropdown-gesamtboden',
+#                                     options=[
+#                                         {'label': date.strftime("%d.%m.%Y"), 'value': date} for date in date_values_gesamtboden
+#                                     ],
+#                                     multi=True,
+#                                     value=None,
+#                                     placeholder='Select time',
+#                                 ),
+#                                 dcc.Dropdown(
+#                                     id='data-dropdown-gesamtboden',
+#                                     options=[
+#                                         {'label': 'Gesamtboden', 'value': 'gesamtboden'},
+#                                         {'label': 'Oberboden', 'value': 'oberboden'},
+#                                     ],
+#                                     value=None,
+#                                     multi=True,
+#                                     placeholder='Select data',
+#                                 ),
+#                                 html.Div([
+#                                     html.Div(id='plots-container-gesamtboden'),
+#                                 ], style={'display': 'flex'}),
+#                             ]),
+#                         ]),
+#                     ]
+#                 ),
+#             ]
+#         ),
+#         dbc.Row([lf.make_CC_licenseBanner()]),
+#     ],
+# )
 
-# ...
-# Callbacks
-# ...
+# # ...
+# # Callbacks
+# # ...
 # @callback(
 #     Output('plots-container-timescale', 'children'),
 #     [Input('time-slider-oberboden', 'value')]
