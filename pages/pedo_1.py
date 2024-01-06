@@ -1,12 +1,11 @@
-# Importieren Sie die erforderlichen Bibliotheken und Module
 import base64
 from io import BytesIO
 import matplotlib.pyplot as plt
-
-from dash import html, Input, Output, callback
+import dash
+from dash import html, Input, Output, callback, dcc
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
-
+import numpy as np
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
@@ -48,8 +47,11 @@ layout = html.Div(
                                 dbc.Card(
                                     dbc.CardBody(
                                         [
-                                            html.P("Lorem"),
-                                            html.P("Ipsum"),
+                                            html.P("Aus den Karten wird deutlich, dass die Bodenfeuchte in Deutschland im Winter in der Regel höher ist als im Sommer. Dies hängt mit der innerjährlichen Niederschlagsverteilung, der sehr niedrigen Verdunstung im Winter und den höheren Niederschlagsintensitäten im Sommer zusammen."),
+                                            html.Hr(),
+                                            html.P("Auf die Oberboden- Karten wird jeweils der Bodenfeuchteindex des Oberbodens (bis 25 cm Tiefe) dargestellt. Dieser reagiert schneller auf kurzfristige Niederschlagsereignisse. Der Gesamtboden (bis 2 m Tiefe) ‘regeneriert’ hingegen langsamer als der Oberboden, da dieser Aufgrund seiner größeren Wasserspeicherkapazität und die langsamere Durchlässigkeit in tiefere Bodenschichten weniger stark auf kurzfristige Regenereignisse reagiert. Somit hat das aktuelle Wetter größeren Einfluss auf die Oberböden, längerfristige klimatische Trends hingegen, lassen sich besser am Gesamtboden ablesen."),
+                                            html.Hr(),                                           
+                                            html.P("2018 hat erstmalig seit 1976 wieder eine großflächige Dürre in Deutschland sowohl im Oberboden als auch über die gesamte Bodentiefe gebracht. Sommer und Herbst 2018 waren trockener als in allen vorherigen Jahren seit 1951. Da auch die folgenden Jahre die heißesten seit Beginn der Aufzeichnungen sind, konnte sich der Boden nicht mehr wirklich vollständig erholen. Im Zuge des Klimawandels sind weitere Dürren in Zukunft wahrscheinlicher."),
                                         ],
                                         className="card-text",
                                     ),
@@ -70,6 +72,7 @@ layout = html.Div(
 # ...
 # Callbacks
 # ...
+# Callbacks
 @callback(
     Output('plots-container-timescale', 'children'),
     [Input('time-slider-drought', 'value')]
@@ -83,13 +86,13 @@ def update_timescale_tab(time_idx):
 
     # Oberboden
     data_slice_oberboden = data_oberboden[time_idx, :, :]
-    img_oberboden = axs[0].imshow(data_slice_oberboden, extent=(lons_oberboden.min(), lons_oberboden.max(), lats_oberboden.min(), lats_oberboden.max()), origin='lower', cmap='YlOrRd')
+    img_oberboden = axs[0].imshow(data_slice_oberboden, extent=(lons_oberboden.min(), lons_oberboden.max(), lats_oberboden.min(), lats_oberboden.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
     axs[0].set_title(f'Oberboden - {date_values_oberboden[time_idx].strftime("%d.%m.%Y")}')
     axs[0].axis('off')  
 
     # Gesamtboden
     data_slice_gesamtboden = data_gesamtboden[time_idx, :, :]
-    img_gesamtboden = axs[1].imshow(data_slice_gesamtboden, extent=(lons_gesamtboden.min(), lons_gesamtboden.max(), lats_gesamtboden.min(), lats_gesamtboden.max()), origin='lower', cmap='YlOrRd')
+    img_gesamtboden = axs[1].imshow(data_slice_gesamtboden, extent=(lons_gesamtboden.min(), lons_gesamtboden.max(), lats_gesamtboden.min(), lats_gesamtboden.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
     axs[1].set_title(f'Gesamtboden - {date_values_gesamtboden[time_idx].strftime("%d.%m.%Y")}')
     axs[1].axis('off') 
 
@@ -103,6 +106,9 @@ def update_timescale_tab(time_idx):
     img_base64 = base64.b64encode(img_buf.read()).decode('utf-8')
 
     plots.append(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid"))  
+
+    # Close the Matplotlib figure
+    plt.close()
 
     return plots
 
@@ -151,7 +157,7 @@ def update_comparison_tab(selected_datasets, selected_times):
                 continue
 
             fig, ax = plt.subplots(figsize=(7, 4))
-            img = ax.imshow(data_slice, extent=(lons.min(), lons.max(), lats.min(), lats.max()), origin='lower', cmap='YlOrRd')
+            img = ax.imshow(data_slice, extent=(lons.min(), lons.max(), lats.min(), lats.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
             plt.colorbar(img, ax=ax, label='SMI-Werte')
             plt.axis('off')
             plt.title(f'{title_prefix} - {selected_time}')
@@ -164,9 +170,15 @@ def update_comparison_tab(selected_datasets, selected_times):
 
             plots.append(html.Div(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid")))
 
-            plt.close()  
+            # Close the Matplotlib figure
+            plt.close()
 
         plots_container.extend(plots)
 
     return [html.Div(plots_container, style={'display': 'flex', 'flexWrap': 'wrap'})]
 
+if __name__ == '__main__':
+    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+    app.layout = layout
+
+    app.run_server(debug=True)

@@ -1427,13 +1427,17 @@ def make_pedo_1_sidebar():
             html.Div(
                 [
                     html.P([
-                    "Der Boden spielt eine entscheidende Rolle in unserem Ökosystem, und seine Feuchtigkeit beeinflusst maßgeblich die Umwelt. Durch die Analyse von Standardized Moisture Index (SMI)-Werten für Ober- und Gesamtböden in Deutschland können wir den Einfluss des Klimawandels auf Dürren besser verstehen. Der SMI ist ein Indikator, der die Bodenfeuchte im Vergleich zu historischen Werten bewertet. Niedrige SMI-Werte deuten auf Trockenheit hin, was wiederum Auswirkungen auf die Landwirtschaft, Wasserversorgung und Ökosysteme haben kann.",
+                    "Der Boden spielt eine entscheidende Rolle in unserem Ökosystem, und seine Feuchtigkeit beeinflusst maßgeblich die Umwelt. Durch die Analyse von Standardized Moisture Index (",
+                    html.A("SMI", href="https://journals.ametsoc.org/view/journals/hydr/14/1/jhm-d-12-075_1.xml", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    ")- Werten für Ober- und Gesamtböden in Deutschland können wir den Einfluss des Klimawandels auf Dürren besser verstehen. Der SMI ist ein Indikator, der die Bodenfeuchte im Vergleich zu historischen Werten bewertet. Niedrige SMI-Werte deuten auf Trockenheit hin, was wiederum Auswirkungen auf die Landwirtschaft, Wasserversorgung und Ökosysteme haben kann.",
                     ]),
                     html.P([
-                    "Unser interaktives Dashboard ermöglicht einen eingehenden historischen Vergleich von Dürren in Deutschland anhand von SMI-Werten. Frühere Jahre zeigen möglicherweise eine stabile Bodenfeuchte, während neuere Daten auf eine Verschlechterung hindeuten könnten. Diese Analyse ist von entscheidender Bedeutung, um Muster zu erkennen und künftige Herausforderungen im Zusammenhang mit dem Klimawandel vorherzusagen. Eine verbesserte Kenntnis der Dürreentwicklung kann dazu beitragen, geeignete Anpassungs- und Schutzmaßnahmen zu entwickeln.",
-                    ]),
+                    "Das Dashboard ermöglicht einen eingehenden historischen Vergleich von Dürren in Deutschland anhand von SMI-Werten. Frühere Jahre zeigen eine stabile Bodenfeuchte, während neuere Daten (Insbesondere seit der ",
+                    html.A("Dürre 2018", href="https://de.wikipedia.org/wiki/D%C3%BCrre_und_Hitze_in_Europa_2018", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " auf eine sukzessive Austrocknung der insbesondere der Gesamtböden hindeuten. Analysen von Dürren sind von entscheidender Bedeutung, um etwaige Muster zu erkennen und künftige Herausforderungen im Zusammenhang mit dem Klimawandel vorherzusagen. Eine verbesserte Kenntnis der Dürreentwicklung kann dazu beitragen, geeignete Anpassungs- und Schutzmaßnahmen zu entwickeln.",
+                    ]),                    
                     html.P([
-                    "Die Erkenntnisse aus unserem Dashboard verdeutlichen, dass der Klimawandel bereits messbare Auswirkungen auf die Bodenfeuchte in Deutschland hat. Um dieser Herausforderung zu begegnen, ist eine nachhaltige Bewirtschaftung unserer Ressourcen unerlässlich. Dies könnte die Förderung wassersparender landwirtschaftlicher Praktiken, den Schutz natürlicher Wassereinzugsgebiete und die Entwicklung innovativer Technologien zur Wasserrückgewinnung umfassen. Indem wir diese Erkenntnisse nutzen, können wir gemeinsam daran arbeiten, eine resilientere und nachhaltigere Zukunft zu gestalten.",
+                    "Diese Erkenntnisse verdeutlichen, dass der Klimawandel bereits messbare Auswirkungen auf die Bodenfeuchte in Deutschland hat. Um dieser Herausforderung zu begegnen, ist eine nachhaltige Bewirtschaftung unserer Ressourcen unerlässlich. Dies könnte die Förderung wassersparender landwirtschaftlicher Praktiken, den Schutz natürlicher Wassereinzugsgebiete und die Entwicklung innovativer Technologien zur Wasserrückgewinnung umfassen..",
                     ]),
                 ],
                 className='mb-3',
@@ -1449,9 +1453,38 @@ def make_pedo_1_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
-                        html.P("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
-                        html.H4("Verwendete Datensätze:"),
-                        html.P(["Lorem ipsum"]),
+                        html.P([
+                        "Die Identifikation von Dürrebedingungen in Deutschland basiert auf einem Bodenfeuchteindex (SMI), der über das hydrologische Modell ",
+                        html.A("mHM", href="https://www.ufz.de/index.php?en=40114", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " berechnet wird und die Bodenfeuchteverteilung über einen 65-jährigen Zeitraum seit 1951 zeigt. Die Farben kennzeichnen hierbei die Stärke der Dürren: ",
+                        ]),
+                        html.P([
+                            html.Li("SMI 0,20 - 0,30 = ungewöhnliche Trockenheit (Vorwarnstufe)"),
+                            html.Li("SMI 0,10 - 0,20 = moderate Dürre"),
+                            html.Li("SMI 0,05 - 0,10 = schwere Dürre"),
+                            html.Li("SMI 0,02 - 0,05 = extreme Dürre"),
+                            html.Li("SMI 0,00 - 0,02 = außergewöhnliche Dürre"),
+                        ]),
+                        html.P([
+                            "Hierbei wird Dürre als Abweichung vom langjährigen Erwartungswert geschätzt. Erst wenn die aktuelle Bodenfeuchte unter das langjährige 20-Perzentil fällt, also den Wert, der nur in 20% der Jahre in einer langen Zeitreihe erreicht wird, spricht man von Dürre. So bedeutet also ein Wert von 0.3 (ungewöhnliche Trockenheit), dass die aktuelle Bodenfeuchte so niedrig wie in 30% der Fälle von 1951-2015 ist. Genauso bedeutet ein SMI von 0.02 (außergewöhnliche Dürre), dass der Wert nur in 2% der langjährigen Simulationswerte unterschritten wird."
+                        ]),
+                        html.P([
+                        "Das  ",
+                        html.A("Helmholtz- Zentrum für Umweltforschung", href="https://www.ufz.de/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", hat hierzu ein informatives ",
+                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=FGLs0VmM3Xc", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " veröffentlicht.",
+                        ]),
+                        html.H4("Verwendeter Datensatz:"),
+                        html.P([
+                        "Die historischen, monatlichen SMI-Daten von 1951-2022 können im  ",
+                        html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " ",
+                        html.A("hier ", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " heruntergeladen werden. Die Daten basieren auf ", 
+                        html.A("Zink et al. 2015 (ERL) ", href="https://www.ufz.de/export/data/2/126777_2016-Zink-Soil_Moisture_Droughts_in_Germany.pdf", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "und enthalten den Bodenfeuchteindex (SMI, soil moisture index) skaliert zwischen [0-1], sowie Koordinaten in den Formaten Gauß-Krüger Zone 4 (EPSG: 31468) [variablen easting/northing] als auch Lat/Lon Informationen (EPSG:4326).",
+                        ]),
                     ],
                     className='mb-3',
                     style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
