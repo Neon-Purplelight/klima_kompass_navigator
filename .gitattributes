@@ -1,2 +1,0 @@
-* -text
-data/originalData/*.nc filter=lfs diff=lfs merge=lfs -text
