@@ -1517,7 +1517,14 @@ def make_pedo_1_settings():
 
     return plot_cards
 
-def make_dought_tabs(date_values_oberboden, date_values_gesamtboden):
+
+def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
+    # Reverse the order of date_values_gesamtboden
+    reversed_date_values_gesamtboden = date_values_gesamtboden[::-1]
+
+    # Format dates in the desired format with German month names
+    formatted_dates = [date.strftime("%B %Y").replace("January", "Januar").replace("February", "Februar").replace("March", "März").replace("April", "April").replace("May", "Mai").replace("June", "Juni").replace("July", "Juli").replace("August", "August").replace("September", "September").replace("October", "Oktober").replace("November", "November").replace("December", "Dezember") for date in reversed_date_values_gesamtboden]
+
     return dcc.Tabs(
         style={'color': 'primary'},
         children=[
@@ -1537,13 +1544,13 @@ def make_dought_tabs(date_values_oberboden, date_values_gesamtboden):
                     html.Div([
                         html.Div(id='plots-container-timescale'),
                     ], style={'display': 'flex'}),
-            ]),
+                ]),
 
             dcc.Tab(label='Vergleich', children=[
                 dcc.Dropdown(
                     id='time-dropdown-gesamtboden',
                     options=[
-                        {'label': date.strftime("%d.%m.%Y"), 'value': date} for date in date_values_gesamtboden
+                        {'label': formatted_date, 'value': date} for formatted_date, date in zip(formatted_dates, reversed_date_values_gesamtboden)
                     ],
                     multi=True,
                     value=None,
@@ -1565,6 +1572,7 @@ def make_dought_tabs(date_values_oberboden, date_values_gesamtboden):
             ]),
         ],
     )
+
 
 # ------------------------------------------------------------------------------
 # pedo_2 functions

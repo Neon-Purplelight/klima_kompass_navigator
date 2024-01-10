@@ -49,7 +49,7 @@ layout = html.Div(
                                         [
                                             html.P("Aus den Karten wird deutlich, dass die Bodenfeuchte in Deutschland im Winter in der Regel höher ist als im Sommer. Dies hängt mit der innerjährlichen Niederschlagsverteilung, der sehr niedrigen Verdunstung im Winter und den höheren Niederschlagsintensitäten im Sommer zusammen."),
                                             html.Hr(),
-                                            html.P("Auf die Oberboden- Karten wird jeweils der Bodenfeuchteindex des Oberbodens (bis 25 cm Tiefe) dargestellt. Dieser reagiert schneller auf kurzfristige Niederschlagsereignisse. Der Gesamtboden (bis 2 m Tiefe) ‘regeneriert’ hingegen langsamer als der Oberboden, da dieser Aufgrund seiner größeren Wasserspeicherkapazität und die langsamere Durchlässigkeit in tiefere Bodenschichten weniger stark auf kurzfristige Regenereignisse reagiert. Somit hat das aktuelle Wetter größeren Einfluss auf die Oberböden, längerfristige klimatische Trends hingegen, lassen sich besser am Gesamtboden ablesen."),
+                                            html.P("Auf die Oberboden- Karten wird jeweils der Bodenfeuchteindex des Oberbodens (bis 25 cm Tiefe) dargestellt. Dieser reagiert schneller auf kurzfristige Niederschlagsereignisse. Der Gesamtboden (bis 2 m Tiefe) ‘regeneriert’ hingegen langsamer als der Oberboden, da dieser Aufgrund seiner größeren Wasserspeicherkapazität und die langsamere Durchlässigkeit in tiefere Bodenschichten weniger stark auf kurzfristige Regenereignisse reagiert. Somit hat das aktuelle Wetter größeren Einfluss auf die Oberböden, längerfristige klimatische Trends hingegen, lassen sich besser am Gesamtboden ablesen."),
                                             html.Hr(),                                           
                                             html.P("2018 hat erstmalig seit 1976 wieder eine großflächige Dürre in Deutschland sowohl im Oberboden als auch über die gesamte Bodentiefe gebracht. Sommer und Herbst 2018 waren trockener als in allen vorherigen Jahren seit 1951. Da auch die folgenden Jahre die heißesten seit Beginn der Aufzeichnungen sind, konnte sich der Boden nicht mehr wirklich vollständig erholen. Im Zuge des Klimawandels sind weitere Dürren in Zukunft wahrscheinlicher."),
                                         ],
@@ -60,7 +60,7 @@ layout = html.Div(
                             ),
                         ]),
                         # Tabs für Timescale und Vergleich
-                        lf.make_dought_tabs(date_values_oberboden, date_values_gesamtboden),
+                        lf.make_drought_tabs(date_values_oberboden, date_values_gesamtboden),
                     ]
                 ),
             ]
