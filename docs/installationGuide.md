@@ -17,7 +17,7 @@ Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um
 `pip install -r requirements.txt`
 - Starten Sie den Navigator:  
 `python app.py`
-- Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser, und Sie sollten die Webanwendung durchsuchen können.
+- Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser um die Webanwendung lokal von ihrem PC ausführen zu können.
 
 Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie die Umgebung aktivieren, in den geklonten Ordner wechseln und die Hauptdatei ausführen:
 

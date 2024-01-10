@@ -1412,7 +1412,7 @@ def make_pedo_1_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
-            #dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
+            dbc.NavItem(dbc.NavLink("Der Batagaika Krater", href="/pedo_2", id="navlink")),
             # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
         ],
         brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
