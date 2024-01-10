@@ -8,7 +8,6 @@ from dash.dependencies import Input, Output, State
 import os
 import base64
 from dash_extensions import BeforeAfter
-import dash_bootstrap_components as dbc
 import dash
 
 # ------------------------------------------------------------------------------
@@ -33,10 +32,6 @@ satellite_data = [
 ]
 
 # ------------------------------------------------------------------------------
-# Perform some preprocessing
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
 # LAYOUT
 # ------------------------------------------------------------------------------
 # Define the layout structure with navigation bar, sidebar, settings, and selected graph container
@@ -49,59 +44,68 @@ layout = html.Div(
                 dbc.Col(
                     [
                         lf.make_pedo_2_settings(),
-                            html.H1("Batagaika Krater Bilder"),
-                            dcc.Tabs([
-                                dcc.Tab(label='Zeitraffer', children=[
-                                    html.Div([
-                                        # Play, Stopp und Vorwärts-Buttons über dem Iframe
-                                        html.Div([
-                                            html.Button('Play', id='play-button', n_clicks=0, style={'margin-right': '10px'}),
-                                            html.Button('Stopp', id='stop-button', n_clicks=0, style={'display': 'none', 'margin-right': '10px'}),
-                                            html.Button('Vorwärts', id='next-button', n_clicks=0),
-                                        ], style={'text-align': 'center', 'margin-top': '10px'}),
-                                        # Iframe für die Anzeige des Bildes
-                                        html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
-                                        # Intervall für die Play-Funktion
-                                        dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
-                                    ], style={'text-align': 'center'}),
-                                ]),
-
-                                dcc.Tab(label='Vergleich', children=[
-                                    dbc.Container([
-                                        dbc.Row(
-                                            dbc.Col(html.H1("Vorher- Nachher Vergleich", style={'textAlign': 'center'}), width=12)
+                        html.H1("Batagaika Krater Bilder"),
+                        dcc.Tabs([
+                            dcc.Tab(label='Zeitraffer', children=[
+                                html.Div([
+                                    # Play, Stopp und Vorwärts-Buttons über dem Iframe
+                                    dbc.Row([
+                                        dbc.Col(
+                                            dbc.Button('Play', id='play-button', n_clicks=0, color='primary', className='mr-2'),
+                                            width='auto'
                                         ),
-                                        html.Hr(),
-                                        dbc.Row([
-                                            dbc.Col([
-                                                html.H2("Aufnahme für Vorher-Vergleich auswählen"),
-                                                dcc.RadioItems(
-                                                    id='before-radio',
-                                                    options=[
-                                                        {'label': data['label'], 'value': data['value']} for data in satellite_data
-                                                    ],
-                                                    value='19910813_Crater.png',
-                                                    labelStyle={'display': 'block'},
-                                                ),
-                                            ], width=3),
-                                            dbc.Col([
-                                                BeforeAfter(id='image-slider', width=612, height=512, defaultProgress=0.5),
-                                            ], width=6),
-                                            dbc.Col([
-                                                html.H2("Aufnahme für Nachher-vergleich auswählen"),
-                                                dcc.RadioItems(
-                                                    id='after-radio',
-                                                    options=[
-                                                        {'label': data['label'], 'value': data['value']} for data in satellite_data
-                                                    ],
-                                                    value='20220811_Crater.png',
-                                                    labelStyle={'display': 'block'},
-                                                ),
-                                            ], width=3),
-                                        ]),
+                                        dbc.Col(
+                                            dbc.Button('Stopp', id='stop-button', n_clicks=0, color='primary', className='mr-2'),
+                                            width='auto'
+                                        ),
+                                        dbc.Col(
+                                            dbc.Button('Vorwärts', id='next-button', n_clicks=0, color='primary'),
+                                            width='auto'
+                                        ),
+                                    ], justify='center', className='mb-3'),
+                                    # Iframe für die Anzeige des Bildes
+                                    html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
+                                    # Intervall für die Play-Funktion
+                                    dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
+                                ], style={'text-align': 'center'}),
+                            ]),
+
+                            dcc.Tab(label='Vergleich', children=[
+                                dbc.Container([
+                                    dbc.Row(
+                                        dbc.Col(html.H1("Vorher- Nachher Vergleich", style={'textAlign': 'center'}), width=12)
+                                    ),
+                                    html.Hr(),
+                                    dbc.Row([
+                                        dbc.Col([
+                                            html.H2("Aufnahme für Vorher-Vergleich auswählen"),
+                                            dcc.RadioItems(
+                                                id='before-radio',
+                                                options=[
+                                                    {'label': data['label'], 'value': data['value']} for data in satellite_data
+                                                ],
+                                                value='19910813_Crater.png',
+                                                labelStyle={'display': 'block'},
+                                            ),
+                                        ], width=3),
+                                        dbc.Col([
+                                            BeforeAfter(id='image-slider', width=612, height=512, defaultProgress=0.5),
+                                        ], width=6),
+                                        dbc.Col([
+                                            html.H2("Aufnahme für Nachher-vergleich auswählen"),
+                                            dcc.RadioItems(
+                                                id='after-radio',
+                                                options=[
+                                                    {'label': data['label'], 'value': data['value']} for data in satellite_data
+                                                ],
+                                                value='20220811_Crater.png',
+                                                labelStyle={'display': 'block'},
+                                            ),
+                                        ], width=3),
                                     ]),
                                 ]),
                             ]),
+                        ]),
                     ],
                     width=8,
                 ),
@@ -109,85 +113,52 @@ layout = html.Div(
         ),
         dbc.Row([lf.make_CC_licenseBanner()]),
     ],
+        style={
+        'backgroundColor': '#555',
+        'background-size': 'cover', 'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'height': '120vh', 'margin': 0}
 )
 
-# ...
-# Callbacks
-# ...
 # Callbacks für die Interaktivität des Dashboards
 @callback(
+    Output('play-interval', 'disabled'),
     Output('image-display', 'srcDoc'),
-    Output('play-button', 'style'),
-    Output('stop-button', 'style'),
     Input('play-button', 'n_clicks'),
     Input('stop-button', 'n_clicks'),
     Input('next-button', 'n_clicks'),
-    Input('play-interval', 'n_intervals'),
-    prevent_initial_call=False
+    Input('play-interval', 'n_intervals')
 )
-def update_image(n_clicks_play, n_clicks_stop, n_clicks_next, n_intervals):
+def update_image_and_control_interval(play_clicks, stop_clicks, next_clicks, n_intervals):
     ctx = dash.callback_context
-    trigger_id = ctx.triggered_id
-    changed_id = trigger_id.split('.')[0] if trigger_id else None
+    triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
-    if changed_id == 'play-interval':
-        # Automatisches Abspielen der Bilder
+    if triggered_id == 'play-button':
+        selected_index = play_clicks % len(satellite_data)
+        return False, generate_iframe(selected_index)
+    elif triggered_id == 'stop-button':
+        return True, dash.no_update
+    elif triggered_id == 'next-button':
+        selected_index = next_clicks % len(satellite_data)
+        return True, generate_iframe(selected_index)
+    elif triggered_id == 'play-interval':
         selected_index = n_intervals % len(satellite_data)
-    elif changed_id == 'play-button':
-        # Manuelle Navigation durch die Bilder (Play)
-        selected_index = n_clicks_play % len(satellite_data)
-    elif changed_id == 'stop-button':
-        # Stoppen des Abspielens
-        selected_index = n_clicks_stop % len(satellite_data)
-    elif changed_id == 'next-button':
-        # Manuelle Navigation durch die Bilder (Vorwärts)
-        selected_index = n_clicks_next % len(satellite_data)
+        return False, generate_iframe(selected_index)
     else:
-        # Standardmäßig das erste Bild anzeigen
-        selected_index = 0
+        return True, dash.no_update
 
+def generate_iframe(selected_index):
     selected_data = satellite_data[selected_index]
     image_path = os.path.join(dataFolder, selected_data['value'])
-
-    # Umwandlung des Bilds in ein base64-codiertes Bild
     with open(image_path, 'rb') as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode('ascii')
-
-    # Erstellen Sie den HTML-Code für das iframe mit dynamischer Größe und Datum
     iframe_code = f'''
         <div style="position: relative;">
             <img src="data:image/png;base64,{encoded_image}" style="width:80%; height:80vh;">
             <div style="position: absolute; top: 10px; right: 300px; font-size: 18px; color: black; background-color: white; padding: 5px; z-index: 1;">{selected_data['label']}</div>
         </div>
     '''
-
-    # Anzeigen/Verstecken von Play/Stopp-Buttons je nach Status
-    play_style = {'display': 'none'} if n_intervals > 0 else {'display': 'inline-block'}
-    stop_style = {'display': 'inline-block'} if n_intervals > 0 else {'display': 'none'}
-
-    return iframe_code, play_style, stop_style
-
-# Callback für die Play-Funktion (Intervall)
-@callback(
-    Output('play-interval', 'disabled'),
-    Output('play-interval', 'n_intervals'),
-    Input('play-button', 'n_clicks'),
-    Input('stop-button', 'n_clicks'),
-    State('play-interval', 'n_intervals')
-)
-def update_play_interval(n_clicks_play, n_clicks_stop, n_intervals_play):
-    ctx = dash.callback_context
-    trigger_id = ctx.triggered_id
-
-    if trigger_id and trigger_id.split('.')[0] == 'play-button' and n_clicks_play > 0 and n_intervals_play == 0:
-        # Starten des Intervalls nur beim ersten Klick auf den Play-Button
-        return False, 0
-    elif trigger_id and trigger_id.split('.')[0] == 'stop-button':
-        # Stoppen des Intervalls nur beim Klick auf den Stopp-Button
-        return True, 0
-    else:
-        # Lassen Sie das Intervall unverändert
-        return n_intervals_play > 0, n_intervals_play
+    return iframe_code
 
 # Callback für den Vorher-Nachher-Vergleich
 @callback(

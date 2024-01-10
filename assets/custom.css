@@ -1,11 +1,21 @@
-body { padding-top: 80px; }
-
+body {
+    padding-top: 80px;
+}
 
 .navbar-custom .navbar-brand {
     font-size: 50px;
-    color:#7fff00;
+    color: #7fff00;
 }
 
 .navbar-custom .navlink {
     color: #7fff00;
+}
+
+/* Spezifischere Selektoren für die Tab-Indikatorlinie */
+.custom-tabs .nav-tabs {
+    border-bottom: 2px solid #7fff00 !important; /* Überschreibt die Standard-Bootstrap-Farbe */
+}
+
+.custom-tab {
+    border-bottom: 2px solid #7fff00 !important;
 }
