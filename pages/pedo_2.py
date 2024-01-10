@@ -45,10 +45,10 @@ layout = html.Div(
         dbc.Row(lf.make_NavBar()),  # Navigation Bar
         dbc.Row(
             [
-                dbc.Col(lf.make_klima_1_sidebar(), width=4),
+                dbc.Col(lf.make_pedo_2_sidebar(), width=4),
                 dbc.Col(
                     [
-                        lf.make_klima_1_settings(),
+                        lf.make_pedo_2_settings(),
                             html.H1("Batagaika Krater Bilder"),
                             dcc.Tabs([
                                 dcc.Tab(label='Zeitraffer', children=[

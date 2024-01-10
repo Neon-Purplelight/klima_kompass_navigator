@@ -1565,3 +1565,118 @@ def make_dought_tabs(date_values_oberboden, date_values_gesamtboden):
             ]),
         ],
     )
+
+# ------------------------------------------------------------------------------
+# pedo_2 functions
+# ------------------------------------------------------------------------------
+def make_pedo_2_sidebar():
+    # Bootstrap Sidebar
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
+            dbc.NavItem(dbc.NavLink("Der Batagaika Krater", href="/pedo_2", id="navlink")),
+            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+        ],
+        brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
+        brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
+        color="primary",
+        dark=True,
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                    html.P([
+                    "Der ",
+                    html.A("Batagaika-Krater", href="https://de.wikipedia.org/wiki/Batagaika-Krater", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " (von Einheimischen oft “Das Tor zur Hölle” genannt) ",
+                    html.A("befindet sich in Sibirien", href="https://www.google.de/maps/place/Batagaika+crater/@67.5786202,134.7822196,7564m/data=!3m1!1e3!4m12!1m5!3m4!2zNjfCsDM0JzQ3LjYiTiAxMzTCsDQ2JzE3LjgiRQ!8m2!3d67.5798889!4d134.7716111!3m5!1s0x5bbfe98a616b146b:0x100d1ed2d264a68c!8m2!3d67.5783832!4d134.7728567!16s%2Fg%2F11fn4n5bg1?entry=ttu", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " und ist der größte Klimawandel- induzierte Permafrost-Krater der Welt. Ursprünglich in den 1950er und 1960er Jahren durch Mineralerkundung und Abholzung für Brennholz ausgelöst, hat sich der Krater aufgrund warmer Sommer und kürzerer Winter in der Region rapide vergrößert. Die stetige Erderwärmung führt zum Auftauen des Permafrosts, wodurch der Boden auf den Hängen nachgibt und erodiert. Der Krater, der mittlerweile beeindruckende Ausmaße von etwa 1 km Länge, 800 m Breite, wächst jährlich um mehr als 10 Meter. Die Kraterwand des aufgetautem Permafrostbodens, die in einigen Bereichen mehr als 85 Meter hoch ist, bietet Forschern einen einzigartigen Einblick in vergangene Klimabedingungen."
+                    ]),
+                    html.P([
+                    "Darüber hinaus hat das Phänomem jedoch auch ernsthaften Konsequenzen hinsichtlich des Klimawandels. Denn das Auftauen des Permafrosts setzt bedeutende Mengen an Treibhausgasen wie Kohlendioxid, Methan und Lachgas frei, was wiederum Rückwirkend den Klimawandel antreibt. Dieser Teufelkreis gilt zudem als einer der möglichen ",
+                    html.A("Klimakipppunkte", href="https://de.wikipedia.org/wiki/Kippelemente_im_Erdklimasystem#Methan-_und_Kohlendioxidemissionen_aus_tauenden_Permafrostb%C3%B6den", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " und ist auch in anderen Permafrostregionen zu beobachten. Der Batagaika-Krater dient somit als eindrückliches Beispiel für die drängende Notwendigkeit, Maßnahmen zur Eindämmung des Klimawandels zu ergreifen, um solche katastrophalen Umweltauswirkungen zu minimieren."
+                    ]),
+                    html.P([
+                    "Das Dashboard ermöglicht einen historischen Vergleich verschiedener Sattelitenaufnahmen des Batagaika- Kraters und führt vor Augen, wie der Krater Jahr für Jahr wächst",
+                    ]),
+                ],
+                className='mb-3',
+                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                        html.P([
+                        "Die Identifikation von Dürrebedingungen in Deutschland basiert auf einem Bodenfeuchteindex (SMI), der über das hydrologische Modell ",
+                        html.A("mHM", href="https://www.ufz.de/index.php?en=40114", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " berechnet wird und die Bodenfeuchteverteilung über einen 65-jährigen Zeitraum seit 1951 zeigt. Die Farben kennzeichnen hierbei die Stärke der Dürren: ",
+                        ]),
+                        html.P([
+                            html.Li("SMI 0,20 - 0,30 = ungewöhnliche Trockenheit (Vorwarnstufe)"),
+                            html.Li("SMI 0,10 - 0,20 = moderate Dürre"),
+                            html.Li("SMI 0,05 - 0,10 = schwere Dürre"),
+                            html.Li("SMI 0,02 - 0,05 = extreme Dürre"),
+                            html.Li("SMI 0,00 - 0,02 = außergewöhnliche Dürre"),
+                        ]),
+                        html.P([
+                            "Hierbei wird Dürre als Abweichung vom langjährigen Erwartungswert geschätzt. Erst wenn die aktuelle Bodenfeuchte unter das langjährige 20-Perzentil fällt, also den Wert, der nur in 20% der Jahre in einer langen Zeitreihe erreicht wird, spricht man von Dürre. So bedeutet also ein Wert von 0.3 (ungewöhnliche Trockenheit), dass die aktuelle Bodenfeuchte so niedrig wie in 30% der Fälle von 1951-2015 ist. Genauso bedeutet ein SMI von 0.02 (außergewöhnliche Dürre), dass der Wert nur in 2% der langjährigen Simulationswerte unterschritten wird."
+                        ]),
+                        html.P([
+                        "Das  ",
+                        html.A("Helmholtz- Zentrum für Umweltforschung", href="https://www.ufz.de/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", hat hierzu ein informatives ",
+                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=FGLs0VmM3Xc", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " veröffentlicht.",
+                        ]),
+                        html.H4("Verwendeter Datensatz:"),
+                        html.P([
+                        "Die historischen, monatlichen SMI-Daten von 1951-2022 können im  ",
+                        html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " ",
+                        html.A("hier ", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " heruntergeladen werden. Die Daten basieren auf ", 
+                        html.A("Zink et al. 2015 (ERL) ", href="https://www.ufz.de/export/data/2/126777_2016-Zink-Soil_Moisture_Droughts_in_Germany.pdf", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "und enthalten den Bodenfeuchteindex (SMI, soil moisture index) skaliert zwischen [0-1], sowie Koordinaten in den Formaten Gauß-Krüger Zone 4 (EPSG: 31468) [variablen easting/northing] als auch Lat/Lon Informationen (EPSG:4326).",
+                        ]),
+                    ],
+                    className='mb-3',
+                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                ),
+                id='collapse_more_info_hydro_1',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
+def make_pedo_2_settings():
+    plot_cards = dbc.CardGroup(
+        [
+            dbc.Card(
+                [
+                    dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
+                ],
+                color="primary",
+            ),
+        ]
+    )
+
+    return plot_cards
