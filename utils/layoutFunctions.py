@@ -1412,7 +1412,7 @@ def make_pedo_1_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("Der Batagaika Krater", href="/pedo_2", id="navlink")),
+            dbc.NavItem(dbc.NavLink("Permafrostböden", href="/pedo_2", id="navlink")),
             # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
         ],
         brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
@@ -1517,7 +1517,6 @@ def make_pedo_1_settings():
 
     return plot_cards
 
-
 def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
     # Reverse the order of date_values_gesamtboden
     reversed_date_values_gesamtboden = date_values_gesamtboden[::-1]
@@ -1573,7 +1572,6 @@ def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
         ],
     )
 
-
 # ------------------------------------------------------------------------------
 # pedo_2 functions
 # ------------------------------------------------------------------------------
@@ -1582,7 +1580,7 @@ def make_pedo_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("Der Batagaika Krater", href="/pedo_2", id="navlink")),
+            dbc.NavItem(dbc.NavLink("Permafrostböden", href="/pedo_2", id="navlink")),
             # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
         ],
         brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
@@ -1597,11 +1595,17 @@ def make_pedo_2_sidebar():
             html.Div(
                 [
                     html.P([
+                    "Permafrostböden werden als Böden definiert, die mindestens zwei Jahre lang durchgehend gefroren sind. Sie bedecken etwa ein Fünftel der Erdoberfläche und sind besonders anfällig für Degradation und das Auftauen im Zuge des Klimawandels ",
+                    html.A("Link", href="https://www.researchgate.net/publication/339929486_Multisensory_satellite_observations_of_the_expansion_of_the_Batagaika_crater_and_succession_of_vegetation_in_its_interior_from_1991_to_2018", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    ]),
+                    html.P([
                     "Der ",
                     html.A("Batagaika-Krater", href="https://de.wikipedia.org/wiki/Batagaika-Krater", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                     " (von Einheimischen oft “Das Tor zur Hölle” genannt) ",
                     html.A("befindet sich in Sibirien", href="https://www.google.de/maps/place/Batagaika+crater/@67.5786202,134.7822196,7564m/data=!3m1!1e3!4m12!1m5!3m4!2zNjfCsDM0JzQ3LjYiTiAxMzTCsDQ2JzE3LjgiRQ!8m2!3d67.5798889!4d134.7716111!3m5!1s0x5bbfe98a616b146b:0x100d1ed2d264a68c!8m2!3d67.5783832!4d134.7728567!16s%2Fg%2F11fn4n5bg1?entry=ttu", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                    " und ist der größte Klimawandel- induzierte Permafrost-Krater der Welt. Ursprünglich in den 1950er und 1960er Jahren durch Mineralerkundung und Abholzung für Brennholz ausgelöst, hat sich der Krater aufgrund warmer Sommer und kürzerer Winter in der Region rapide vergrößert. Die stetige Erderwärmung führt zum Auftauen des Permafrosts, wodurch der Boden auf den Hängen nachgibt und erodiert. Der Krater, der mittlerweile beeindruckende Ausmaße von etwa 1 km Länge, 800 m Breite, wächst jährlich um mehr als 10 Meter. Die Kraterwand des aufgetautem Permafrostbodens, die in einigen Bereichen mehr als 85 Meter hoch ist, bietet Forschern einen einzigartigen Einblick in vergangene Klimabedingungen."
+                    " und ist der größte Klimawandel- induzierte Permafrost-Krater der Welt(",
+                    html.A("Videolink", href="https://www.youtube.com/watch?v=lbvTmLBrdps", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    "). Ursprünglich in den 1950er und 1960er Jahren durch Mineralerkundung und Abholzung für Brennholz ausgelöst, hat sich der Krater aufgrund warmer Sommer und kürzerer Winter in der Region rapide vergrößert. Die stetige Erderwärmung führt zum Auftauen des Permafrosts, wodurch der Boden auf den Hängen nachgibt und erodiert. Der Krater, der mittlerweile beeindruckende Ausmaße von etwa 1 km Länge, 800 m Breite, wächst jährlich um mehr als 10 Meter. Die Kraterwand des aufgetautem Permafrostbodens, die in einigen Bereichen mehr als 85 Meter hoch ist, bietet Forschern einen einzigartigen Einblick in vergangene Klimabedingungen."
                     ]),
                     html.P([
                     "Darüber hinaus hat das Phänomem jedoch auch ernsthaften Konsequenzen hinsichtlich des Klimawandels. Denn das Auftauen des Permafrosts setzt bedeutende Mengen an Treibhausgasen wie Kohlendioxid, Methan und Lachgas frei, was wiederum Rückwirkend den Klimawandel antreibt. Dieser Teufelkreis gilt zudem als einer der möglichen ",
@@ -1626,36 +1630,28 @@ def make_pedo_2_sidebar():
                 html.Div(
                     [
                         html.P([
-                        "Die Identifikation von Dürrebedingungen in Deutschland basiert auf einem Bodenfeuchteindex (SMI), der über das hydrologische Modell ",
-                        html.A("mHM", href="https://www.ufz.de/index.php?en=40114", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " berechnet wird und die Bodenfeuchteverteilung über einen 65-jährigen Zeitraum seit 1951 zeigt. Die Farben kennzeichnen hierbei die Stärke der Dürren: ",
+                        "Die Beobachtung und Überwachung solcher Phänomene, insbesondere in ausgedehnten und schwer zugänglichen Regionen, stellen eine Herausforderung dar. Hierbei spielt die Fernerkundung, beispielsweise durch Satellitenbilder, eine entscheidende Rolle. Optische Satellitenbeobachtungen ermöglichen es, große Gebiete effektiv zu überwachen und Veränderungen zu kartieren. Hierfür werden multisensorische Satellitenbilder verwendet, die von verschiedenen Institutionen wie dem United States Geological Survey (",
+                        html.A("USGS", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ") auch der Öffentlichkeit frei zugänglich gemacht werden."
                         ]),
                         html.P([
-                            html.Li("SMI 0,20 - 0,30 = ungewöhnliche Trockenheit (Vorwarnstufe)"),
-                            html.Li("SMI 0,10 - 0,20 = moderate Dürre"),
-                            html.Li("SMI 0,05 - 0,10 = schwere Dürre"),
-                            html.Li("SMI 0,02 - 0,05 = extreme Dürre"),
-                            html.Li("SMI 0,00 - 0,02 = außergewöhnliche Dürre"),
+                        "Die Nutzung solcher Satellitendaten bringt jedoch auch eigene Herausforderungen mit sich, die eine kontinuierliche Beobachtung erschweren können. Optische Sensoraufnahmen können beispielsweise nur an wolkenfreien Tagen erfolgen, und die Qualität der Aufnahmen kann durch unterschiedliche Beleuchtungsverhältnisse, Wetterbedingungen oder jahreszeitliche Unterschiede beeinflusst werden. Darüber hinaus können Fehler bei der Datenübertragung, Verarbeitung oder anderen technischen Aspekten auftreten. Ein Beispiel für solche technischen Fehler sind die Aufnahmen von 2005 und 2010. Die Artefakte (Bildstörungen) auf diesen beiden Aufnahmen resultieren aus einer Hardware-Fehlfunktion des Landsat 7 Satelliten, wodurch die Vorwärtsbewegung des Satelliten auf seiner Umlaufbahn nicht korrekt ausgeglichen wurde (",
+                        html.A("Link", href="https://www.usgs.gov/faqs/what-landsat-7-etm-slc-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ")."
                         ]),
+                        html.H4("Verwendete Daten:"),
                         html.P([
-                            "Hierbei wird Dürre als Abweichung vom langjährigen Erwartungswert geschätzt. Erst wenn die aktuelle Bodenfeuchte unter das langjährige 20-Perzentil fällt, also den Wert, der nur in 20% der Jahre in einer langen Zeitreihe erreicht wird, spricht man von Dürre. So bedeutet also ein Wert von 0.3 (ungewöhnliche Trockenheit), dass die aktuelle Bodenfeuchte so niedrig wie in 30% der Fälle von 1951-2015 ist. Genauso bedeutet ein SMI von 0.02 (außergewöhnliche Dürre), dass der Wert nur in 2% der langjährigen Simulationswerte unterschritten wird."
-                        ]),
-                        html.P([
-                        "Das  ",
-                        html.A("Helmholtz- Zentrum für Umweltforschung", href="https://www.ufz.de/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ", hat hierzu ein informatives ",
-                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=FGLs0VmM3Xc", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " veröffentlicht.",
-                        ]),
-                        html.H4("Verwendeter Datensatz:"),
-                        html.P([
-                        "Die historischen, monatlichen SMI-Daten von 1951-2022 können im  ",
-                        html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " ",
-                        html.A("hier ", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " heruntergeladen werden. Die Daten basieren auf ", 
-                        html.A("Zink et al. 2015 (ERL) ", href="https://www.ufz.de/export/data/2/126777_2016-Zink-Soil_Moisture_Droughts_in_Germany.pdf", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        "und enthalten den Bodenfeuchteindex (SMI, soil moisture index) skaliert zwischen [0-1], sowie Koordinaten in den Formaten Gauß-Krüger Zone 4 (EPSG: 31468) [variablen easting/northing] als auch Lat/Lon Informationen (EPSG:4326).",
+                        "Die hier verwendeten Satellitendaten stammen aus einer vorab ausgewählten Sammlung des US Geological Survey (USGS) (",
+                        html.A("Link", href="https://eros.usgs.gov/earthshots/the-craters-size", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ") und sind Teil der Satellitenmissionen ",
+                        html.A("Landsat 5", href="https://de.wikipedia.org/wiki/Landsat_5", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " (1991), ", 
+                        html.A("Landsat 7", href="https://de.wikipedia.org/wiki/Landsat_7", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " (1999, 2005, 2010), ",
+                        html.A("Landsat 8", href="https://de.wikipedia.org/wiki/Landsat_8", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " (2014, 2018, 2022) sowie ",
+                        html.A("Sentinel-2A", href="https://de.wikipedia.org/wiki/Sentinel-2", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " (2022)."
                         ]),
                     ],
                     className='mb-3',
