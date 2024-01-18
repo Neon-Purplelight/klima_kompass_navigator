@@ -1,7 +1,8 @@
 # init_script.py
 
 import os
-from download_script import download_file  # Angenommen, download_file ist Ihre Download-Funktion
+
+from utils import dataManager as dm
 
 # URLs und Ziele für die zu ladenden Dateien
 files_to_download = {
@@ -12,6 +13,6 @@ files_to_download = {
 for url, destination in files_to_download.items():
     if not os.path.exists(destination):
         print(f"Downloading {url} to {destination}...")
-        download_file(url, destination)
+        dm.download_file(url, destination)
 
 print("All files are ready.")
