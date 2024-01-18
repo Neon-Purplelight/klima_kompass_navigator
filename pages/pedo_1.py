@@ -1,4 +1,5 @@
 import base64
+import requests
 from io import BytesIO
 import matplotlib.pyplot as plt
 import dash
@@ -17,9 +18,36 @@ matplotlib.use('Agg')
 # Laden Sie die erforderlichen Daten
 # ------------------------------------------------------------------------------
 topsoil_file_path = 'data\originalData\SMI_Oberboden_monatlich.nc'
-lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
+# lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 
 total_soil_file_path = 'data\originalData\SMI_Gesamtboden_monatlich.nc'
+# lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
+
+def download_file(url, destination):
+    response = requests.get(url)
+    response.raise_for_status()  # Stellt sicher, dass der Download erfolgreich war
+
+    with open(destination, 'wb') as f:
+        f.write(response.content)
+
+# URLs der Datensätze
+urls = [
+    "https://files.ufz.de/~drought/SMI_Gesamtboden_monatlich.nc",
+    "https://files.ufz.de/~drought/SMI_Oberboden_monatlich.nc"
+]
+
+# Speicherorte festlegen
+destinations = [
+    'data/originalData/SMI_Gesamtboden_monatlich.nc',
+    'data/originalData/SMI_Oberboden_monatlich.nc'
+]
+
+# Herunterladen der Dateien
+for url, dest in zip(urls, destinations):
+    download_file(url, dest)
+    print(f"Downloaded {url} to {dest}")
+
+lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
 
 # ...

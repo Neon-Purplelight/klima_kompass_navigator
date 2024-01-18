@@ -1601,7 +1601,7 @@ def make_pedo_2_sidebar():
                     html.P([
                     "Der ",
                     html.A("Batagaika-Krater", href="https://de.wikipedia.org/wiki/Batagaika-Krater", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                    " (von Einheimischen oft “Das Tor zur Hölle” genannt) ",
+                    " (von Einheimischen oft “Das Tor zur Unterwelt” genannt) ",
                     html.A("befindet sich in Sibirien", href="https://www.google.de/maps/place/Batagaika+crater/@67.5786202,134.7822196,7564m/data=!3m1!1e3!4m12!1m5!3m4!2zNjfCsDM0JzQ3LjYiTiAxMzTCsDQ2JzE3LjgiRQ!8m2!3d67.5798889!4d134.7716111!3m5!1s0x5bbfe98a616b146b:0x100d1ed2d264a68c!8m2!3d67.5783832!4d134.7728567!16s%2Fg%2F11fn4n5bg1?entry=ttu", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                     " und ist der größte Klimawandel- induzierte Permafrost-Krater der Welt(",
                     html.A("Videolink", href="https://www.youtube.com/watch?v=lbvTmLBrdps", target="_blank", style={"color": "white", "text-decoration": "underline"}),
