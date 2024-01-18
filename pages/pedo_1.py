@@ -16,7 +16,7 @@ matplotlib.use('Agg')
 # ------------------------------------------------------------------------------
 # Laden Sie die erforderlichen Daten
 # ------------------------------------------------------------------------------
-topsoil_file_path = 'data/originalData/filtered_SMI_Gesamtboden_monatlich.nc'
+topsoil_file_path = 'data/originalData/filtered_SMI_Oberboden_monatlich.nc'
 lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 
 total_soil_file_path = 'data/originalData/filtered_SMI_Gesamtboden_monatlich.nc'

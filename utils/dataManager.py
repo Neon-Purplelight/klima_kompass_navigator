@@ -62,6 +62,7 @@ def preprocess_netcdf_data(pathToFile: str):
 #     df_temp['mov_avg'] = df_temp['JJA'].rolling(20).mean()
 #     return df_temp
 
+
 # Read netCDF4 structure
 # import netCDF4 as nc
 
@@ -131,8 +132,8 @@ def preprocess_netcdf_data(pathToFile: str):
 #     print(f'Gefilterte NetCDF-Datei gespeichert als: {output_file}')
 
 # # Pfade zur ursprünglichen und zur neuen Datei
-# input_file = 'SMI_Gesamtboden_monatlich.nc'
-# output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'
+# input_file = 'SMI_Gesamtboden_monatlich.nc'   # SMI_Oberboden_monatlich.nc
+# output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # filtered_SMI_Oberboden_monatlich.nc
 
 # # Ausführen der Funktion
 # remove_months(input_file, output_file)
