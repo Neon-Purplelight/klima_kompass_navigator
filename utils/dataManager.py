@@ -1,7 +1,7 @@
 # Import necessary library
 import pandas as pd
 import netCDF4 as nc
-import requests
+
 
 ################################################################################
 # Data processing
@@ -42,23 +42,6 @@ def read_temp_data(pathToFile: str):
     df_temp = pd.read_csv(pathToFile, skiprows=1)
 
     return df_temp
-
-def download_file(url, destination):
-    """
-    Download a file from a URL and save it to a local destination.
-    
-    :param url: The URL to download the file from.
-    :param destination: The local path to save the downloaded file to.
-    """
-    response = requests.get(url, stream=True)
-    response.raise_for_status()  # This will raise an exception if the request was unsuccessful
-
-    with open(destination, 'wb') as out_file:
-        # Write the contents of the response to the destination file
-        for chunk in response.iter_content(chunk_size=8192):
-            out_file.write(chunk)
-
-    print(f"File downloaded successfully: {destination}")
 
 def preprocess_netcdf_data(pathToFile: str):
     dataset = nc.Dataset(pathToFile, 'r')
