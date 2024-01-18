@@ -41,10 +41,10 @@ for url, dest in zip(urls, destinations):
     download_file(url, dest)
     print(f"Downloaded {url} to {dest}")
 
-topsoil_file_path = 'data\originalData\SMI_Oberboden_monatlich.nc'
+topsoil_file_path = 'data/originalData/SMI_Oberboden_monatlich.nc'
 lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
 
-total_soil_file_path = 'data\originalData\SMI_Gesamtboden_monatlich.nc'
+total_soil_file_path = 'data/originalData/SMI_Gesamtboden_monatlich.nc'
 lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
 # ...
 # LAYOUT

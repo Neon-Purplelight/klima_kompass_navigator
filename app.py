@@ -2,6 +2,7 @@ from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 from pages import start_page, klima_1,klima_2, hydro_1, hydro_2, pedo_1, pedo_2, oeko_1, oeko_2, blankPage # Hier !!
 
+
 app = Dash(__name__,
     title="Klima Kompass Navigator",
     external_stylesheets=[dbc.icons.FONT_AWESOME],
