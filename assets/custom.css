@@ -19,3 +19,27 @@ body {
 .custom-tab {
     border-bottom: 2px solid #7fff00 !important;
 }
+
+/* pedo_1_slider */
+.slider {
+    height: 24px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.slider .rc-slider-track {
+    background-color: #90caf9; /* Blauer Fortschrittsbalken */
+}
+
+.slider .rc-slider-handle {
+    border: solid 2px #1976d2; /* Blaue Griffe */
+}
+
+.slider .rc-slider-handle:active {
+    box-shadow: none; /* Kein Schatten beim Klicken */
+}
+
+.slider .rc-slider-mark-text {
+    font-size: 10px; /* Kleinere Textgröße für Markierungstexte */
+    padding-top: 10px; /* Abstand nach oben für Text */
+}

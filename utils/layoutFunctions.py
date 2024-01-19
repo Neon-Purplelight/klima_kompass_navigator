@@ -4,6 +4,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import geopandas as gpd
+from utils import dataManager as dm
 import numpy as np
 import os
 
@@ -1530,15 +1531,24 @@ def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
             dcc.Tab(
                 label='Zeitskala',
                 children=[
+                    # Hier setzen Sie Ihren dcc.Slider Code ein
                     dcc.Slider(
                         id='time-slider-drought',
                         min=0,
                         max=len(date_values_oberboden) - 1,
                         step=1,
-                        marks={i: date_values_oberboden[i].strftime("%d.%m.%Y") for i in range(0, len(date_values_oberboden), len(date_values_oberboden)//10)},
+                        marks={
+                            i: {
+                                'label': dm.translate_month(date_values_oberboden[i]),
+                                'style': {
+                                    'transform': 'rotate(45deg)',
+                                    'white-space': 'nowrap'
+                                }
+                            } for i in range(0, len(date_values_oberboden), max(1, len(date_values_oberboden)//10))
+                        },
                         value=0,
                         tooltip={'placement': 'bottom', 'always_visible': True},
-                        className='my-custom-slider slider slider-success',  # Füge diese Zeile hinzu
+                        className='my-custom-slider slider slider-success',
                     ),
                     html.Div([
                         html.Div(id='plots-container-timescale'),

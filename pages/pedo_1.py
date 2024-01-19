@@ -23,6 +23,7 @@ total_soil_file_path = 'data/originalData/filtered_SMI_Gesamtboden_monatlich.nc'
 lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = dm.preprocess_netcdf_data(total_soil_file_path)
 
 # ...
+
 # LAYOUT
 # ...
 layout = html.Div(
@@ -86,17 +87,25 @@ def update_timescale_tab(time_idx):
 
     # Oberboden
     data_slice_oberboden = data_oberboden[time_idx, :, :]
-    img_oberboden = axs[0].imshow(data_slice_oberboden, extent=(lons_oberboden.min(), lons_oberboden.max(), lats_oberboden.min(), lats_oberboden.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
-    axs[0].set_title(f'Oberboden - {date_values_oberboden[time_idx].strftime("%d.%m.%Y")}')
+    img_oberboden = axs[0].imshow(data_slice_oberboden, 
+                                   extent=(lons_oberboden.min(), lons_oberboden.max(), 
+                                           lats_oberboden.min(), lats_oberboden.max()), 
+                                   origin='lower', 
+                                   cmap='YlOrRd_r')  # Umgekehrtes Farbschema
+    axs[0].set_title(f'Oberboden - {dm.translate_month(date_values_oberboden[time_idx])}')
     axs[0].axis('off')  
 
     # Gesamtboden
     data_slice_gesamtboden = data_gesamtboden[time_idx, :, :]
-    img_gesamtboden = axs[1].imshow(data_slice_gesamtboden, extent=(lons_gesamtboden.min(), lons_gesamtboden.max(), lats_gesamtboden.min(), lats_gesamtboden.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
-    axs[1].set_title(f'Gesamtboden - {date_values_gesamtboden[time_idx].strftime("%d.%m.%Y")}')
+    img_gesamtboden = axs[1].imshow(data_slice_gesamtboden, 
+                                     extent=(lons_gesamtboden.min(), lons_gesamtboden.max(), 
+                                             lats_gesamtboden.min(), lats_gesamtboden.max()), 
+                                     origin='lower', 
+                                     cmap='YlOrRd_r')  # Umgekehrtes Farbschema
+    axs[1].set_title(f'Gesamtboden - {dm.translate_month(date_values_gesamtboden[time_idx])}')
     axs[1].axis('off') 
 
-    # Colorbar
+    # Colorbar für Oberboden
     cax = fig.add_axes([0.5, 0.1, 0.02, 0.8])
     fig.colorbar(img_oberboden, cax=cax, label='SMI-Werte')
 
@@ -107,8 +116,7 @@ def update_timescale_tab(time_idx):
 
     plots.append(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid"))  
 
-    # Close the Matplotlib figure
-    plt.close()
+    plt.close()  # Close the Matplotlib figure
 
     return plots
 
@@ -156,11 +164,15 @@ def update_comparison_tab(selected_datasets, selected_times):
             else:
                 continue
 
+            # Formatierung des Titels für die Karten
+            selected_date = date_values_gesamtboden[time_idx]
+            month_name = selected_date.strftime("%B").replace("January", "Januar").replace("February", "Februar").replace("March", "März").replace("April", "April").replace("May", "Mai").replace("June", "Juni").replace("July", "Juli").replace("August", "August").replace("September", "September").replace("October", "Oktober").replace("November", "November").replace("December", "Dezember")
+            
             fig, ax = plt.subplots(figsize=(7, 4))
-            img = ax.imshow(data_slice, extent=(lons.min(), lons.max(), lats.min(), lats.max()), origin='lower', cmap='YlOrRd_r')  # Hier wird die Farbskala umgekehrt
+            img = ax.imshow(data_slice, extent=(lons.min(), lons.max(), lats.min(), lats.max()), origin='lower', cmap='YlOrRd_r')
             plt.colorbar(img, ax=ax, label='SMI-Werte')
             plt.axis('off')
-            plt.title(f'{title_prefix} - {selected_time}')
+            plt.title(f'{title_prefix} - {month_name} {selected_date.year}')
             ax.set_adjustable('datalim')
 
             img_buf = BytesIO()
@@ -170,12 +182,12 @@ def update_comparison_tab(selected_datasets, selected_times):
 
             plots.append(html.Div(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid")))
 
-            # Close the Matplotlib figure
-            plt.close()
+            plt.close()  # Close the Matplotlib figure
 
         plots_container.extend(plots)
 
     return [html.Div(plots_container, style={'display': 'flex', 'flexWrap': 'wrap'})]
+
 
 if __name__ == '__main__':
     app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])

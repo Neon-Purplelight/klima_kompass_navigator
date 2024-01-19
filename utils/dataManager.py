@@ -1,7 +1,7 @@
 # Import necessary library
 import pandas as pd
 import netCDF4 as nc
-
+import numpy as np
 
 ################################################################################
 # Data processing
@@ -9,6 +9,11 @@ import netCDF4 as nc
 # => dataManager dm 
 # Here, all classes and functions for data processing 
     # Load data (once, to improve performance)
+
+# For temp rolling-average: Skip 
+# def preprocess_temperature_data(df_temp):
+#     df_temp['mov_avg'] = df_temp['JJA'].rolling(20).mean()
+#     return df_temp
 
 def read_co2_data(pathToFile: str):
     # Read CO2 data
@@ -43,26 +48,9 @@ def read_temp_data(pathToFile: str):
 
     return df_temp
 
-def preprocess_netcdf_data(pathToFile: str):
-    dataset = nc.Dataset(pathToFile, 'r')
-    lats = dataset.variables['lat'][:]
-    lons = dataset.variables['lon'][:]
-    data = dataset.variables['SMI'][:]
-    time_var = dataset.variables['time']
-    time_data = time_var[:]
-    units = time_var.units
-    date_values = nc.num2date(time_data, units)
-    # Setze das Datum auf den ersten Tag jedes Monats
-    date_values = [date.replace(day=1) for date in date_values]
-    dataset.close()
-    return lats, lons, data, date_values
-
-# For temp rolling-average: Skip 
-# def preprocess_temperature_data(df_temp):
-#     df_temp['mov_avg'] = df_temp['JJA'].rolling(20).mean()
-#     return df_temp
-
-
+# ------------------------------------------------------------------------------
+# pedo_1
+# ------------------------------------------------------------------------------
 # Read netCDF4 structure
 # import netCDF4 as nc
 
@@ -81,10 +69,19 @@ def preprocess_netcdf_data(pathToFile: str):
 # # Schließen der Datei
 # dataset.close()
 
-
-# Filter out irrelevant months to reduce the file size
-# import netCDF4 as nc
-# import numpy as np
+def preprocess_netcdf_data(pathToFile: str):
+    dataset = nc.Dataset(pathToFile, 'r')
+    lats = dataset.variables['lat'][:]
+    lons = dataset.variables['lon'][:]
+    data = dataset.variables['SMI'][:]
+    time_var = dataset.variables['time']
+    time_data = time_var[:]
+    units = time_var.units
+    date_values = nc.num2date(time_data, units)
+    # Setze das Datum auf den ersten Tag jedes Monats
+    date_values = [date.replace(day=1) for date in date_values]
+    dataset.close()
+    return lats, lons, data, date_values
 
 # def remove_months(input_file, output_file):
 #     with nc.Dataset(input_file, 'r') as src, nc.Dataset(output_file, 'w', format='NETCDF4') as dst:
@@ -96,8 +93,8 @@ def preprocess_netcdf_data(pathToFile: str):
 #         # Konvertieren der Zeittage in tatsächliche Daten
 #         dates = nc.num2date(time_var[:], units=time_units, calendar=time_calendar)
 
-#         # Indizes der zu behaltenden Daten bestimmen
-#         keep_indices = [i for i, date in enumerate(dates) if date.month not in [1, 2, 3, 11, 12]]
+#         # Bestimme die Indizes der zu behaltenden Daten (April bis Oktober)
+#         keep_indices = [i for i, date in enumerate(dates) if 4 <= date.month <= 10]
 
 #         # Kopieren der Dimensionen (außer 'time')
 #         for name, dimension in src.dimensions.items():
@@ -113,11 +110,10 @@ def preprocess_netcdf_data(pathToFile: str):
 
 #             # Erstellen der Variablen mit Komprimierung
 #             if 'time' in variable.dimensions:
-#                 # Falls 'time' in den Dimensionen ist, Filter anwenden
 #                 new_var = dst.createVariable(name, variable.datatype, variable.dimensions, zlib=True, complevel=4)
 #                 if name == 'time':
-#                     # Für die Zeitvariable müssen die Ordnungszahlen der Daten verwendet werden
-#                     new_var[:] = np.array([dates[i].toordinal() for i in keep_indices])
+#                     # Weise die gefilterten Datumswerte direkt zu
+#                     new_var[:] = time_var[keep_indices]
 #                 else:
 #                     # Für alle anderen Variablen, die Zeit enthalten, die gefilterten Daten anwenden
 #                     new_var[:] = variable[keep_indices]
@@ -132,9 +128,31 @@ def preprocess_netcdf_data(pathToFile: str):
 #     print(f'Gefilterte NetCDF-Datei gespeichert als: {output_file}')
 
 # # Pfade zur ursprünglichen und zur neuen Datei
-# input_file = 'SMI_Gesamtboden_monatlich.nc'   # SMI_Oberboden_monatlich.nc
-# output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # filtered_SMI_Oberboden_monatlich.nc
+# #input_file = 'SMI_Gesamtboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+# #output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
+
+# input_file = 'SMI_Oberboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+# output_file = 'filtered_SMI_Oberboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
 
 # # Ausführen der Funktion
 # remove_months(input_file, output_file)
+
+def translate_month(date):
+    english_to_german_months = {
+    "January": "Januar",
+    "February": "Februar",
+    "March": "März",
+    "April": "April",
+    "May": "Mai",
+    "June": "Juni",
+    "July": "Juli",
+    "August": "August",
+    "September": "September",
+    "October": "Oktober",
+    "November": "November",
+    "December": "Dezember"
+}
+    english_month = date.strftime("%B")
+    german_month = english_to_german_months[english_month]
+    return date.strftime("%d. ") + german_month + date.strftime(" %Y")
 
