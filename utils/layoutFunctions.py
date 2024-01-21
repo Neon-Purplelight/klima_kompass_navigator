@@ -142,10 +142,24 @@ def make_iframe():
             [
                 html.P("Enthält weitere Informationen zu den jeweiligen Infografiken."),
                 html.Hr(),
-                html.P(["Die ",
+                html.P([
+                        "Die ",
                         html.A("MCC Carbon Clock", href="https://www.mcc-berlin.net/en/research/co2-budget.html"),
-                        " zeigt, wie viel CO2 in die Atmosphäre freigesetzt werden kann, um die globale Erwärmung auf maximal 1,5 °C bzw. 2 °C zu begrenzen. Mit nur einem Klick können Sie die Schätzungen für beide Temperaturziele vergleichen und sehen, wie viel Zeit in jedem Szenario noch bleibt."
+                        " zeigt, wie viel CO2 in die Atmosphäre freigesetzt werden kann, um die globale Erwärmung auf maximal 1,5 °C bzw. 2 °C (Im Vergleich zum vorindustriellen Zeitalter) zu begrenzen. Mit nur einem Klick können Sie die Schätzungen für beide Temperaturziele vergleichen und sehen, wie viel Zeit in jedem Szenario noch bleibt."
+                        ]),
+                html.P([
+                        html.A("Das 1,5 °C Ziel", href="https://de.wikipedia.org/wiki/Sonderbericht_1,5_%C2%B0C_globale_Erw%C3%A4rmung"),
+                        ", welches im ",
+                        html.A("Pariser Klimaabkommen ", href="https://de.wikipedia.org/wiki/%C3%9Cbereinkommen_von_Paris"),
+                        " gesetzt wurde, soll verhindern, dass es zu irreversiblen Entwicklungen innerhalb des Klimasystems kommt. Die Wissenschaftler des Weltklimarats (",
+                        html.A("IPCC", href="https://de.wikipedia.org/wiki/Intergovernmental_Panel_on_Climate_Change"),
+                        ") gehen davon aus, dass solche Kipppunkte jenseits einer Temperaturerhöhung von 1,5 °C nicht mehr ausreichend sicher ausgeschlossen werden können. Der ",
+                        html.A("Emissions Gap Report 2021", href="https://www.umweltbundesamt.de/themen/emissions-gap-report-2021-klimazusagen-reichen"),
+                        " des Umweltprogramms der Vereinten Nationen (",
+                        html.A("UNEP", href="https://de.wikipedia.org/wiki/Umweltprogramm_der_Vereinten_Nationen"),
+                        ") warnt, dass die aktuell zugesagten Klimaschutzmaßnahmen zu einem globalen Temperaturanstieg von etwa 2,7 °C bis zum Ende des Jahrhunderts führen würden."
                         ])
+                
             ],
             className="card-text",
         ),

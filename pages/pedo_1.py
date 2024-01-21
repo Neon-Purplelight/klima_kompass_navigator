@@ -187,10 +187,3 @@ def update_comparison_tab(selected_datasets, selected_times):
         plots_container.extend(plots)
 
     return [html.Div(plots_container, style={'display': 'flex', 'flexWrap': 'wrap'})]
-
-
-if __name__ == '__main__':
-    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-    app.layout = layout
-
-    app.run_server(debug=True)
