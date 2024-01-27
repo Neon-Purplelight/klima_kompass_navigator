@@ -4,24 +4,29 @@ Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um
 
 ## Schritt für Schritt Anleitung für das Terminal
 
-- Klonen Sie dieses Repository in einen Ordner Ihrer Wahl auf Ihrem PC:
-`cd voller/pfad/zum/gewünschten/installations/ordner/`  
+### 1. Klonen Sie dieses Repository in einen Ordner Ihrer Wahl auf Ihrem PC
 
+`cd voller/pfad/zum/gewünschten/installations/ordner/`  
 `git clone https://github.com/Neon-Purplelight/klima_kompass_navigator.git`
 
-- Gehen Sie in den neu erstellten Ordner:  
+### 2. Gehen Sie in den neu erstellten Ordner  
+
 `cd klima_kompass_navigator`
 
-- Erstellen Sie eine neue virtuelle Conda-Umgebung, um die notwendigen Pakete in einer isolierten Umgebung zu installieren:
+### 3. Erstellen Sie eine neue virtuelle Conda-Umgebung, um die notwendigen Pakete in einer isolierten Umgebung zu installieren
+
 `conda create -n klima_kompass_navigator Python==3.10`
 
-- Aktivieren Sie die neu erstellte Umgebung:  
+### 4. Aktivieren Sie die neu erstellte Umgebung
+
 `conda activate pklima_kompass_navigator`
 
-- Installieren Sie die erforderlichen Pakete:  
+### 5. Installieren Sie die erforderlichen Pakete
+
 `pip install -r requirements.txt`
 
-- Starten Sie den Navigator:  
+### 6. Starten Sie den Navigator  
+
 `python app.py`
 
 - Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser um die Webanwendung lokal von ihrem PC ausführen zu können.
