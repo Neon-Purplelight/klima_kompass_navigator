@@ -18,18 +18,3 @@ You can run the Navigator for free at [https://klima-kompass-navigator.onrender.
 
 Follow the steps on this [page](docs/installationGuide.md) to install the necessary components and run your own Navigator.
 
-## Installation on a server
-
-### Requirements
-
-- Python 3.10
-- Numpy 1.26.2  
-`pip install numpy`
-- matplotlib 3.5.2  
-`pip install matplotlib`
-- Pandas 2.1.4  
-`pip install pandas`
-- Dash 2.14.2
-`pip install dash`
-- Dash Bootstrap Components 1.5.0  
-`pip install dash-bootstrap-components`
