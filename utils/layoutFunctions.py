@@ -79,18 +79,18 @@ def make_start_page_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " Unterseite 1"],
+            dbc.NavItem(dbc.NavLink([link_icon, "Unterseite 1"],
                                     style={"text-decoration": "underline"},
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " Unterseite 2"],
+            dbc.NavItem(dbc.NavLink([link_icon, "Unterseite 2"],
                                     style={"text-decoration": "underline"},
                                     href="/", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span([link_icon, " Start:"], 
+        brand=html.Span([link_icon, "Start:"], 
                         style={"text-decoration": "underline"}),
         brand_href="",
         color="primary",
@@ -1505,10 +1505,7 @@ def make_hydro_2_sidebar():
             html.Div(
                 [
                     html.P([
-                    "Die Dashboards auf dieser Seite bieten Einblicke in die dynamischen Veränderungen des arktischen Eisschildes um die norwegische Inselgruppe ",
-                    html.A("Spitzbergen ", href="https://de.wikipedia.org/wiki/Spitzbergen_(Inselgruppe)", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                    "(Sie können auf der Karte jedoch auch andere Regionen betrachten). Die Darstellung findet zum einen auf einer monatlichen Basis (Januar bis Dezember 2023) und zum anderen auf einer jährlichen Basis (2007 bis 2023) statt. Die Darstellung der monatlichen Veränderungen von Januar bis Dezember vermittelt den Eindruck, als ob der arktische Eisschild 'atmet', da er auf Wetterbedingungen reagiert. Dieser dynamische Prozess zeigt, wie sich das Eis im Laufe eines Jahres entwickelt und verändert. Die Analyse der jährlichen Veränderungen über den Zeitraum von 2007 bis 2023 bietet einen tieferen Einblick in die langfristigen Trends des arktischen Eisschildes. Hier wird der Fokus auf klimatische Veränderungen gelegt, wodurch Muster und Trends sichtbar werden. Dieser Ansicht gibt einen Überblick über die Entwicklung des Eisschildes im Kontext des Klimawandels und ermöglicht es, längerfristige Trends und Veränderungen zu identifizieren.",
-                    ]),
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",                    ]),
                 ],
                 className='mb-3',
                 style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -1524,25 +1521,12 @@ def make_hydro_2_sidebar():
                 html.Div(
                     [
                         html.P([
-                        "Der Klimawandel hat erhebliche Auswirkungen auf die arktischen Eisschilde, die eine zentrale Rolle im globalen Klimasystem spielen. Die steigenden Temperaturen in der Arktis führen zu einer ",
-                        html.A("beschleunigten Eisschmelze", href="https://www.ardalpha.de/wissen/umwelt/klima/klimawandel/eisschmelze-antarktis-arktis-polkappen-schmelzen-nordpol-suedpol-100.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ", insbesondere auf Grönland und der Arktischen Ozeanregion. Dies hat weitreichende Konsequenzen, da die schwindenden Eismassen den Meeresspiegel ansteigen lassen und potenziell zu katastrophalen Überschwemmungen in küstennahen Gebieten führen können. Darüber hinaus, hat der Rückgang der Eismassen auch Auswirkungen auf ",
-                        html.A("Meeresströmungen", href="https://www.sueddeutsche.de/wissen/golfstrom-klimawandel-amoc-groenland-1.5374481", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ", welche einen bedeutenden Einfluss im globalen Klimasystem ausüben."
+                            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
                         ]),
-                        html.P([
-                            "Schließlich spielt die Arktis auch eine entscheidende Rolle hinsichtlich ihrer ",
-                            html.A("Albedo-Funktion", href="https://studyflix.de/erdkunde/albedo-5698", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " , d.h. ihrer Fähigkeit Sonnenlicht zu reflektieren. Das helle Eis der arktischen Region reflektiert einen beträchtlichen Teil der einfallenden Sonnenstrahlung zurück ins Weltall. Mit zunehmender Eisschmelze und dem Rückgang der Eisbedeckung reduziert sich die Albedo der Arktis jedoch, da dunklere Wasseroberflächen mehr Sonnenlicht absorbieren und somit zusätzlich zur Erwärmung des Wassers beiträgt, was wiederum die Eisschmelze weiter vorantreibt."
-                        ]),      
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
-                        html.P([  
-                            "Die verwendeten Shapefiles basieren auf den täglichen Eisanalysen des U.S. National Ice Center (",
-                            html.A("USNIC", href="https://usicecenter.gov/About", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") Den vollen Datenkatalog der USNIC finden Sie ",
-                            html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
+                        html.P([
+                            "Lorem Ipsum",
                         ]),
                     ],
                     className='mb-3',
@@ -1551,11 +1535,11 @@ def make_hydro_2_sidebar():
                 id='collapse_more_info_hydro_1',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
-        ],
-        fluid=True,
-        className="py-1 bg-primary rounded-1 text-white",
-    )
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1'),
+            ],
+            fluid=True,
+            className="py-1 bg-primary rounded-1 text-white",
+            )
 
     # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
