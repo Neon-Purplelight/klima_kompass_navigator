@@ -11,6 +11,15 @@ body {
     color: #7fff00;
 }
 
+.nav-link-custom {
+    display: left;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    min-width: 200px; /* Sie können diese Breite anpassen, um zu Ihren Bedürfnissen zu passen */
+}
+
+
 /* Spezifischere Selektoren für die Tab-Indikatorlinie */
 .custom-tabs .nav-tabs {
     border-bottom: 2px solid #7fff00 !important; /* Überschreibt die Standard-Bootstrap-Farbe */

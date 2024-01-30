@@ -73,15 +73,29 @@ def make_CC_licenseBanner():
 # ------------------------------------------------------------------------------
 def make_start_page_sidebar():
     # Bootstrap Sidebar
+    # Verwenden Sie Font Awesome-Symbole für Links
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("Unterseite 1", href="/", id="navlink")),
-            dbc.NavItem(dbc.NavLink("Unterseite 2", href="/", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Unterseite 1"],
+                                    style={"text-decoration": "underline"},
+                                    href="/", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Unterseite 2"],
+                                    style={"text-decoration": "underline"},
+                                    href="/", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Start:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Start:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="",
         color="primary",
         dark=True,
+        className="d-flex justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -260,16 +274,28 @@ def make_interactive_controls_example():
 # ------------------------------------------------------------------------------
 def make_klima_1_sidebar():
     # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("CO2 und das Klima", href="/klima_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
-            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Klimatologie:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Klimatologie:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Klimatologie",
         color="primary",
         dark=True,
+        className="d-flex justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -668,16 +694,28 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
 # ------------------------------------------------------------------------------
 def make_klima_2_sidebar():
     # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("CO2 und das Klima", href="/klima_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
-            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Klimatologie:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Klimatologie:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Klimatologie",
         color="primary",
         dark=True,
+        className="d-flex justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -1078,15 +1116,29 @@ def create_co2_treemap_per_capita(df_filtered):
 # ------------------------------------------------------------------------------
 def make_hydro_1_sidebar():
     # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("- Arktischer Eisschild", href="/hydro_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("- Waldökosysteme und ihr Wasserhaushalt", href="/hydro_2", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/hydro_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Waldökosysteme und ihr Wasserhaushalt"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/hydro_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Hydrologie:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Hydrologie:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Hydrologie",
         color="primary",
         dark=True,
+        className="d-flex flex-column justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -1418,10 +1470,114 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
         file.write(html_content)
 
 # ------------------------------------------------------------------------------
-# hydro_1 functions
+# hydro_2 functions
 # ------------------------------------------------------------------------------
-# Tab 1: Liniendiagramm
+def make_hydro_2_sidebar():
+    # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/hydro_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Waldökosysteme und ihr Wasserhaushalt"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/hydro_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
+        ],
+        brand=html.Span([link_icon, " Hydrologie:"], 
+                        style={"text-decoration": "underline"}),
+        brand_href="https://de.wikipedia.org/wiki/Hydrologie",
+        color="primary",
+        dark=True,
+        className="d-flex flex-column justify-content-center",
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                    html.P([
+                    "Die Dashboards auf dieser Seite bieten Einblicke in die dynamischen Veränderungen des arktischen Eisschildes um die norwegische Inselgruppe ",
+                    html.A("Spitzbergen ", href="https://de.wikipedia.org/wiki/Spitzbergen_(Inselgruppe)", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    "(Sie können auf der Karte jedoch auch andere Regionen betrachten). Die Darstellung findet zum einen auf einer monatlichen Basis (Januar bis Dezember 2023) und zum anderen auf einer jährlichen Basis (2007 bis 2023) statt. Die Darstellung der monatlichen Veränderungen von Januar bis Dezember vermittelt den Eindruck, als ob der arktische Eisschild 'atmet', da er auf Wetterbedingungen reagiert. Dieser dynamische Prozess zeigt, wie sich das Eis im Laufe eines Jahres entwickelt und verändert. Die Analyse der jährlichen Veränderungen über den Zeitraum von 2007 bis 2023 bietet einen tieferen Einblick in die langfristigen Trends des arktischen Eisschildes. Hier wird der Fokus auf klimatische Veränderungen gelegt, wodurch Muster und Trends sichtbar werden. Dieser Ansicht gibt einen Überblick über die Entwicklung des Eisschildes im Kontext des Klimawandels und ermöglicht es, längerfristige Trends und Veränderungen zu identifizieren.",
+                    ]),
+                ],
+                className='mb-3',
+                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                        html.P([
+                        "Der Klimawandel hat erhebliche Auswirkungen auf die arktischen Eisschilde, die eine zentrale Rolle im globalen Klimasystem spielen. Die steigenden Temperaturen in der Arktis führen zu einer ",
+                        html.A("beschleunigten Eisschmelze", href="https://www.ardalpha.de/wissen/umwelt/klima/klimawandel/eisschmelze-antarktis-arktis-polkappen-schmelzen-nordpol-suedpol-100.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", insbesondere auf Grönland und der Arktischen Ozeanregion. Dies hat weitreichende Konsequenzen, da die schwindenden Eismassen den Meeresspiegel ansteigen lassen und potenziell zu katastrophalen Überschwemmungen in küstennahen Gebieten führen können. Darüber hinaus, hat der Rückgang der Eismassen auch Auswirkungen auf ",
+                        html.A("Meeresströmungen", href="https://www.sueddeutsche.de/wissen/golfstrom-klimawandel-amoc-groenland-1.5374481", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", welche einen bedeutenden Einfluss im globalen Klimasystem ausüben."
+                        ]),
+                        html.P([
+                            "Schließlich spielt die Arktis auch eine entscheidende Rolle hinsichtlich ihrer ",
+                            html.A("Albedo-Funktion", href="https://studyflix.de/erdkunde/albedo-5698", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " , d.h. ihrer Fähigkeit Sonnenlicht zu reflektieren. Das helle Eis der arktischen Region reflektiert einen beträchtlichen Teil der einfallenden Sonnenstrahlung zurück ins Weltall. Mit zunehmender Eisschmelze und dem Rückgang der Eisbedeckung reduziert sich die Albedo der Arktis jedoch, da dunklere Wasseroberflächen mehr Sonnenlicht absorbieren und somit zusätzlich zur Erwärmung des Wassers beiträgt, was wiederum die Eisschmelze weiter vorantreibt."
+                        ]),      
+                        html.Hr(),
+                        html.H4("Verwendete Datensätze:"),
+                        html.P([  
+                            "Die verwendeten Shapefiles basieren auf den täglichen Eisanalysen des U.S. National Ice Center (",
+                            html.A("USNIC", href="https://usicecenter.gov/About", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") Den vollen Datenkatalog der USNIC finden Sie ",
+                            html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ".",
+                        ]),
+                    ],
+                    className='mb-3',
+                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                ),
+                id='collapse_more_info_hydro_1',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
+def make_hydro_2_settings():
+    plot_cards = dbc.CardGroup(
+        [
+            dbc.Card(
+                [
+                    dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
+                ],
+                color="primary",
+            ),
+        ]
+    )
+
+    return plot_cards
+
 def hydro_2_line_chart(df, colors):
+# Tab 1: Liniendiagramm
     return {
             'data': [
                 go.Scatter(
@@ -1485,8 +1641,8 @@ def hydro_2_line_chart(df, colors):
         )
     }
 
-# Tab 2: Gestapeltes Balkendiagramm
 def hydro_2_stacked_bar_chart(df, colors):
+# Tab 2: Gestapeltes Balkendiagramm
     return {
             'data': [
                 go.Scatter(
@@ -1546,8 +1702,8 @@ def hydro_2_stacked_bar_chart(df, colors):
         )
     }
 
-# Tab 3: Gestapeltes Liniendiagramm
 def hydro_2_stacked_line_chart(df, colors):
+# Tab 3: Gestapeltes Liniendiagramm
     return {
             'data': [
                 go.Scatter(
@@ -1627,16 +1783,29 @@ def hydro_2_stacked_line_chart(df, colors):
 # ------------------------------------------------------------------------------
 def make_pedo_1_sidebar():
     # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("Permafrostböden", href="/pedo_2", id="navlink")),
-            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/pedo_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Permafrostböden"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/pedo_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Pedologie:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
         color="primary",
         dark=True,
+        className="d-flex flex-column justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -1804,16 +1973,29 @@ def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
 # ------------------------------------------------------------------------------
 def make_pedo_2_sidebar():
     # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("Dürre Monitor", href="/pedo_1", id="navlink")),
-            dbc.NavItem(dbc.NavLink("Permafrostböden", href="/pedo_2", id="navlink")),
-            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/pedo_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " Permafrostböden"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/pedo_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
         ],
-        brand=html.Span("Pedologie:", style={"text-decoration": "underline"}),
+        brand=html.Span([link_icon, " Pedologie:"], 
+                        style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
         color="primary",
         dark=True,
+        className="d-flex flex-column justify-content-center",
     )
 
     # Second row with sample text and collapse component

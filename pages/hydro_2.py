@@ -36,10 +36,10 @@ layout = html.Div(
         dbc.Row(lf.make_NavBar()),  # Navigation Bar
         dbc.Row(
             [
-                dbc.Col(lf.make_klima_1_sidebar(), width=4),
+                dbc.Col(lf.make_hydro_2_sidebar(), width=4),
                 dbc.Col(
                     [
-                        lf.make_klima_1_settings(),
+                        lf.make_hydro_2_settings(),
                         html.Div([
                             dcc.Tabs([
                             dcc.Tab(label='Liniendiagramm', children=[
