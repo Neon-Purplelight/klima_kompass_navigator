@@ -17,4 +17,3 @@ A **free** and **open** sample dashboard that deals with the effects of climate 
 You can run the Navigator for free at [https://klima-kompass-navigator.onrender.com/](https://klima-kompass-navigator.onrender.com/). However, if you prefer, you can also run it locally on your computer to have offline access.
 
 Follow the steps on this [page](docs/installationGuide.md) to install the necessary components and run your own Navigator.
-

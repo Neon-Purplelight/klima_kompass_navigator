@@ -29,7 +29,7 @@ Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um
 
 `python app.py`
 
-- Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser um die Webanwendung lokal von ihrem PC ausführen zu können.
+Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser um die Webanwendung lokal von ihrem PC ausführen zu können.
 
 Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie die Umgebung aktivieren, in den geklonten Ordner wechseln und die Hauptdatei ausführen:
 
@@ -45,27 +45,32 @@ This file guides you through the installation of the necessary components to run
 
 ## Step-by-Step Instructions for the Terminal
 
-- Clone this repository into a folder of your choice on your PC:
-`cd full/path/to/desired/installation/folder/`
+### 1. Clone this repository into a folder of your choice on your PC
 
+`cd full/path/to/desired/installation/folder/`
 `git clone https://github.com/Neon-Purplelight/klima_kompass_navigator.git`
 
-- Navigate to the newly created folder:  
+### 2. Navigate to the newly created folder
+
 `cd klima_kompass_navigator`
 
-- Create a new virtual Conda environment to install the necessary packages in an isolated environment:
+### 3. Create a new virtual Conda environment to install the necessary packages in an isolated environment
+
 `conda create -n klima_kompass_navigator Python==3.10`
 
-- Activate the newly created environment:
+### 4. Activate the newly created environment
+
 `conda activate pklima_kompass_navigator`
 
-- Install the required packages:
+### 5. Install the required packages
+
 `pip install -r requirements.txt`
 
-- Start the navigator:
+### 6. Start the navigator
+
 `python app.py`
 
-- The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`).  Open this address in any browser, and you should be able to browse the web application.
+The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`).  Open this address in any browser, and you should be able to browse the web application.
 
 After the initial installation, you can simply run the web application by activating the environment, navigating to the cloned folder, and executing the main file:
 

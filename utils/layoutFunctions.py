@@ -159,7 +159,6 @@ def make_iframe():
                         html.A("UNEP", href="https://de.wikipedia.org/wiki/Umweltprogramm_der_Vereinten_Nationen"),
                         ") warnt, dass die aktuell zugesagten Klimaschutzmaßnahmen zu einem globalen Temperaturanstieg von etwa 2,7 °C bis zum Ende des Jahrhunderts führen würden."
                         ])
-                
             ],
             className="card-text",
         ),
@@ -1081,9 +1080,8 @@ def make_hydro_1_sidebar():
     # Bootstrap Sidebar
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("Arktischer Eisschild", href="/hydro_1", id="navlink")),
-            #dbc.NavItem(dbc.NavLink("CO2 Emittenten", href="/klima_2", id="navlink")),
-            # dbc.NavItem(dbc.NavLink("Sektorenbetrachtung", href="/klima_3", id="navlink")),
+            dbc.NavItem(dbc.NavLink("- Arktischer Eisschild", href="/hydro_1", id="navlink")),
+            dbc.NavItem(dbc.NavLink("- Waldökosysteme und ihr Wasserhaushalt", href="/hydro_2", id="navlink")),
         ],
         brand=html.Span("Hydrologie:", style={"text-decoration": "underline"}),
         brand_href="https://de.wikipedia.org/wiki/Hydrologie",
@@ -1419,6 +1417,211 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     with open(output_file, 'w') as file:
         file.write(html_content)
 
+# ------------------------------------------------------------------------------
+# hydro_1 functions
+# ------------------------------------------------------------------------------
+# Tab 1: Liniendiagramm
+def hydro_2_line_chart(df, colors):
+    return {
+            'data': [
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Durchschnittsniederschlag'], 
+                    mode='lines',
+                    name='Durchschnittsniederschlag', 
+                    line={'color': 'Blue', 'dash': 'dashdot'},
+                    hovertemplate='<b>%{y:.2f} l/m²</b>',
+                    yaxis='y2'
+                ),
+                go.Scatter(
+                    x=df[df['Jahr'] >= 2020]['Jahr'], 
+                    y=df[df['Jahr'] >= 2020]['Trockenheit'], 
+                    mode='lines', 
+                    name='Trockenheit', 
+                    marker={'color': colors['Trockenheit'], 'size': 8}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Sonstige Ursachen'], 
+                    mode='lines', 
+                    name='Sonstige Ursachen', 
+                    marker={'color': colors['Sonstige Ursachen'], 'size': 8}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Schnee/Duft'], 
+                    mode='lines', 
+                    name='Schnee/Duft', 
+                    marker={'color': colors['Schnee/Duft'], 'size': 8}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Wind/Sturm'], 
+                    mode='lines', 
+                    name='Wind/Sturm', 
+                    marker={'color': colors['Wind/Sturm'], 'size': 8}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),                
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Insekten'], 
+                    mode='lines', 
+                    name='Insekten', 
+                    marker={'color': colors['Insekten'], 'size': 8}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+            ],
+        'layout': go.Layout(
+            title='Schadholzeinschlag nach Einschlagsursachen',
+            yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
+            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
+            xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
+            legend={'x': 0, 'y': -0.2, 'orientation': 'h', 'traceorder': 'reversed'},
+            hovermode='x unified',
+            hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
+        )
+    }
+
+# Tab 2: Gestapeltes Balkendiagramm
+def hydro_2_stacked_bar_chart(df, colors):
+    return {
+            'data': [
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Durchschnittsniederschlag'], 
+                    mode='lines',
+                    name='Durchschnittsniederschlag', 
+                    line={'color': 'Blue', 'dash': 'dashdot'},
+                    hovertemplate='<b>%{y:.2f} l/m²</b>',
+                    yaxis='y2'
+                ),
+                go.Bar(
+                    x=df['Jahr'], 
+                    y=df['Trockenheit'], 
+                    name='Trockenheit', 
+                    marker={'color': colors['Trockenheit']}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Bar(
+                    x=df['Jahr'], 
+                    y=df['Sonstige Ursachen'], 
+                    name='Sonstige Ursachen', 
+                    marker={'color': colors['Sonstige Ursachen']}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Bar(
+                    x=df['Jahr'], 
+                    y=df['Schnee/Duft'], 
+                    name='Schnee/Duft', 
+                    marker={'color': colors['Schnee/Duft']}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+                go.Bar(
+                    x=df['Jahr'], 
+                    y=df['Wind/Sturm'], 
+                    name='Wind/Sturm', 
+                    marker={'color': colors['Wind/Sturm']}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),                
+                go.Bar(
+                    x=df['Jahr'], 
+                    y=df['Insekten'], 
+                    name='Insekten', 
+                    marker={'color': colors['Insekten']}, 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
+                ),
+            ],
+        'layout': go.Layout(
+            title='Schadholzeinschlag nach Einschlagsursachen',
+            yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
+            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
+            xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
+            barmode='stack',
+            legend={'x': 0, 'y': -0.2, 'orientation': 'h', 'traceorder': 'reversed'},
+            hovermode='x unified',
+            hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
+        )
+    }
+
+# Tab 3: Gestapeltes Liniendiagramm
+def hydro_2_stacked_line_chart(df, colors):
+    return {
+            'data': [
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Durchschnittsniederschlag'], 
+                    mode='lines',  # Linie für den Niederschlag
+                    name='Durchschnittsniederschlag', 
+                    line={'color': 'Blue', 'dash': 'dashdot'},
+                    hovertemplate='<b>%{y:.2f} l/m²</b>',  # Hier werden Zahlen und Einheiten im Fettdruck angezeigt
+                    yaxis='y2'  # Verwenden Sie die rechte Y-Achse für den Niederschlag
+                ),                
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Gesamt'], 
+                    mode='lines',  # Nur eine gestrichelte Linie für 'Gesamt'
+                    name='Gesamteinschlag', 
+                    line={'color': 'black', 'dash': 'dot'},  # fein gestrichelte Linie
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>',  # Hier werden Zahlen und Einheiten im Fettdruck angezeigt
+                    visible=True,  # Die "Gesamt"-Linie wird initial sichtbar sein
+                ),
+                go.Scatter(
+                    x=df[df['Jahr'] >= 2020]['Jahr'],
+                    y=df[df['Jahr'] >= 2020]['Trockenheit'],
+                    mode='markers',
+                    name='Trockenheit',
+                    marker={'color': colors['Trockenheit'], 'size': 8}, 
+                    visible='legendonly', stackgroup='one', 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Sonstige Ursachen'], 
+                    mode='markers', 
+                    name='Sonstige Ursachen', 
+                    marker={'color': colors['Sonstige Ursachen'], 'size': 8}, 
+                    visible='legendonly', 
+                    stackgroup='one', 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Schnee/Duft'], 
+                    mode='markers', 
+                    name='Schnee/Duft', 
+                    marker={'color': colors['Schnee/Duft'], 'size': 8}, 
+                    visible='legendonly', 
+                    stackgroup='one', 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Wind/Sturm'], 
+                    mode='markers', 
+                    name='Wind/Sturm', 
+                    marker={'color': colors['Wind/Sturm'], 'size': 8}, 
+                    visible='legendonly', stackgroup='one', 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
+                go.Scatter(
+                    x=df['Jahr'], 
+                    y=df['Insekten'], 
+                    mode='markers', 
+                    name='Insekten', 
+                    marker={'color': colors['Insekten'], 'size': 8}, 
+                    visible='legendonly', 
+                    stackgroup='one', 
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
+            ],
+        'layout': go.Layout(
+            title='Schadholzeinschlag nach Einschlagsursachen (Gestapelt)',
+            yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
+            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
+            xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
+            legend={'x': 0, 'y': -0.2, 'orientation': 'h'},
+            hovermode='x unified',
+            hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
+        )
+    }
 # ------------------------------------------------------------------------------
 # pedo_1 functions
 # ------------------------------------------------------------------------------

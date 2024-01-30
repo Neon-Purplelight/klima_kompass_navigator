@@ -1,30 +1,31 @@
 # Import necessary libraries and modules
-from dash import html, Input, Output, State, callback
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 from pathlib import Path
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
 # ------------------------------------------------------------------------------
-# Initialize utility objects and useful functions
-# ------------------------------------------------------------------------------
-# Define the full path of the data folder to load raw data
-dataFolder = Path(__file__).parent.parent.absolute() / 'data'
-
-# ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
-# Load temperature and CO2 datasets
-df_temp = dm.read_temp_data(dataFolder/'originalData/GLB.Ts+dSST.csv')
-df_co2 = dm.read_co2_data(dataFolder/'originalData/owid-co2-data.csv')
+# Load logging dataset
+df = dm.process_logging_data('data/originalData/holzeinschlag-wetter.csv')
 
 # ------------------------------------------------------------------------------
 # Perform some preprocessing
 # ------------------------------------------------------------------------------
-# Preprocess CO2 data
-df_co2 = dm.preprocess_co2_data(df_co2)
-# Uncomment the line below if temperature data preprocessing is required
-# df_temp = dm.preprocess_temperature_data(df_temp)
+# Farben festlegen
+colors = {
+    'Insekten': 'darkblue',
+    'Wind/Sturm': 'steelblue',
+    'Schnee/Duft': 'lightblue',
+    'Sonstige Ursachen': 'gray',
+    'Trockenheit': 'red'
+}
+
+# Gesamtdaten berechnen und runden
+df['Gesamt'] = df[['Insekten', 'Wind/Sturm', 'Schnee/Duft', 'Sonstige Ursachen', 'Trockenheit']].sum(axis=1)
+df = df.round(2)
 
 # ------------------------------------------------------------------------------
 # LAYOUT
@@ -39,7 +40,19 @@ layout = html.Div(
                 dbc.Col(
                     [
                         lf.make_klima_1_settings(),
-                        html.Div(id='selected-graph-container', style={'height': '100vh'})
+                        html.Div([
+                            dcc.Tabs([
+                            dcc.Tab(label='Liniendiagramm', children=[
+                                dcc.Graph(id='line-chart', figure=lf.hydro_2_line_chart(df, colors))
+                            ]),
+                            dcc.Tab(label='Gestapeltes Balkendiagramm', children=[
+                                dcc.Graph(id='stacked-bar-chart', figure=lf.hydro_2_stacked_bar_chart(df, colors))
+                            ]),
+                            dcc.Tab(label='Gestapeltes Liniendiagramm', children=[
+                                dcc.Graph(id='stacked-line-chart', figure=lf.hydro_2_stacked_line_chart(df, colors))
+                            ])
+                        ])
+                    ])
                     ],
                     width=8,
                 ),

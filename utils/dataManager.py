@@ -156,3 +156,11 @@ def translate_month(date):
     german_month = english_to_german_months[english_month]
     return date.strftime("%d. ") + german_month + date.strftime(" %Y")
 
+# ------------------------------------------------------------------------------
+# hydro_2
+# ------------------------------------------------------------------------------
+# Datenbereinigungsfunktion
+def process_logging_data(csv_file_path):
+    data = pd.read_csv(csv_file_path, delimiter=';', decimal=',', na_values=[''])
+    data = data.apply(pd.to_numeric, errors='coerce')
+    return data
