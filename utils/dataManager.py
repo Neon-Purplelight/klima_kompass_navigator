@@ -50,7 +50,7 @@ def read_temp_data(pathToFile: str):
     return df_temp
 
 # ------------------------------------------------------------------------------
-# start_page_1
+# klima_2
 # ------------------------------------------------------------------------------
 def process_and_save_json(input_json_path, output_json_path):
     # Load the original GeoJSON file

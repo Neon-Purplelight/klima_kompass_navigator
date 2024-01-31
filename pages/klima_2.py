@@ -10,8 +10,8 @@ from utils import layoutFunctions as lf
 # ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
-df = pd.read_csv('data\originalData\processed_data.csv')
-with open('data\originalData\processed_world-countries.json') as f:
+df = pd.read_csv('data/originalData/processed_data.csv')
+with open('data/originalData/processed_world-countries.json') as f:
     countries_json = json.load(f)
 
 min_year = df['year'].min()
