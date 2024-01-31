@@ -2,6 +2,7 @@
 import pandas as pd
 import netCDF4 as nc
 import numpy as np
+import json
 
 ################################################################################
 # Data processing
@@ -47,6 +48,105 @@ def read_temp_data(pathToFile: str):
     df_temp = pd.read_csv(pathToFile, skiprows=1)
 
     return df_temp
+
+# ------------------------------------------------------------------------------
+# start_page_1
+# ------------------------------------------------------------------------------
+def process_and_save_json(input_json_path, output_json_path):
+    # Load the original GeoJSON file
+    with open(input_json_path, "r") as json_file:
+        world_geo = json.load(json_file)
+
+    # Define a mapping for country name replacements
+    country_replacements = {
+        "United States of America": "United States",
+        "Guinea Bissau": "Guinea-Bissau",
+        "The Bahamas": "Bahamas",
+        "Czech Republic": "Czechia",
+        "United Republic of Tanzania": "Tanzania",
+        "Democratic Republic of the Congo": "Congo",
+        "Swaziland": "Eswatini",
+        "Republic of Serbia": "Serbia",
+        "Macedonia": "North Macedonia",
+        "Ivory Coast": "Cote d'Ivoire"
+    }
+
+    # Update the 'name' property for each feature in the GeoJSON
+    for feature in world_geo["features"]:
+        country_name = feature["properties"]["name"]
+        if country_name in country_replacements:
+            feature["properties"]["name"] = country_replacements[country_name]
+
+    # Save the processed GeoJSON to the original file
+    with open(output_json_path, "w") as json_out_file:
+        json.dump(world_geo, json_out_file)
+
+    # # Example usage
+    # input_json_path = 'data/world-countries.json'
+    # output_json_path = 'data/processed_world-countries.json'
+    # process_and_save_json(input_json_path, output_json_path)
+
+def extract_country_names(json_path):
+    with open(json_path, "r") as json_file:
+        world_geo = json.load(json_file)
+        country_names = [feature["properties"]["name"] for feature in world_geo["features"]]
+    return country_names
+
+    # # Extract country names from the processed JSON
+    # country_names = extract_country_names(output_json_path)
+
+def process_and_save_csv(input_file_path, output_file_path, country_names):
+    # Read the original CSV file
+    df = pd.read_csv(input_file_path)
+    df_continents = pd.read_csv("data/continents-according-to-our-world-in-data.csv")
+
+    # Select and reorder columns
+    selected_columns = ["country", "iso_code", "population", "gdp", "year", "co2", "coal_co2", 
+                        "oil_co2", "gas_co2", "cement_co2", "flaring_co2", 
+                        "other_industry_co2", "co2_per_capita", "cumulative_co2", 
+                        "cumulative_coal_co2", "cumulative_oil_co2", 
+                        "cumulative_gas_co2", "cumulative_cement_co2", 
+                        "cumulative_flaring_co2", "cumulative_other_co2", 
+                        "land_use_change_co2", "share_global_co2", 
+                        "share_global_cumulative_co2", "temperature_change_from_co2", 
+                        "total_ghg", "total_ghg_excluding_lucf"]
+    df = df[selected_columns]
+
+    # Set 'country' and 'year' as the index
+    df = df.set_index(['country', 'year'])
+
+    # Interpolate missing values using linear interpolation
+    df['population'] = df['population'].interpolate(method='linear')
+
+    # Reset the index to make 'country' and 'year' regular columns
+    df = df.reset_index()
+
+    # Merge the dataframes based on 'iso_code' and 'Code'
+    merged_data = pd.merge(df, df_continents, left_on='iso_code', right_on='Code', how='left')
+
+    # Rename columns to match the desired structure
+    merged_data.rename(columns={'Continent': 'continent'}, inplace=True)
+
+    # Drop unnecessary columns from the merged dataframe
+    merged_data.drop(['Entity', 'Code', 'Year'], axis=1, inplace=True)
+
+    # Reorder the columns
+    column_order = ['country', 'continent'] + [col for col in merged_data.columns if col not in ['country', 'continent']]
+    merged_data = merged_data[column_order]
+
+    # Filter the dataframe to include only countries in the provided list
+    merged_data = merged_data[merged_data['country'].isin(country_names)]
+
+    # Filter rows to include only data from 1850 onwards
+    merged_data = merged_data[merged_data['year'] >= 1850]
+
+    # Save the processed DataFrame to the CSV file
+    merged_data.to_csv(output_file_path, index=False)
+
+    # # Process and save the CSV
+    # input_file_path_csv = 'data/owid-co2-data.csv'
+    # output_file_path_csv = 'data/processed_data.csv'
+    # process_and_save_csv(input_file_path_csv, output_file_path_csv, country_names)
 
 # ------------------------------------------------------------------------------
 # pedo_1
