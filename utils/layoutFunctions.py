@@ -69,27 +69,28 @@ def make_CC_licenseBanner():
     return banner
 
 # ------------------------------------------------------------------------------
-# start_page functions
+# start_page_1 functions
 # ------------------------------------------------------------------------------
 def make_start_page_sidebar():
     # Bootstrap Sidebar
+    # Verwenden Sie Font Awesome-Symbole für Links
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2- Budget"],
+            dbc.NavItem(dbc.NavLink([link_icon, "CO2- Budget"],
                                     style={"text-decoration": "underline"},
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"], 
+            dbc.NavItem(dbc.NavLink([link_icon, "CO2 und das Klima"],
                                     style={"text-decoration": "underline"},
                                     href="/start_page_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span(" Home:"),
+        brand=html.Span("Home:"),
         color="primary",
         dark=True,
         className="d-flex justify-content-center",
@@ -100,9 +101,7 @@ def make_start_page_sidebar():
         [
             html.Div(
                 [
-                    html.P([
-                        "Die Diskussionen über den Klimawandel sind von Emotionen, politischen und wirtschaftlichen Motivationen sowie persönlichen Vorurteilen geprägt. Um einen Beitrag zur Diskussion liefern zu können ist es daher wichtig, die Datengrundlage sowie die Methodik zur Erstellung von Infografiken so transparent und klar wie möglich darzulegen."
-                    ]),
+                    html.P("Die Diskussionen über den Klimawandel sind von Emotionen, politischen und wirtschaftlichen Motivationen sowie persönlichen Vorurteilen geprägt. Um einen Beitrag zur Diskussion liefern zu können ist es daher wichtig, die Datengrundlage sowie die Methodik zur Erstellung von Infografiken so transparent und klar wie möglich darzulegen [...]"),
                     html.P([
                         "Einige Skeptiker argumentieren, dass der menschliche Einfluss auf das Klima gering sei und natürliche Faktoren die Hauptursache für Klimaschwankungen darstellen. Sie betonen, dass vertieftes Verständnis natürlicher Prozesse die behauptete Dominanz des menschlichen Einflusses in Frage stellt. Für Häufig vorgebrachte Positionen von Klimaskeptikern siehe auch ",
                         html.A("Sceptical Science", href="https://skepticalscience.com/argument.php", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -301,124 +300,10 @@ def make_interactive_controls_example():
     return controls_example
 
 # ------------------------------------------------------------------------------
-# klima_1 functions
+# start_page_2 functions
 # ------------------------------------------------------------------------------
-def make_klima_1_sidebar():
-    # Bootstrap Sidebar
-    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
-
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
-    sidebar = dbc.NavbarSimple(
-        children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
-                                    style={"text-decoration": "underline"},
-                                    href="/klima_1", 
-                                    id="navlink-1", 
-                                    className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"], 
-                                    style={"text-decoration": "underline"},
-                                    href="/klima_2", 
-                                    id="navlink-2", 
-                                    className="nav-link-custom")),
-        ],
-        brand=html.Span([link_icon, " Klimatologie:"], 
-                        style={"text-decoration": "underline"}),
-        brand_href="https://de.wikipedia.org/wiki/Klimatologie",
-        color="primary",
-        dark=True,
-        className="d-flex justify-content-center",
-    )
-
-    # Second row with sample text and collapse component
-    second_row = dbc.Container(
-        [
-            html.Div(
-                [
-                    html.P([
-                        "Einige Skeptiker argumentieren, dass der menschliche Einfluss auf das Klima gering sei und natürliche Faktoren die Hauptursache für Klimaschwankungen darstellen. Sie betonen, dass vertieftes Verständnis natürlicher Prozesse die behauptete Dominanz des menschlichen Einflusses in Frage stellt. Für Häufig vorgebrachte Positionen von Klimaskeptikern siehe auch ",
-                        html.A("Sceptical Science", href="https://skepticalscience.com/argument.php", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        "."
-                    ]),
-                    html.P([
-                        "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO2 dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO2-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO2 und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
-                        html.A("sechste Sachstandsbericht", href="https://www.ipcc.ch/report/ar6/wg1/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " des IPPC."
-                    ]),
-                ],
-                className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
-            ),
-
-            html.Div(
-                [
-                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
-                ],
-            ),
-
-            dbc.Collapse(
-                html.Div(
-                    [
-                        html.P([
-                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
-                            html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
-                        ]),
-                        
-                        html.P([
-                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
-                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " und der ",
-                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
-                        ]),
-                        
-                        html.P([
-                            "Der Internationale Ausschuss für Klimaänderungen (",
-                            html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
-                        ]),
-                        
-                        html.P([
-                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
-                        ]),
-
-                        html.Hr(),
-                        html.H4("Verwendete Datensätze:"),
-                        html.P([
-                            "Daten für die hier verwendeten Treemaps stützen sich auf Datensätze von ",
-                            html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
-                            html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " (Datensatz wird fortlaufend aktualisiert).",
-                        ]),
-
-                        html.P([  
-                            "Die Temperaturdaten stammen von der National Aeronautics and Space Administration (",
-                            html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar. Weitere Informationen zum Datensatz finden sich ",
-                            html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
-                        ]),
-                    ],
-                    className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
-                ),
-                id='collapse_more_info_klima_2',
-                is_open=False,
-            ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_1', className='ms-1')
-        ],
-        fluid=True,
-        className="py-1 bg-primary rounded-1 text-white",
-    )
-
-    # Combine the sidebar, second row, and the new settings row
-    layout = dbc.Container([sidebar, second_row])
-
-    return layout
-
-def make_klima_1_settings(default_value='average_temp', options=None):
-    # Klima_1 settings
+def make_start_page_2_settings(default_value='average_temp', options=None):
+    # start_page_1 settings
     if options is None:
         options = [
             {'label': 'Durchschnittstemperatur', 'value': 'average_temp'},
@@ -721,21 +606,21 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
     return graph_with_info_button
 
 # ------------------------------------------------------------------------------
-# klima_2 functions
+# klima_1 functions
 # ------------------------------------------------------------------------------
-def make_klima_2_sidebar():
+def make_klima_1_sidebar():
     # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
                                     style={"text-decoration": "underline"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"], 
+            dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
                                     style={"text-decoration": "underline"},
                                     href="/klima_2", 
                                     id="navlink-2", 
@@ -828,7 +713,7 @@ def make_klima_2_sidebar():
 
     return layout
 
-def make_klima_2_settings(default_value='co2_emissions_per_country', options=None):
+def make_klima_1_settings(default_value='co2_emissions_per_country', options=None):
     if options is None:
         options = [
             {'label': 'Durchschnittliche CO₂-Emissionen der letzten 5 Jahre', 'value': 'co2_emissions_per_country'},
@@ -1141,6 +1026,179 @@ def create_co2_treemap_per_capita(df_filtered):
     ])
 
     return graph_with_info_button
+
+# ------------------------------------------------------------------------------
+# klima_1 functions
+# ------------------------------------------------------------------------------
+def make_klima_2_sidebar():
+    # Bootstrap Sidebar
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_1", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
+                                    style={"text-decoration": "underline"},
+                                    href="/klima_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
+        ],
+        brand=html.Span([link_icon, " Klimatologie:"], 
+                        style={"text-decoration": "underline"}),
+        brand_href="https://de.wikipedia.org/wiki/Klimatologie",
+        color="primary",
+        dark=True,
+        className="d-flex justify-content-center",
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                    html.P([
+                        "Einige Skeptiker argumentieren, dass der menschliche Einfluss auf das Klima gering sei und natürliche Faktoren die Hauptursache für Klimaschwankungen darstellen. Sie betonen, dass vertieftes Verständnis natürlicher Prozesse die behauptete Dominanz des menschlichen Einflusses in Frage stellt. Für Häufig vorgebrachte Positionen von Klimaskeptikern siehe auch ",
+                        html.A("Sceptical Science", href="https://skepticalscience.com/argument.php", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "."
+                    ]),
+                    html.P([
+                        "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO2 dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO2-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO2 und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
+                        html.A("sechste Sachstandsbericht", href="https://www.ipcc.ch/report/ar6/wg1/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " des IPPC."
+                    ]),
+                ],
+                className='mb-3',
+                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                        html.P([
+                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
+                            html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
+                        ]),
+                        
+                        html.P([
+                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
+                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " und der ",
+                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
+                        ]),
+                        
+                        html.P([
+                            "Der Internationale Ausschuss für Klimaänderungen (",
+                            html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
+                        ]),
+                        
+                        html.P([
+                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
+                        ]),
+
+                        html.Hr(),
+                        html.H4("Verwendete Datensätze:"),
+                        html.P([
+                            "Daten für die hier verwendeten Treemaps stützen sich auf Datensätze von ",
+                            html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
+                            html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " (Datensatz wird fortlaufend aktualisiert).",
+                        ]),
+
+                        html.P([  
+                            "Die Temperaturdaten stammen von der National Aeronautics and Space Administration (",
+                            html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar. Weitere Informationen zum Datensatz finden sich ",
+                            html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ".",
+                        ]),
+                    ],
+                    className='mb-3',
+                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                ),
+                id='collapse_more_info_klima_2',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
+def make_co2_world_map(countries, min_year, max_year, chart_type_buttons):
+    layout = dbc.Container([
+        dbc.Row([
+            dbc.Col(
+                [
+                    chart_type_buttons,
+                    dcc.Dropdown(
+                        id='co2-type-selector',
+                    options=[
+                        {'label': 'Population', 'value': 'population'},
+                        {'label': 'GDP', 'value': 'gdp'},
+                        {'label': 'CO2', 'value': 'co2'},
+                        {'label': 'Coal CO2', 'value': 'coal_co2'},
+                        {'label': 'Oil CO2', 'value': 'oil_co2'},
+                        {'label': 'Gas CO2', 'value': 'gas_co2'},
+                        {'label': 'Cement CO2', 'value': 'cement_co2'},
+                        {'label': 'Flaring CO2', 'value': 'flaring_co2'},
+                        {'label': 'CO2 per Capita', 'value': 'co2_per_capita'},
+                        {'label': 'Land Use Change CO2', 'value': 'land_use_change_co2'},
+                        {'label': 'Share of Global CO2', 'value': 'share_global_co2'},
+                        {'label': 'Temperature Change from CO2', 'value': 'temperature_change_from_co2'},
+                        {'label': 'Total GHG', 'value': 'total_ghg'},
+                        {'label': 'Total GHG Excluding LUCF', 'value': 'total_ghg_excluding_lucf'}
+                    ],
+                        value='co2',
+                        className="mb-3",
+                    ),
+                    dcc.Dropdown(
+                        id='country-selector',
+                        options=[{'label': country, 'value': country} for country in countries],
+                        value=[],
+                        multi=True,
+                        className="mb-3",
+                    ),
+                    dcc.Graph(id='chart', style={'height': '70vh'}),
+                    dcc.RangeSlider(
+                        id='year-slider',
+                        min=min_year,
+                        max=max_year,
+                        value=[min_year, max_year],
+                        marks={str(year): str(year) for year in range(min_year, max_year+1, 5)},
+                    )
+                ],
+                width=12
+            )
+        ]),
+        dbc.Row([
+            dbc.Col(
+                html.Div(id='slider-output'),
+                width=9, className="offset-md-3"
+            )
+        ]),
+        html.Div(id='chart-type-status', style={'display': 'none'})
+    ], fluid=True)
+    return layout
 
 # ------------------------------------------------------------------------------
 # hydro_1 functions

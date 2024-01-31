@@ -37,7 +37,7 @@ layout = html.Div(
                 # Main content area with settings and selected graph container
                 dbc.Col(
                     [
-                        lf.make_klima_1_settings(),
+                        lf.make_start_page_2_settings(),
                         html.Div(id='selected-graph-container', style={'height': '100vh'})
                     ],
                     width=8,

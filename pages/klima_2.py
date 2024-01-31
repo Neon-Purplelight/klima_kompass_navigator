@@ -1,77 +1,60 @@
-# Import necessary libraries and modules
-from dash import html, Input, Output, State, callback
-import dash_bootstrap_components as dbc
-from pathlib import Path
+import dash
+from dash import dcc, html, Input, Output, State, callback
+import plotly.express as px
 import pandas as pd
+import json
+import dash_bootstrap_components as dbc
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
 # ------------------------------------------------------------------------------
-# Initialize utility objects and useful functions
-# ------------------------------------------------------------------------------
-# Define the full path of the data folder to load raw data
-dataFolder = Path(__file__).parent.parent.absolute() / 'data'
-
-# ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
-# Load CO2 and continent datasets
-df_co2 = dm.read_co2_data(dataFolder/'originalData/owid-co2-data.csv')
-df_continents = dm.read_continental_data(dataFolder/'originalData/continents-according-to-our-world-in-data.csv')
+df = pd.read_csv('data\originalData\processed_data.csv')
+with open('data\originalData\processed_world-countries.json') as f:
+    countries_json = json.load(f)
+
+min_year = df['year'].min()
+max_year = df['year'].max()
 
 # ------------------------------------------------------------------------------
-# Perform some preprocessing
+# Initialize utility objects and useful functions
 # ------------------------------------------------------------------------------
-# Merge the dataframes based on 'iso_code' and 'Code'
-merged_data = pd.merge(df_co2, df_continents, left_on='iso_code', right_on='Code', how='left')
+# Erstellen Sie eine Liste aller einzigartigen Länder aus dem DataFrame
+countries = df['country'].unique()
 
-# Rename columns to match the desired structure
-merged_data.rename(columns={'Continent': 'continent'}, inplace=True)
-
-# Drop unnecessary columns from the merged dataframe
-merged_data.drop(['Entity', 'Code', 'Year'], axis=1, inplace=True)
-
-# Reorder the columns
-column_order = ['country', 'continent'] + [col for col in merged_data.columns if col not in ['country', 'continent']]
-merged_data = merged_data[column_order]
-
-# Filter out rows without continents
-df = merged_data 
-
-# Define the list of valid continent values
-valid_continents = [
-    'Africa', 'Asia', 'Europe', 'High-income countries', 'International transport',
-    'Low-income countries', 'Lower-middle-income countries', 'North America', 'Oceania',
-    'South America', 'Upper-middle-income countries', 'World'
-]
-
-# Filter rows based on the 'continent' column
-df_filtered = df[df['continent'].isin(valid_continents)]
+chart_type_buttons = dbc.ButtonGroup(
+    [
+        dbc.Button("Weltkarte", id='button-map', color="primary", className="me-1"),
+        dbc.Button("Liniendiagramm", id='button-line', color="secondary"),
+    ],
+    className="mb-3",
+)
 
 # ------------------------------------------------------------------------------
 # LAYOUT
 # ------------------------------------------------------------------------------
 
-# Define the layout structure with navigation bar, sidebar, settings, and selected graph container
-def generate_default_graph():
-    return lf.create_co2_treemap(df_filtered)
-
+# Main layout structure with navigation bar, sidebar, settings, and selected graph container
 layout = html.Div(
     [
-        dbc.Row(lf.make_NavBar()),  # Navigation Bar
+        dbc.Row(lf.make_NavBar()),  
         dbc.Row(
             [
+                # Sidebar for the klima-1 page
                 dbc.Col(lf.make_klima_2_sidebar(), width=4),
+                
+                # Main content area with settings and selected graph container
                 dbc.Col(
                     [
-                        lf.make_klima_2_settings(),
-                        html.Div(id='selected-graph-container_klima_2',
-                                 children=generate_default_graph())  # Set default graph content
+                        lf.make_co2_world_map(countries, min_year, max_year, chart_type_buttons)
                     ],
                     width=8,
                 ),
             ]
         ),
+        
+        # Row containing the Creative Commons license banner
         dbc.Row([lf.make_CC_licenseBanner()]),
     ],
 )
@@ -79,69 +62,74 @@ layout = html.Div(
 # ------------------------------------------------------------------------------
 # CALLBACKS
 # ------------------------------------------------------------------------------
-
-# Callback to update the selected graph based on the user's choice
 @callback(
-    Output('selected-graph-container_klima_2', 'children'),
-    Input('klima-2-plot-selector', 'value'),
-    prevent_initial_call=True
+    Output('chart-type-status', 'children'),
+    [Input('button-map', 'n_clicks'),
+     Input('button-line', 'n_clicks')],
+    [State('chart-type-status', 'children')]
 )
-def update_selected_graph(selected_plot):
-    if selected_plot == 'co2_emissions_per_country':
-        return lf.create_co2_treemap(df_filtered), False
-    elif selected_plot == 'co2_emissions_historic':
-        return lf.create_co2_treemap_historic(df_filtered), False
-    elif selected_plot == 'co2_emissions_per_capita':
-        return lf.create_co2_treemap_per_capita(df_filtered), False
-    else:
-        return html.Div("No graph selected"), False
+def update_chart_type_status(button_map, button_line, current_status):
+    ctx = dash.callback_context
 
-# Callbacks for toggling the visibility of info cards and the more info section
-@callback(
-    Output("info-card_klima_2_co2_treemap", "style"),
-    Input("info-button_klima_2_co2_treemap", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_treemap_co2(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
+    # Wenn der Callback zum ersten Mal ausgelöst wird, wird der Standardwert zurückgegeben
+    if not ctx.triggered:
+        return 'map'
 
-@callback(
-    Output("info-card_klima_2_historic_treemap", "style"),
-    Input("info-button_klima_2_historic_treemap", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_treemap_historic(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    return 'map' if button_id == 'button-map' else 'line'
 
+# Callback zum Aktualisieren des Diagramms
 @callback(
-    Output("info-card_klima_2_per_capita_treemap", "style"),
-    Input("info-button_klima_2_per_capita_treemap", "n_clicks"),
-    prevent_initial_call=True
+    Output('chart', 'figure'),
+    [Input('co2-type-selector', 'value'),
+     Input('year-slider', 'value'),
+     Input('country-selector', 'value'),
+     Input('chart-type-status', 'children')]  # Direktes Lesen des Diagrammtyps aus dem Status
 )
-def toggle_info_card_treemap_per_capita(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
+def update_chart(selected_co2_type, selected_year_range, selected_countries, chart_type):
+    min_year, max_year = selected_year_range
+    filtered_df = df[(df['year'] >= min_year) & (df['year'] <= max_year)]
 
-# Callback to toggle the collapse state of the more info section
-@callback(
-    Output('collapse_more_info_klima_2', 'is_open'),
-    Input('more_info_button_klima_2', 'n_clicks'),
-    State('collapse_more_info_klima_2', 'is_open'),
-    prevent_initial_call=True
-)
-def toggle_collapse_more_info(n_clicks, is_open):
-    return not is_open
+    if selected_countries:
+        filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
+
+    if chart_type == 'map':
+        fig = px.choropleth(
+            filtered_df,
+            locations="iso_code",
+            geojson=countries_json,
+            color=selected_co2_type,
+            hover_name="country",
+            title=f"World CO2 Emissions by {selected_co2_type} from {min_year} to {max_year}",
+            color_continuous_scale="YlOrRd"  # Hier ändern Sie die Farbskala
+        )
+        fig.update_layout(
+            margin={"r":0, "t":0, "l":0, "b":0},
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=-0.5,
+                xanchor="center",
+                x=0.5
+            )
+        )
+        fig.update_geos(
+            fitbounds="locations",
+            visible=False,
+            showcountries=True,
+            showcoastlines=True,
+            showland=True,
+            landcolor="LightGrey",
+            showocean=True,
+            oceancolor="LightBlue"
+        )
+    elif chart_type == 'line':
+        fig = px.line(
+            filtered_df,
+            x='year',
+            y=selected_co2_type,
+            color='country',
+            title=f"CO2 Emissions by {selected_co2_type} Over Time"
+        )
+
+    return fig
