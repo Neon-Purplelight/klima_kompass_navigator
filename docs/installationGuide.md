@@ -1,31 +1,46 @@
-# Installation
+# Installation des Klima-Kompass-Navigators
 
-Diese Datei führt Sie durch die Installation der erforderlichen Komponenten, um den Klima-Kompass-Navigator auf Ihrem Computer auszuführen. Es setzt keine Vorkenntnisse in Python oder Programmiererfahrung voraus. Zur Installation der Notwendigen Pakete wird die Verwendung der [Anaconda- Paketverwaltung](https://www.anaconda.com/download) empfohlen.
+*English version below*
+Diese Anleitung zeigt Ihnen, wie Sie den Klima-Kompass-Navigator einfach auf Ihrem Computer installieren können. Sie brauchen keine Vorkenntnisse in Python oder Programmierung.
 
-## Schritt für Schritt Anleitung für das Terminal
+## Schritt-für-Schritt-Anleitung
 
-### 1. Klonen Sie dieses Repository in einen Ordner Ihrer Wahl auf Ihrem PC
+### 1. Klonen Sie das Repository
 
-`cd voller/pfad/zum/gewünschten/installations/ordner/`  
+Öffnen Sie das Terminal und geben Sie Folgendes ein:
+
+`cd Pfad/zu/Ihrem/Wunschordner`
 `git clone https://github.com/Neon-Purplelight/klima_kompass_navigator.git`
 
-### 2. Gehen Sie in den neu erstellten Ordner  
+Ersetzen Sie `Pfad/zu/Ihrem/Wunschordner` mit dem Pfad, an dem Sie das Programm speichern möchten.
+
+### 2. Wechseln Sie in den neuen Ordner
+
+Geben Sie im Terminal ein:
 
 `cd klima_kompass_navigator`
 
-### 3. Erstellen Sie eine neue virtuelle Conda-Umgebung, um die notwendigen Pakete in einer isolierten Umgebung zu installieren
+### 3. Erstellen Sie eine neue virtuelle Umgebung mit venv
 
-`conda create -n klima_kompass_navigator Python==3.10`
+Dies erstellt eine isolierte Umgebung für das Projekt.
 
-### 4. Aktivieren Sie die neu erstellte Umgebung
+`python -m venv klima_kompass_navigator_venv`
 
-`conda activate pklima_kompass_navigator`
+### 4. Aktivieren Sie die virtuelle Umgebung
+
+Auf Windows:
+
+`klima_kompass_navigator_venv\Scripts\activate`
+
+Auf MacOS/Linux:
+
+`source klima_kompass_navigator_venv/bin/activate`
 
 ### 5. Installieren Sie die erforderlichen Pakete
 
 `pip install -r requirements.txt`
 
-### 6. Starten Sie den Navigator  
+### 6. Starten Sie den Navigator
 
 `python app.py`
 
@@ -33,49 +48,64 @@ Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole a
 
 Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie die Umgebung aktivieren, in den geklonten Ordner wechseln und die Hauptdatei ausführen:
 
-```python
-conda activate klima_kompass_navigator
-cd ../klima_kompass_navigator/
+```cd Pfad/zu/Ihrem/Wunschordner/klima_kompass_navigator
+klima_kompass_navigator_venv\Scripts\activate # Windows
+source klima_kompass_navigator_venv/bin/activate # MacOS/Linux
 python app.py
 ```
 
-## Installation (English)
+## Installation of the Climate Compass Navigator
 
-This file guides you through the installation of the necessary components to run the Climate Compass Navigator on your computer. It does not require any prior knowledge of Python or programming experience. For the installation of the necessary packages, it is recommended to use the [Anaconda package manager](https://www.anaconda.com/download).
+This guide will show you how to easily install the Climate Compass Navigator on your computer. You don't need any prior knowledge in Python or programming.
 
-## Step-by-Step Instructions for the Terminal
+## Step-by-Step Instructions
 
-### 1. Clone this repository into a folder of your choice on your PC
+### 1. Clone the Repository
 
-`cd full/path/to/desired/installation/folder/`
+Open your terminal and enter the following:
+
+`cd path/to/your/desired/folder`
+
 `git clone https://github.com/Neon-Purplelight/klima_kompass_navigator.git`
 
-### 2. Navigate to the newly created folder
+Replace path/to/your/desired/folder with the path where you want to save the program.
+
+### 2. Navigate to the New Folder
+
+Enter in the terminal:
 
 `cd klima_kompass_navigator`
 
-### 3. Create a new virtual Conda environment to install the necessary packages in an isolated environment
+### 3. Create a New Virtual Environment with venv
 
-`conda create -n klima_kompass_navigator Python==3.10`
+This creates an isolated environment for the project.
 
-### 4. Activate the newly created environment
+`python -m venv klima_kompass_navigator_venv`
 
-`conda activate pklima_kompass_navigator`
+### 4. Activate the Virtual Environment
 
-### 5. Install the required packages
+On Windows:
+
+`klima_kompass_navigator_venv\Scripts\activate`
+
+On MacOS/Linux:
+
+`source klima_kompass_navigator_venv/bin/activate`
+
+### 5. Install the Required Packages
 
 `pip install -r requirements.txt`
 
-### 6. Start the navigator
+### 6. Start the Navigator
 
 `python app.py`
 
-The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`).  Open this address in any browser, and you should be able to browse the web application.
+The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`). Open this address in any browser to run the web application locally from your PC.
 
-After the initial installation, you can simply run the web application by activating the environment, navigating to the cloned folder, and executing the main file:
+After the initial installation, you can easily run the web application by activating the environment, navigating to the cloned folder, and executing the main file:
 
-```python
-conda activate klima_kompass_navigator
-cd ../klima_kompass_navigator/
+```cd path/to/your/desired/folder/klima_kompass_navigator
+klima_kompass_navigator_venv\Scripts\activate # Windows
+source klima_kompass_navigator_venv/bin/activate # MacOS/Linux
 python app.py
 ```
