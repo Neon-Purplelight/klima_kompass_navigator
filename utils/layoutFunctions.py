@@ -1588,13 +1588,19 @@ def make_hydro_2_sidebar():
         className="d-flex flex-column justify-content-center",
     )
 
-    # Second row with sample text and collapse component
+    # Infotext und Video
     second_row = dbc.Container(
         [
             html.Div(
                 [
                     html.P([
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",                    ]),
+                        "Der Klimawandel führt zu veränderten Niederschlagsmustern und erhöhten Temperaturen, was die Verfügbarkeit von Wasser in den Wäldern beeinflusst. In vielen Regionen Deutschlands hat die Zunahme von Trockenperioden bereits spürbare Auswirkungen auf die Waldgesundheit.",
+                    ]),
+                    html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"}),
+                    html.P([
+                        "Diese Veränderungen im Wasserhaushalt wirken sich nicht nur auf das Wachstum und die Entwicklung der Bäume aus, sondern auch auf die Biodiversität und die Ökosystemdienstleistungen, die der Wald erbringt. Wasser ist dabei nicht nur Grundlage für die Photosynthese, sondern spielt darüber hinaus eine entscheidende Rolle für die allgemeine Gesundheit und Widerstandsfähigkeit gegenüber Schädlingen, wie dem Borkenkäfer, Unwetterereignissen oder Waldbränden.",
+                        "Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
+                    ]), 
                 ],
                 className='mb-3',
                 style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -1610,12 +1616,22 @@ def make_hydro_2_sidebar():
                 html.Div(
                     [
                         html.P([
-                            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-                        ]),
-                        html.Hr(),
-                        html.H4("Verwendete Datensätze:"),
+                        "Früher waren vor allem Unwetterereignisse (wie etwa 2015 dem ",
+                        html.A("Sturmtief Niklas", href="https://de.wikipedia.org/wiki/Orkan_Niklas", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ") die Hauptursache für Schadholz. Orkane oder Stürme sind meist Singuläre Ereignisse, welche von Jahr zu Jahr starken Schwankungen unterworfen sein können, sich daher aber auch deutlich in den Diagrammen ablesen lassen. Seit der großen Dürre von 2018 sind vor allem Schädlinge die Einschlagsursache Nummer 1. Ihr Anteil hat seit 2018 deutlich zugenommen und 2021 mit 81,4 % einen vorläufigen Höchststand erreicht (2012 hatte er noch bei 17,8 % gelegen)."
+                        " Als Einschlagsursache wird schlussendlich lediglich die finale Ursache erfasst. Durch Trockenheit geschwächte Bäume sind anfälliger für alle anderen in der Statistik geführten Schadholzeinschlagsursachen. Daher wird Trockenheit seit 2020 auch als separate Schadholzkategorie geführt."
+                        ]),  
                         html.P([
-                            "Lorem Ipsum",
+                        "Der Schadholzeinschlag berechnet sich auf Grundlage der ",
+                        html.A("Holzeinschlagsstatistik", href="https://www.destatis.de/DE/Methoden/Qualitaet/Qualitaetsberichte/Land-Forstwirtschaft-Fischerei/holzeinschlagsstatistik.pdf?__blob=publicationFile", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " des statistischen Bundesamtes (",
+                        html.A("Destatis", href="https://www.destatis.de/DE/Home/_inhalt.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "). Diese jährliche Erhebung von Daten zum Rohholzaufkommen in Deutschland umfasst alle Betriebe, die Rohholz erzeugen, und berücksichtigt planmäßigen sowie schadensbedingten Einschlag. Die Datengewinnung kombiniert Verwaltungsdaten, direkte Befragung und Schätzungen. Die Genauigkeit variiert nach Waldeigentumsart und Erhebungsmethode. Die Datenerhebung erfolgt also einerseits über Verwaltungsdaten, die eine relativ hohe Genauigkeit aufweisen, und andererseits über Schätzungen und Stichprobenerhebungen, die mit gewissen Unsicherheiten behaftet sind. Besonders im Privatwald, wo die Waldflächen oft kleiner und die Bewirtschaftung nicht regelmäßig ist, müssen Schätzungen und Hochrechnungen vorgenommen werden."
+                        ]),    
+                        html.Hr(),
+                        html.H4("Verwendeter Datensatz:"),
+                        html.P([  
+                            html.A("Schadholzeinschlag: Deutschland, Jahre, Einschlagsursache,Holzartengruppen, Waldeigentumsarten", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1706808195969#abreadcrumb", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         ]),
                     ],
                     className='mb-3',
@@ -1624,11 +1640,11 @@ def make_hydro_2_sidebar():
                 id='collapse_more_info_hydro_1',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1'),
-            ],
-            fluid=True,
-            className="py-1 bg-primary rounded-1 text-white",
-            )
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_hydro_1', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
 
     # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
@@ -1715,65 +1731,48 @@ def hydro_2_line_chart(df, colors):
     }
 
 def hydro_2_stacked_bar_chart(df, colors):
-# Tab 2: Gestapeltes Balkendiagramm
-    return {
-            'data': [
-                go.Scatter(
-                    x=df['Jahr'], 
-                    y=df['Durchschnittsniederschlag'], 
-                    mode='lines',
-                    name='Durchschnittsniederschlag', 
-                    line={'color': 'Blue', 'dash': 'dashdot'},
-                    hovertemplate='<b>%{y:.2f} l/m²</b>',
-                    yaxis='y2'
-                ),
-                go.Bar(
-                    x=df['Jahr'], 
-                    y=df['Trockenheit'], 
-                    name='Trockenheit', 
-                    marker={'color': colors['Trockenheit']}, 
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
-                ),
-                go.Bar(
-                    x=df['Jahr'], 
-                    y=df['Sonstige Ursachen'], 
-                    name='Sonstige Ursachen', 
-                    marker={'color': colors['Sonstige Ursachen']}, 
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
-                ),
-                go.Bar(
-                    x=df['Jahr'], 
-                    y=df['Schnee/Duft'], 
-                    name='Schnee/Duft', 
-                    marker={'color': colors['Schnee/Duft']}, 
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
-                ),
-                go.Bar(
-                    x=df['Jahr'], 
-                    y=df['Wind/Sturm'], 
-                    name='Wind/Sturm', 
-                    marker={'color': colors['Wind/Sturm']}, 
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
-                ),                
-                go.Bar(
-                    x=df['Jahr'], 
-                    y=df['Insekten'], 
-                    name='Insekten', 
-                    marker={'color': colors['Insekten']}, 
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>'
-                ),
-            ],
-        'layout': go.Layout(
-            title='Schadholzeinschlag nach Einschlagsursachen',
-            yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
-            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
-            xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
-            barmode='stack',
-            legend={'x': 0, 'y': -0.2, 'orientation': 'h', 'traceorder': 'reversed'},
-            hovermode='x unified',
-            hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
-        )
-    }
+    # Berechnung der Gesamtsumme für jedes Jahr zur Bestimmung der prozentualen Anteile
+    df['Gesamt'] = df[['Trockenheit', 'Sonstige Ursachen', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']].sum(axis=1)
+    
+    # Erstellen der Balken für das gestapelte Balkendiagramm
+    bar_data = [
+        go.Bar(
+            x=df['Jahr'], 
+            y=df[ursache].round(2), 
+            name=ursache,
+            marker={'color': colors[ursache]},
+            hovertemplate='<b>%{y:.2f} Mill. m³ (%{text:.2f}%)</b>',
+            text=(df[ursache] / df['Gesamt'] * 100).round(2)
+        ) for ursache in ['Trockenheit', 'Sonstige Ursachen', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']
+    ]
+
+    # Hinzufügen der Linie für den Durchschnittsniederschlag
+    line_data = go.Scatter(
+        x=df['Jahr'], 
+        y=df['Durchschnittsniederschlag'].round(2), 
+        mode='lines',
+        name='Durchschnittsniederschlag', 
+        line={'color': 'Blue', 'dash': 'dashdot'},
+        hovertemplate='<b>%{y:.2f} l/m²</b>',
+        yaxis='y2'
+    )
+
+    # Kombinieren der Daten
+    data = bar_data + [line_data]
+
+    # Anpassen der Layout-Einstellungen für das gestapelte Balkendiagramm
+    layout = go.Layout(
+        title='Schadholzeinschlag nach Einschlagsursachen',
+        yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, df['Gesamt'].max() * 1.1]},
+        yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, df['Durchschnittsniederschlag'].max() * 1.1]},
+        xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
+        barmode='stack',
+        legend={'x': 0, 'y': -0.2, 'orientation': 'h', 'traceorder': 'reversed'},
+        hovermode='x unified',
+        hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
+    )
+
+    return {'data': data, 'layout': layout}
 
 def hydro_2_stacked_line_chart(df, colors):
 # Tab 3: Gestapeltes Liniendiagramm
@@ -1803,7 +1802,8 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers',
                     name='Trockenheit',
                     marker={'color': colors['Trockenheit'], 'size': 8}, 
-                    visible='legendonly', stackgroup='one', 
+                    #visible='legendonly', 
+                    stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
                     x=df['Jahr'], 
@@ -1811,7 +1811,7 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Sonstige Ursachen', 
                     marker={'color': colors['Sonstige Ursachen'], 'size': 8}, 
-                    visible='legendonly', 
+                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -1820,7 +1820,7 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Schnee/Duft', 
                     marker={'color': colors['Schnee/Duft'], 'size': 8}, 
-                    visible='legendonly', 
+                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -1829,7 +1829,8 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Wind/Sturm', 
                     marker={'color': colors['Wind/Sturm'], 'size': 8}, 
-                    visible='legendonly', stackgroup='one', 
+                    #visible='legendonly', 
+                    stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
                     x=df['Jahr'], 
@@ -1837,7 +1838,7 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Insekten', 
                     marker={'color': colors['Insekten'], 'size': 8}, 
-                    visible='legendonly', 
+                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
             ],
