@@ -48,9 +48,10 @@ Auf MacOS/Linux:
 
 Das Skript erstellt einen lokalen Server und gibt seine Adresse in der Konsole aus (normalerweise `http://127.0.0.1:8050/`). Öffnen Sie diese Adresse mit einem beliebigen Browser um die Webanwendung lokal von ihrem PC ausführen zu können.
 
-Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie die Umgebung aktivieren, in den geklonten Ordner wechseln und die Hauptdatei ausführen:
+Nach der ersten Installation können Sie die Webanwendung einfach ausführen, indem Sie in den geklonten Ordner wechseln, die Umgebung aktivieren und die Hauptdatei ausführen:
 
-```cd Pfad/zu/Ihrem/Wunschordner/klima_kompass_navigator
+```
+cd Pfad/zu/Ihrem/Wunschordner/klima_kompass_navigator
 klima_kompass_navigator_venv\Scripts\activate # Windows
 source klima_kompass_navigator_venv/bin/activate # MacOS/Linux
 python app.py
@@ -104,9 +105,10 @@ On MacOS/Linux:
 
 The script creates a local server and displays its address in the console (usually `http://127.0.0.1:8050/`). Open this address in any browser to run the web application locally from your PC.
 
-After the initial installation, you can easily run the web application by activating the environment, navigating to the cloned folder, and executing the main file:
+After the initial installation, you can simply run the web application by switching to the cloned folder, activating the environment and running the main file:
 
-```cd path/to/your/desired/folder/klima_kompass_navigator
+```
+cd path/to/your/desired/folder/klima_kompass_navigator
 klima_kompass_navigator_venv\Scripts\activate # Windows
 source klima_kompass_navigator_venv/bin/activate # MacOS/Linux
 python app.py
