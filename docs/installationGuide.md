@@ -11,6 +11,7 @@ Diese Anleitung zeigt Ihnen, wie Sie den Klima-Kompass-Navigator einfach auf Ihr
 Öffnen Sie das Terminal und geben Sie Folgendes ein:
 
 `cd Pfad/zu/Ihrem/Wunschordner`
+
 `git clone https://github.com/Neon-Purplelight/klima_kompass_navigator.git`
 
 Ersetzen Sie `Pfad/zu/Ihrem/Wunschordner` mit dem Pfad, an dem Sie das Programm speichern möchten.
