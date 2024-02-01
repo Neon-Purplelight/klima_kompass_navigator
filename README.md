@@ -1,6 +1,8 @@
 
 # Klima-Kompass-Navigator
 
+*(English version below)*
+
 Ein **kostenloses** und **offenes** Muster-Dashboard, das sich mit den Auswirkungen des Klimawandels auf unsere Umwelt befasst.
 
 ## Wichtiger Hinweis zur Nutzung auf Render

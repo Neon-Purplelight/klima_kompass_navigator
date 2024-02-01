@@ -1,6 +1,7 @@
 # Installation des Klima-Kompass-Navigators
 
-*English version below*
+*(English version below)*
+
 Diese Anleitung zeigt Ihnen, wie Sie den Klima-Kompass-Navigator einfach auf Ihrem Computer installieren können. Sie brauchen keine Vorkenntnisse in Python oder Programmierung.
 
 ## Schritt-für-Schritt-Anleitung
