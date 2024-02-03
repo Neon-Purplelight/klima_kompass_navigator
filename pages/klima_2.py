@@ -10,6 +10,19 @@ from utils import layoutFunctions as lf
 # ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
+    # # Example usage
+input_json_path = 'data/originalData/world-countries.json'
+output_json_path = 'data/originalData/processed_world-countries.json'
+dm.process_and_save_json(input_json_path, output_json_path)
+
+# Extract valid country names from the processed JSON
+country_names = dm.extract_country_names(output_json_path)
+
+# Process and save the CSV
+input_file_path_csv = 'data/originalData/owid-co2-data.csv'
+output_file_path_csv = 'data/originalData/processed_data.csv'
+dm.process_and_save_csv(input_file_path_csv, output_file_path_csv, country_names)
+
 df = pd.read_csv('data/originalData/processed_data.csv')
 with open('data/originalData/processed_world-countries.json') as f:
     countries_json = json.load(f)

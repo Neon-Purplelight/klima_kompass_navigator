@@ -1028,7 +1028,7 @@ def create_co2_treemap_per_capita(df_filtered):
     return graph_with_info_button
 
 # ------------------------------------------------------------------------------
-# klima_1 functions
+# klima_2 functions
 # ------------------------------------------------------------------------------
 def make_klima_2_sidebar():
     # Bootstrap Sidebar

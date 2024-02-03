@@ -63,28 +63,38 @@ def process_and_save_json(input_json_path, output_json_path):
         "Guinea Bissau": "Guinea-Bissau",
         "The Bahamas": "Bahamas",
         "Czech Republic": "Czechia",
+        "Republic of the Congo":"Congo",
+        "Democratic Republic of the Congo": "Democratic Republic of Congo",
         "United Republic of Tanzania": "Tanzania",
-        "Democratic Republic of the Congo": "Congo",
+        "Somaliland" :"Somalia",
         "Swaziland": "Eswatini",
         "Republic of Serbia": "Serbia",
         "Macedonia": "North Macedonia",
         "Ivory Coast": "Cote d'Ivoire"
     }
 
-    # Update the 'name' property for each feature in the GeoJSON
-    for feature in world_geo["features"]:
-        country_name = feature["properties"]["name"]
-        if country_name in country_replacements:
-            feature["properties"]["name"] = country_replacements[country_name]
+    # Remove the feature with the id '-99' (which represents Somaliland)
+    world_geo["features"] = [
+        feature for feature in world_geo["features"]
+        if feature.get("id") != "-99"
+    ]
 
-    # Save the processed GeoJSON to the original file
+    # Optionally, if you want to merge it, set the 'id' of Somalia to 'SOM'
+    for feature in world_geo["features"]:
+        if feature["properties"]["name"] == "Somalia":
+            feature['id'] = 'SOM'
+        # Apply any other name replacements
+        if feature["properties"]["name"] in country_replacements:
+            feature["properties"]["name"] = country_replacements[feature["properties"]["name"]]
+
+    # Save the processed GeoJSON to the output file
     with open(output_json_path, "w") as json_out_file:
         json.dump(world_geo, json_out_file)
 
     # # Example usage
-    # input_json_path = 'data/world-countries.json'
-    # output_json_path = 'data/processed_world-countries.json'
-    # process_and_save_json(input_json_path, output_json_path)
+    #input_json_path = 'data/world-countries.json'
+    #output_json_path = 'data/processed_world-countries.json'
+    #process_and_save_json(input_json_path, output_json_path)
 
 def extract_country_names(json_path):
     with open(json_path, "r") as json_file:
@@ -98,7 +108,10 @@ def extract_country_names(json_path):
 def process_and_save_csv(input_file_path, output_file_path, country_names):
     # Read the original CSV file
     df = pd.read_csv(input_file_path)
-    df_continents = pd.read_csv("data/continents-according-to-our-world-in-data.csv")
+    df_continents = pd.read_csv("data/originalData/continents-according-to-our-world-in-data.csv")
+
+    # Replace the ISO code for South Sudan from 'SSD' to 'SDS'
+    df['iso_code'] = df['iso_code'].replace('SSD', 'SDS')
 
     # Select and reorder columns
     selected_columns = ["country", "iso_code", "population", "gdp", "year", "co2", "coal_co2", 
