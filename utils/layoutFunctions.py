@@ -114,7 +114,7 @@ def make_start_page_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -161,7 +161,7 @@ def make_start_page_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -644,7 +644,7 @@ def make_klima_1_sidebar():
                     html.P("Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}
+                #style={'max-width': '600px'}
             ),
 
             html.Div(
@@ -697,7 +697,7 @@ def make_klima_1_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}
+                    #style={'max-width': '600px'}
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -1073,7 +1073,7 @@ def make_klima_2_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1128,7 +1128,7 @@ def make_klima_2_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -1242,7 +1242,7 @@ def make_hydro_1_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1277,7 +1277,7 @@ def make_hydro_1_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -1565,6 +1565,26 @@ def make_hydro_2_sidebar():
     # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
+    # Video-Icon Button
+    video_icon_button = dbc.Button(
+        children=[html.I(className="fa fa-play-circle")], 
+        id="toggle-video-button", 
+        color="info", 
+        className="mb-2",
+        style={"margin": "auto", "display": "block"}  # Zentriert den Button
+    )
+
+    # Video in dbc.Collapse
+    video_collapse = dbc.Collapse(
+        dbc.Card(
+            dbc.CardBody(
+                html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"})
+            )
+        ),
+        id="collapse-video",
+        is_open=False
+    )
+
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
@@ -1596,14 +1616,17 @@ def make_hydro_2_sidebar():
                     html.P([
                         "Der Klimawandel führt zu veränderten Niederschlagsmustern und erhöhten Temperaturen, was die Verfügbarkeit von Wasser in den Wäldern beeinflusst. In vielen Regionen Deutschlands hat die Zunahme von Trockenperioden bereits spürbare Auswirkungen auf die Waldgesundheit.",
                     ]),
-                    html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"}),
+                    html.Hr(),
+                    video_icon_button,  # Fügen Sie den Button hier ein
+                    video_collapse,     # und das ein-/ausklappbare Video
+                    html.Hr(),
                     html.P([
                         "Diese Veränderungen im Wasserhaushalt wirken sich nicht nur auf das Wachstum und die Entwicklung der Bäume aus, sondern auch auf die Biodiversität und die Ökosystemdienstleistungen, die der Wald erbringt. Wasser ist dabei nicht nur Grundlage für die Photosynthese, sondern spielt darüber hinaus eine entscheidende Rolle für die allgemeine Gesundheit und Widerstandsfähigkeit gegenüber Schädlingen, wie dem Borkenkäfer, Unwetterereignissen oder Waldbränden.",
                         "Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
                     ]), 
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1635,7 +1658,7 @@ def make_hydro_2_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -1664,6 +1687,37 @@ def make_hydro_2_settings():
     )
 
     return plot_cards
+
+def make_hydro_2_info_button():
+    # Info Button
+    info_button_hydro_2 = dbc.Button(
+        "ℹ️ Info", 
+        id="info-button-hydro-2", 
+        color="primary", 
+        className="mr-1"
+    )
+
+    # Info Card
+    info_card_hydro_2 = dbc.Card(
+        dbc.CardBody(
+            [
+                html.P("In folgendem Dashboard wird derselbe Datensatz auf drei verschiedene Diagrammtypen visualisiert. Obwohl es sich jeweils um den exakt gleichen Datensatz handelt, legt jede der Ansichten den Betrachtungsfokus etwas anders."),
+                html.Hr(),
+                html.Ul([
+                    html.Li("Anhand des Liniendiagramms lassen sich die zeitliche Entwicklung und Trends besonders gut ablesen."),
+                    html.Li("Anhand des gestapelten Liniendiagramms lässt sich schnell ein Überblick darüber verschaffen, wie sich die Zusammensetzung der Schäden im Laufe der Zeit verändert hat."),
+                    html.Li("Anhand des gestapelten Balkendiagramms können die Beiträge einzelner Schadensursachen in den jeweiligen Jahren verglichen, bzw. gut Unterschiede in deren Zusammensetzung ausgemacht werden.")
+                ]),
+                html.Hr(),
+                html.P("Durch Anklicken der einzelnen Schadholzkategorien unterhalb der Legende, lassen sich diese entfernen, hinzufügen oder durch Doppelklick hervorheben.")
+            ]
+        ),
+        id="info-card-hydro-2",
+        style={"display": "none"},
+    )
+
+    # Statt einer Liste von Komponenten, geben Sie eine einzelne Komponente zurück, die eine Liste als children hat.
+    return html.Div([info_button_hydro_2, info_card_hydro_2])
 
 def hydro_2_line_chart(df, colors):
 # Tab 1: Liniendiagramm
@@ -1902,7 +1956,7 @@ def make_pedo_1_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1948,7 +2002,7 @@ def make_pedo_1_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -2100,7 +2154,7 @@ def make_pedo_2_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -2138,7 +2192,7 @@ def make_pedo_2_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
