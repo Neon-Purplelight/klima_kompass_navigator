@@ -1,0 +1,109 @@
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output
+import geopandas as gpd
+import folium
+from folium import plugins
+import os
+
+# Initialisierung der Dash-App
+app = dash.Dash(__name__)
+
+# Ordnerpfad zu den Shapefiles
+shapefile_folder = r'C:\Users\timsa\OneDrive\Desktop\Master\code\sandbox\dataset_research\ice_shields\ice_shields_2007_2023'
+
+# Layout des Dashboards
+app.layout = html.Div([
+    html.H1("Shapefile Overlay Dashboard"),
+
+    # HTML-Div für die Karte
+    html.Div([
+        # Kartenbild
+        html.Div([
+            html.Iframe(id='map-iframe', width='100%', height='600px', style={'border': 'none'}),
+        ], style={'width': '100%', 'display': 'inline-block'}),
+    ]),
+])
+
+# Callback-Funktion zum Aktualisieren der Karte
+@app.callback(
+    Output('map-iframe', 'srcDoc'),
+    [Input('map-iframe', 'id')]
+)
+def update_map(_):
+    # Define the bounding box coordinates
+    bounding_box = [
+        [74, 4],
+        [81, 4],
+        [81, 39],
+        [74, 39]
+    ]
+
+    # Create the Leaflet map
+    m = folium.Map(location=[bounding_box[2][0], bounding_box[2][1]], zoom_start=4, max_bounds=True)
+
+    # Add Esri World Imagery basemap
+    folium.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{z}}/{{y}}/{{x}}',
+                     attr='Map data &copy; <a href="https://www.esri.com/">Esri</a>',
+                     max_zoom=18).add_to(m)
+
+    # Add Shapefile layer for the year 2007
+    year = 'nic_autoc2007001n_pl_a'
+    shp_file = os.path.join(shapefile_folder, f'{year}.shp')
+    gdf = gpd.read_file(shp_file)
+    geojson_data = gdf.to_crs(epsg='4326').to_json()
+    folium.GeoJson(geojson_data, name=f'Layer {year}').add_to(m)
+
+    # Save map to HTML
+    map_html = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shapefile Overlay Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    </head>
+    <body>
+
+    <!-- Create a map div with a specific id -->
+    <div id="map" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        // Define the bounding box coordinates
+        var boundingBox = {bounding_box};
+
+        // Calculate the center of the bounding box
+        var centerLat = (boundingBox[0][0] + boundingBox[2][0]) / 2;
+        var centerLon = (boundingBox[0][1] + boundingBox[2][1]) / 2;
+
+        // Create the Leaflet map centered at the calculated center with an initial zoom level of 4
+        var map = L.map('map').setView([centerLat, centerLon], 4);
+
+        // Set max bounds to restrict panning
+        map.setMaxBounds(boundingBox);
+        map.on('drag', function () {{
+            map.panInsideBounds(boundingBox, {{ animate: false }});
+        }});
+
+        // Add a tile layer (Esri World Imagery in this case)
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
+            attribution: 'Map data &copy; <a href="https://www.esri.com/">Esri</a>',
+            maxZoom: 18
+        }}).addTo(map);
+
+        // Add Shapefile layer for the year 2007
+        {m.get_name().replace("'", "")}
+
+    </script>
+
+    </body>
+    </html>
+    """
+
+    return map_html
+
+# Run the Dash application
+if __name__ == '__main__':
+    app.run_server(debug=True)
