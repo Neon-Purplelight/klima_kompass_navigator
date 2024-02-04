@@ -1,0 +1,39 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard with Static Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    </head>
+    <body>
+
+    <!-- Create a map div with a specific id -->
+    <div id="map" style="width: 100%; height: 500px; margin: auto; display: block;"></div>
+
+    <script>
+        // Define the bounding box coordinates
+        var boundingBox = [[74, 4], [81, 4], [81, 39], [74, 39]];
+
+        // Calculate the center of the bounding box
+        var centerLat = (boundingBox[0][0] + boundingBox[2][0]) / 2;
+        var centerLon = (boundingBox[0][1] + boundingBox[2][1]) / 2;
+
+        // Create the Leaflet map centered at the calculated center with an initial zoom level of 4
+        var map = L.map('map').setView([centerLat, centerLon], 4);
+
+        // Add a tile layer (Esri World Imagery in this case)
+        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {'attribution': 'Map data &copy; <a href="https://www.esri.com/">Esri</a>', 'maxZoom': 18}).addTo(map)
+
+        // Add Zoom Control
+        L.control.zoom({ position: 'topright' }).addTo(map);
+    
+    </script>
+
+    <!-- You can add more content to your dashboard here -->
+
+    </body>
+    </html>
+    

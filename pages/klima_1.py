@@ -1,23 +1,16 @@
 # Import necessary libraries and modules
 from dash import html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
-from pathlib import Path
 import pandas as pd
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
 # ------------------------------------------------------------------------------
-# Initialize utility objects and useful functions
-# ------------------------------------------------------------------------------
-# Define the full path of the data folder to load raw data
-dataFolder = Path(__file__).parent.parent.absolute() / 'data'
-
-# ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
 # Load CO2 and continent datasets
-df_co2 = dm.read_co2_data(dataFolder/'originalData/owid-co2-data.csv')
-df_continents = dm.read_continental_data(dataFolder/'originalData/continents-according-to-our-world-in-data.csv')
+df_co2 = dm.read_co2_data('data/originalData/klima_1/owid-co2-data.csv')
+df_continents = dm.read_continental_data('data/originalData/klima_1/continents-according-to-our-world-in-data.csv')
 
 # ------------------------------------------------------------------------------
 # Perform some preprocessing

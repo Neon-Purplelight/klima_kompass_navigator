@@ -1,6 +1,6 @@
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
-from pages import start_page_1,start_page_2, klima_1,klima_2, hydro_1, hydro_2, pedo_1, pedo_2, oeko_1, oeko_2, blankPage # Hier !!
+from pages import start_page_1,start_page_2, klima_1,klima_2, hydro_1, hydro_2, pedo_1, pedo_2, blankPage 
 
 app = Dash(__name__,
     title="Klima Kompass Navigator",
@@ -25,8 +25,6 @@ app.validation_layout = html.Div([
     hydro_2.layout,
     pedo_1.layout,
     pedo_2.layout,
-    oeko_1.layout,
-    oeko_2.layout,
     blankPage.layout
 ])
 
@@ -54,10 +52,6 @@ def display_page(pathname):
         return pedo_1.layout
     elif pathname == '/pedo_2':
         return pedo_2.layout
-    elif pathname == '/oeko_1':
-        return oeko_1.layout
-    elif pathname == '/oeko_2':
-        return oeko_2.layout
     else:
         return blankPage.layout
     

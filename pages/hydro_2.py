@@ -9,7 +9,7 @@ from utils import layoutFunctions as lf
 # Load the necessary data
 # ------------------------------------------------------------------------------
 # Load logging dataset
-df = dm.process_logging_data('data/originalData/holzeinschlag-wetter.csv')
+df = dm.process_logging_data('data/originalData//hydro_2/holzeinschlag-wetter.csv')
 
 # ------------------------------------------------------------------------------
 # Perform some preprocessing

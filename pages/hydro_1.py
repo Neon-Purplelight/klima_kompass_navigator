@@ -7,8 +7,8 @@ from utils import layoutFunctions as lf
 # Initialize utility objects and useful functions
 # ------------------------------------------------------------------------------
 # Define the full path of the data folder to load raw data
-shapefile_folder_months = 'data/originalData/ice_shields/ice_shields_2023_jan_dec/'
-shapefile_folder_years = 'data/originalData/ice_shields/ice_shields_2007_2023/'
+shapefile_folder_months = 'data/originalData/hydro_1/ice_shields/ice_shields_2023_jan_dec/'
+shapefile_folder_years = 'data/originalData/hydro_1/ice_shields/ice_shields_2007_2023/'
 
 # Liste der verfügbaren Monate
 available_months = [
@@ -144,12 +144,12 @@ def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
     if selected_plot == 'months' or selected_plot is None:
         options = [{'label': month, 'value': month} for month in display_names_months]
         lf.create_static_map_html_months(selected_items, available_months, display_names_months, shapefile_folder_months)
-        with open('data/originalData/map_with_selected_months.html', 'r') as file:
+        with open('data/originalData/hydro_1/map_with_selected_months.html', 'r') as file:
             map_html = file.read()
     elif selected_plot == 'years':
         options = [{'label': year, 'value': year} for year in display_names_years]
         lf.create_static_map_html_years(selected_items, available_years, display_names_years, shapefile_folder_years)
-        with open('data/originalData/map_with_selected_years.html', 'r') as file:
+        with open('data/originalData/hydro_1/map_with_selected_years.html', 'r') as file:
             map_html = file.read()
 
     # Zurücksetzen der Checkboxen immer beim Wechsel der Ansicht

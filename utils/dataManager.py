@@ -16,6 +16,10 @@ import json
 #     df_temp['mov_avg'] = df_temp['JJA'].rolling(20).mean()
 #     return df_temp
 
+# ------------------------------------------------------------------------------
+# start_page_2
+# ------------------------------------------------------------------------------
+
 def read_co2_data(pathToFile: str):
     # Read CO2 data
     df_co2 = pd.read_csv(pathToFile)
@@ -91,24 +95,16 @@ def process_and_save_json(input_json_path, output_json_path):
     with open(output_json_path, "w") as json_out_file:
         json.dump(world_geo, json_out_file)
 
-    # # Example usage
-    #input_json_path = 'data/world-countries.json'
-    #output_json_path = 'data/processed_world-countries.json'
-    #process_and_save_json(input_json_path, output_json_path)
-
 def extract_country_names(json_path):
     with open(json_path, "r") as json_file:
         world_geo = json.load(json_file)
         country_names = [feature["properties"]["name"] for feature in world_geo["features"]]
     return country_names
 
-    # # Extract country names from the processed JSON
-    # country_names = extract_country_names(output_json_path)
-
 def process_and_save_csv(input_file_path, output_file_path, country_names):
     # Read the original CSV file
     df = pd.read_csv(input_file_path)
-    df_continents = pd.read_csv("data/originalData/continents-according-to-our-world-in-data.csv")
+    df_continents = pd.read_csv("data/originalData/klima_1/continents-according-to-our-world-in-data.csv")
 
     # Replace the ISO code for South Sudan from 'SSD' to 'SDS'
     df['iso_code'] = df['iso_code'].replace('SSD', 'SDS')
@@ -156,31 +152,27 @@ def process_and_save_csv(input_file_path, output_file_path, country_names):
     # Save the processed DataFrame to the CSV file
     merged_data.to_csv(output_file_path, index=False)
 
-    # # Process and save the CSV
-    # input_file_path_csv = 'data/owid-co2-data.csv'
-    # output_file_path_csv = 'data/processed_data.csv'
-    # process_and_save_csv(input_file_path_csv, output_file_path_csv, country_names)
-
 # ------------------------------------------------------------------------------
 # pedo_1
 # ------------------------------------------------------------------------------
-# Read netCDF4 structure
-# import netCDF4 as nc
+# Datensatz vor Upload vorprozessiert, da ansonsten zu groß für github   
+def read_netCDF4_structure(pathToFile: str):
+    import netCDF4 as nc
 
-# # Öffnen der NetCDF-Datei
-# file_path = 'SMI_Gesamtboden_monatlich.nc'
-# dataset = nc.Dataset(file_path, 'r')
+    # Öffnen der NetCDF-Datei
+    file_path = 'SMI_Gesamtboden_monatlich.nc'
+    dataset = nc.Dataset(file_path, 'r')
 
-# # Auflisten aller Dimensionen
-# print("Dimensionen:", dataset.dimensions.keys())
+    # Auflisten aller Dimensionen
+    print("Dimensionen:", dataset.dimensions.keys())
 
-# # Auflisten aller Variablen und deren Attribute
-# print("Variablen:")
-# for var in dataset.variables:
-#     print(var, dataset.variables[var])
+    # Auflisten aller Variablen und deren Attribute
+    print("Variablen:")
+    for var in dataset.variables:
+        print(var, dataset.variables[var])
 
-# # Schließen der Datei
-# dataset.close()
+    # Schließen der Datei
+    dataset.close()
 
 def preprocess_netcdf_data(pathToFile: str):
     dataset = nc.Dataset(pathToFile, 'r')
@@ -196,59 +188,59 @@ def preprocess_netcdf_data(pathToFile: str):
     dataset.close()
     return lats, lons, data, date_values
 
-# def remove_months(input_file, output_file):
-#     with nc.Dataset(input_file, 'r') as src, nc.Dataset(output_file, 'w', format='NETCDF4') as dst:
-#         # Zeitvariable extrahieren
-#         time_var = src['time']
-#         time_units = time_var.units
-#         time_calendar = time_var.calendar
+def remove_months(input_file, output_file):
+    with nc.Dataset(input_file, 'r') as src, nc.Dataset(output_file, 'w', format='NETCDF4') as dst:
+        # Zeitvariable extrahieren
+        time_var = src['time']
+        time_units = time_var.units
+        time_calendar = time_var.calendar
 
-#         # Konvertieren der Zeittage in tatsächliche Daten
-#         dates = nc.num2date(time_var[:], units=time_units, calendar=time_calendar)
+        # Konvertieren der Zeittage in tatsächliche Daten
+        dates = nc.num2date(time_var[:], units=time_units, calendar=time_calendar)
 
-#         # Bestimme die Indizes der zu behaltenden Daten (April bis Oktober)
-#         keep_indices = [i for i, date in enumerate(dates) if 4 <= date.month <= 10]
+        # Bestimme die Indizes der zu behaltenden Daten (April bis Oktober)
+        keep_indices = [i for i, date in enumerate(dates) if 4 <= date.month <= 10]
 
-#         # Kopieren der Dimensionen (außer 'time')
-#         for name, dimension in src.dimensions.items():
-#             if name == 'time':
-#                 dst.createDimension(name, len(keep_indices))
-#             else:
-#                 dst.createDimension(name, len(dimension))
+        # Kopieren der Dimensionen (außer 'time')
+        for name, dimension in src.dimensions.items():
+            if name == 'time':
+                dst.createDimension(name, len(keep_indices))
+            else:
+                dst.createDimension(name, len(dimension))
 
-#         # Kopieren der Variablen mit Komprimierung
-#         for name, variable in src.variables.items():
-#             # Attribute kopieren, außer _FillValue
-#             attrs = {k: variable.getncattr(k) for k in variable.ncattrs() if k != '_FillValue'}
+        # Kopieren der Variablen mit Komprimierung
+        for name, variable in src.variables.items():
+            # Attribute kopieren, außer _FillValue
+            attrs = {k: variable.getncattr(k) for k in variable.ncattrs() if k != '_FillValue'}
 
-#             # Erstellen der Variablen mit Komprimierung
-#             if 'time' in variable.dimensions:
-#                 new_var = dst.createVariable(name, variable.datatype, variable.dimensions, zlib=True, complevel=4)
-#                 if name == 'time':
-#                     # Weise die gefilterten Datumswerte direkt zu
-#                     new_var[:] = time_var[keep_indices]
-#                 else:
-#                     # Für alle anderen Variablen, die Zeit enthalten, die gefilterten Daten anwenden
-#                     new_var[:] = variable[keep_indices]
-#             else:
-#                 # Keine Komprimierung notwendig, wenn die Variable nicht zeitabhängig ist
-#                 new_var = dst.createVariable(name, variable.datatype, variable.dimensions)
-#                 new_var[:] = variable[:]
+            # Erstellen der Variablen mit Komprimierung
+            if 'time' in variable.dimensions:
+                new_var = dst.createVariable(name, variable.datatype, variable.dimensions, zlib=True, complevel=4)
+                if name == 'time':
+                    # Weise die gefilterten Datumswerte direkt zu
+                    new_var[:] = time_var[keep_indices]
+                else:
+                    # Für alle anderen Variablen, die Zeit enthalten, die gefilterten Daten anwenden
+                    new_var[:] = variable[keep_indices]
+            else:
+                # Keine Komprimierung notwendig, wenn die Variable nicht zeitabhängig ist
+                new_var = dst.createVariable(name, variable.datatype, variable.dimensions)
+                new_var[:] = variable[:]
 
-#             # Attribute zuweisen, nachdem die Daten zugewiesen wurden
-#             new_var.setncatts(attrs)
+            # Attribute zuweisen, nachdem die Daten zugewiesen wurden
+            new_var.setncatts(attrs)
 
-#     print(f'Gefilterte NetCDF-Datei gespeichert als: {output_file}')
+    print(f'Gefilterte NetCDF-Datei gespeichert als: {output_file}')
 
-# # Pfade zur ursprünglichen und zur neuen Datei
-# #input_file = 'SMI_Gesamtboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
-# #output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
+# Pfade zur ursprünglichen und zur neuen Datei
+#input_file = 'SMI_Gesamtboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+#output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
 
-# input_file = 'SMI_Oberboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
-# output_file = 'filtered_SMI_Oberboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
+#input_file = 'SMI_Oberboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+#output_file = 'filtered_SMI_Oberboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
 
-# # Ausführen der Funktion
-# remove_months(input_file, output_file)
+# Ausführen der Funktion
+#remove_months(input_file, output_file)
 
 def translate_month(date):
     english_to_german_months = {

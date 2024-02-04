@@ -1360,7 +1360,7 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     """
 
     # Set the output file path within the data\originalData directory
-    output_file = os.path.join('data', 'originalData', 'map_with_selected_months.html')
+    output_file = os.path.join('data', 'originalData', 'hydro_1', 'map_with_selected_months.html')
 
     # Save the HTML content to a file
     with open(output_file, 'w') as file:
@@ -1475,7 +1475,7 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     """
 
     # Set the output file path within the data\originalData directory
-    output_file = os.path.join('data', 'originalData', 'map_with_selected_years.html')
+    output_file = os.path.join('data', 'originalData', 'hydro_1', 'map_with_selected_years.html')
 
     # Save the HTML content to a file
     with open(output_file, 'w') as file:

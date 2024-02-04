@@ -1,19 +1,13 @@
 from dash import html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
-from pathlib import Path
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
 # ------------------------------------------------------------------------------
-# Initialize utility objects and useful functions
-# ------------------------------------------------------------------------------
-dataFolder = Path(__file__).parent.parent.absolute() / 'data'
-
-# ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
-df_temp = dm.read_temp_data(dataFolder/'originalData/GLB.Ts+dSST.csv')
-df_co2 = dm.read_co2_data(dataFolder/'originalData/owid-co2-data.csv')
+df_temp = dm.read_temp_data('data/originalData/start_page_2/GLB.Ts+dSST.csv')
+df_co2 = dm.read_co2_data('data/originalData/start_page_2/owid-co2-data.csv')
 
 # ------------------------------------------------------------------------------
 # Perform some preprocessing
