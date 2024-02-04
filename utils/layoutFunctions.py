@@ -1562,7 +1562,9 @@ def make_hydro_2_sidebar():
                 html.Div(
                     [
                         html.P([
-                        "Früher waren vor allem Unwetterereignisse (wie etwa 2015 dem ",
+                        "Früher waren vor allem Unwetterereignisse (wie etwa 2007 der ",
+                        html.A("Orkan Kyrill", href="https://de.wikipedia.org/wiki/Orkan_Kyrill", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " oder 2015 ",
                         html.A("Sturmtief Niklas", href="https://de.wikipedia.org/wiki/Orkan_Niklas", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         ") die Hauptursache für Schadholz. Orkane oder Stürme sind meist Singuläre Ereignisse, welche von Jahr zu Jahr starken Schwankungen unterworfen sein können, sich daher aber auch deutlich in den Diagrammen ablesen lassen. Seit der großen Dürre von 2018 sind vor allem Schädlinge die Einschlagsursache Nummer 1. Ihr Anteil hat seit 2018 deutlich zugenommen und 2021 mit 81,4 % einen vorläufigen Höchststand erreicht (2012 hatte er noch bei 17,8 % gelegen)."
                         " Als Einschlagsursache wird schlussendlich lediglich die finale Ursache erfasst. Durch Trockenheit geschwächte Bäume sind anfälliger für alle anderen in der Statistik geführten Schadholzeinschlagsursachen. Daher wird Trockenheit seit 2020 auch als separate Schadholzkategorie geführt."
@@ -1576,8 +1578,17 @@ def make_hydro_2_sidebar():
                         ]),    
                         html.Hr(),
                         html.H4("Verwendeter Datensatz:"),
+                        html.H4("Verwendete Datensätze:"),
                         html.P([  
-                            html.A("Schadholzeinschlag: Deutschland, Jahre, Einschlagsursache,Holzartengruppen, Waldeigentumsarten", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1706808195969#abreadcrumb", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            "Die verwendeten Daten zur Menge des Schadholzeinschlages finden sich unter der Datenbank des statistischen Bundesamtes (",
+                            html.A("GENESIS", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1707070432276#abreadcrumb", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            "). Der Datensatz wurde um ",
+                            html.A("Niederschlags- Daten", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html#buehneTop", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " des Deutschen Wetterdienstes (",
+                            html.A("DWD", href="https://www.dwd.de/DE/Home/home_node.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") erweitert. Weitere details zur genauen Prozessierung der Datensätze finden sich im ",
+                            html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ".",
                         ]),
                     ],
                     className='mb-3',
@@ -1699,7 +1710,7 @@ def hydro_2_line_chart(df, colors):
         'layout': go.Layout(
             title='Schadholzeinschlag nach Einschlagsursachen',
             yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
-            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
+            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 1000], 'tickvals': [0, 200, 400, 600, 800, 100]},
             xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
             legend={'x': 0, 'y': -0.2, 'orientation': 'h', 'traceorder': 'reversed'},
             hovermode='x unified',
@@ -1822,7 +1833,7 @@ def hydro_2_stacked_line_chart(df, colors):
         'layout': go.Layout(
             title='Schadholzeinschlag nach Einschlagsursachen (Gestapelt)',
             yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, 60], 'tickvals': list(range(0, 61, 10))},
-            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 900], 'tickvals': [0, 300, 600, 900]},
+            yaxis2={'title': 'l/m²', 'side': 'left', 'overlaying': 'y', 'range': [0, 1000], 'tickvals': [0, 200, 400, 600, 800, 100]},
             xaxis={'title': 'Jahr', 'tickmode': 'linear', 'tick0': df['Jahr'].min(), 'dtick': 1},
             legend={'x': 0, 'y': -0.2, 'orientation': 'h'},
             hovermode='x unified',

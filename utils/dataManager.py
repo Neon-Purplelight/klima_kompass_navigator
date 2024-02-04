@@ -265,6 +265,78 @@ def translate_month(date):
 # hydro_2
 # ------------------------------------------------------------------------------
 # Datenbereinigungsfunktion
+
+def merge_schadholz_niederschlag_and_save(schadholz_path, niederschlag_path):
+    # Laden der Schadholz-Daten mit Semikolon als Trennzeichen
+    schadholz_df = pd.read_csv(schadholz_path, sep=';')
+    
+    # Laden der Niederschlagsdaten, Umwandlung des Dezimaltrennzeichens und Umbenennung der Spalte
+    niederschlag_df = pd.read_csv(niederschlag_path, sep='\t', encoding='utf-8')
+    niederschlag_df['Niederschlag'] = niederschlag_df['Niederschlag'].str.replace(',', '.').astype(float)
+    niederschlag_df = niederschlag_df.rename(columns={'Niederschlag': 'Durchschnittsniederschlag'})
+    
+    # Zusammenführen der Datensätze basierend auf "Jahr"
+    merged_df = pd.merge(schadholz_df, niederschlag_df, on='Jahr', how='left')
+    
+    # Ausgabepfad festlegen
+    output_path = 'data/processedData/hydro_2/merged_schadholz_niederschlag.csv'
+    
+    # Speichern des zusammengeführten Datensatzes als CSV-Datei mit Semikolon als Trennzeichen
+    merged_df.to_csv(output_path, sep=';', index=False, encoding='utf-8')
+    
+    return output_path
+
+# Pfade der Eingabedateien
+schadholz_path = 'data/processedData/hydro_2/processed_schadholz.csv'
+niederschlag_path = 'data/originalData/hydro_2/niederschlag_gebietsmittel.txt'
+
+# Ausführen der Funktion und Speichern des neuen Datensatzes
+#output_path = merge_schadholz_niederschlag_and_save(schadholz_path, niederschlag_path)
+
+def process_dataset(file_path, output_path):
+    data = pd.read_csv(file_path, sep=';', encoding='ISO-8859-1')
+    
+    filtered_data = data[(data['3_Auspraegung_Label'] == 'Insgesamt') & (data['4_Auspraegung_Label'] == 'Insgesamt')].copy()
+    
+    filtered_data['HES002__Schadholzeinschlag__1000_cbm'] = filtered_data['HES002__Schadholzeinschlag__1000_cbm'].str.replace(',', '.').astype(float)
+    
+    aggregated_data = filtered_data.pivot_table(index='Zeit', columns='2_Auspraegung_Label', values='HES002__Schadholzeinschlag__1000_cbm', aggfunc='sum')
+    
+    expected_columns = ['Trockenheit', 'Sonstiges', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']
+    for column in expected_columns:
+        if column not in aggregated_data.columns:
+            aggregated_data[column] = float('nan')
+    aggregated_data = aggregated_data.rename(columns={'Sonstiges': 'Sonstige Ursachen'})
+    
+    final_data_columns = ['Jahr', 'Trockenheit', 'Sonstige Ursachen', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']
+    aggregated_data.reset_index(inplace=True)
+    aggregated_data = aggregated_data.rename(columns={'Zeit': 'Jahr'})
+    final_data = aggregated_data[final_data_columns]
+    
+    # Anpassung des Formats: Korrekte Formatierung für das europäische Zahlenformat
+    for col in final_data_columns[1:]:
+        final_data[col] = final_data[col].apply(lambda x: format_european_decimal(x/1000) if pd.notnull(x) else '')
+
+    with open(output_path, 'w', encoding='ISO-8859-1') as f:
+        f.write('"' + '";"'.join(final_data_columns) + '"\n')
+        final_data.to_csv(f, sep=';', index=False, header=False)
+
+def format_european_decimal(x):
+    """Formatiert eine Zahl im europäischen Stil mit Komma als Dezimaltrennzeichen und behält vier Nachkommastellen bei."""
+    # Umwandlung in String mit Tausenderpunkt und Komma als Dezimalzeichen
+    num_str = f"{x:.4f}".replace('.', ',')
+    # Split bei Komma für separate Bearbeitung von Ganzzahl- und Dezimalteil
+    parts = num_str.split(',')
+    integer_part = parts[0].replace(',', '.')
+    # Kombinieren der Teile mit europäischen Trennzeichen
+    european_formatted = integer_part + ',' + parts[1]
+    return european_formatted
+
+file_path = 'data/originalData/hydro_2/41261-0003_flat.csv'
+output_path = 'data/processedData/hydro_2/processed_schadholz.csv'
+
+#process_dataset(file_path, output_path)
+
 def process_logging_data(csv_file_path):
     data = pd.read_csv(csv_file_path, delimiter=';', decimal=',', na_values=[''])
     data = data.apply(pd.to_numeric, errors='coerce')
