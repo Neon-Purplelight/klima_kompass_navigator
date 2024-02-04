@@ -101,17 +101,7 @@ def make_start_page_sidebar():
         [
             html.Div(
                 [
-                    html.P("Die Diskussionen über den Klimawandel sind von Emotionen, politischen und wirtschaftlichen Motivationen sowie persönlichen Vorurteilen geprägt. Um einen Beitrag zur Diskussion liefern zu können ist es daher wichtig, die Datengrundlage sowie die Methodik zur Erstellung von Infografiken so transparent und klar wie möglich darzulegen [...]"),
-                    html.P([
-                        "Einige Skeptiker argumentieren, dass der menschliche Einfluss auf das Klima gering sei und natürliche Faktoren die Hauptursache für Klimaschwankungen darstellen. Sie betonen, dass vertieftes Verständnis natürlicher Prozesse die behauptete Dominanz des menschlichen Einflusses in Frage stellt. Für Häufig vorgebrachte Positionen von Klimaskeptikern siehe auch ",
-                        html.A("Sceptical Science", href="https://skepticalscience.com/argument.php", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        "."
-                    ]),
-                    html.P([
-                        "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO2 dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO2-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO2 und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
-                        html.A("sechste Sachstandsbericht", href="https://www.ipcc.ch/report/ar6/wg1/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " des IPPC."
-                    ]),
+                    html.P("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
                 ],
                 className='mb-3',
                 #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -127,37 +117,12 @@ def make_start_page_sidebar():
                 html.Div(
                     [
                         html.P([
-                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
-                            html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
+                            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
                         ]),
-                        
-                        html.P([
-                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
-                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " und der ",
-                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
-                        ]),
-                        
-                        html.P([
-                            "Der Internationale Ausschuss für Klimaänderungen (",
-                            html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
-                        ]),
-                        
-                        html.P([
-                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
-                        ]),
-
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         html.P([  
-                            "Die Temperaturdaten stammen von der National Aeronautics and Space Administration (",
-                            html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar. Weitere Informationen zum Datensatz finden sich ",
-                            html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
+                            "Lorem Ipsum",
                         ]),
                     ],
                     className='mb-3',
