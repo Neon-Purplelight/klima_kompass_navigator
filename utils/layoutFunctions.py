@@ -7,6 +7,8 @@ import geopandas as gpd
 from utils import dataManager as dm
 import numpy as np
 import os
+import base64
+
 
 # ------------------------------------------------------------------------------
 # make_ FUNCTIONS
@@ -1577,7 +1579,6 @@ def make_hydro_2_sidebar():
                         "). Diese jährliche Erhebung von Daten zum Rohholzaufkommen in Deutschland umfasst alle Betriebe, die Rohholz erzeugen, und berücksichtigt planmäßigen sowie schadensbedingten Einschlag. Die Datengewinnung kombiniert Verwaltungsdaten, direkte Befragung und Schätzungen. Die Genauigkeit variiert nach Waldeigentumsart und Erhebungsmethode. Die Datenerhebung erfolgt also einerseits über Verwaltungsdaten, die eine relativ hohe Genauigkeit aufweisen, und andererseits über Schätzungen und Stichprobenerhebungen, die mit gewissen Unsicherheiten behaftet sind. Besonders im Privatwald, wo die Waldflächen oft kleiner und die Bewirtschaftung nicht regelmäßig ist, müssen Schätzungen und Hochrechnungen vorgenommen werden."
                         ]),    
                         html.Hr(),
-                        html.H4("Verwendeter Datensatz:"),
                         html.H4("Verwendete Datensätze:"),
                         html.P([  
                             "Die verwendeten Daten zur Menge des Schadholzeinschlages finden sich unter der Datenbank des statistischen Bundesamtes (",
@@ -2155,3 +2156,79 @@ def make_pedo_2_settings():
     )
 
     return plot_cards
+
+def generate_initial_image_overlay(dataFolder, satellite_data):
+    # Pfad zum ersten Bild aus 'satellite_data'
+    first_image_path = os.path.join(dataFolder, satellite_data[0]['value'])
+    with open(first_image_path, 'rb') as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode('ascii')
+    # HTML-Struktur mit Bild und Overlay-Play-Symbol
+    initial_image_html = html.Div([
+        html.Img(src=f"data:image/png;base64,{encoded_image}", style={'width': '80%', 'height': '80vh'}),
+        html.Div(html.I(className="fas fa-play-circle", style={'font-size': '4em', 'color': '#007bff', 'position': 'absolute', 'top': '50%', 'left': '50%', 'transform': 'translate(-50%, -50%)'}), style={'position': 'relative', 'text-align': 'center'}),
+    ], style={'position': 'relative', 'text-align': 'center'})
+    return initial_image_html
+
+# def create_tabs_layout(satellite_data):
+#     return dcc.Tabs([
+#         dcc.Tab(label='Zeitraffer', children=[
+#             html.Div([
+#                 # Play, Stopp und Vorwärts-Buttons über dem Iframe
+#                 dbc.Row([
+#                     dbc.Col(
+#                         dbc.Button('Play', id='play-button', n_clicks=0, color='primary', className='mr-2'),
+#                         width='auto'
+#                     ),
+#                     dbc.Col(
+#                         dbc.Button('Stopp', id='stop-button', n_clicks=0, color='primary', className='mr-2'),
+#                         width='auto'
+#                     ),
+#                     dbc.Col(
+#                         dbc.Button('Vorwärts', id='next-button', n_clicks=0, color='primary'),
+#                         width='auto'
+#                     ),
+#                 ], justify='center', className='mb-3'),
+#                 # Iframe für die Anzeige des Bildes
+#                 html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
+#                 # Intervall für die Play-Funktion
+#                 dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
+#             ], style={'text-align': 'center'}),
+#         ]),
+
+#         dcc.Tab(label='Vergleich', children=[
+#             dbc.Container([
+#                 dbc.Row(
+#                     dbc.Col(html.H1("Vorher- Nachher Vergleich", style={'textAlign': 'center'}), width=12)
+#                 ),
+#                 html.Hr(),
+#                 dbc.Row([
+#                     dbc.Col([
+#                         html.H2("Aufnahme für Vorher-Vergleich auswählen"),
+#                         dcc.RadioItems(
+#                             id='before-radio',
+#                             options=[
+#                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
+#                             ],
+#                             value=satellite_data[0]['value'],  # Annahme, dass das erste Element als Standardwert gesetzt wird
+#                             labelStyle={'display': 'block'},
+#                         ),
+#                     ], width=3),
+#                     dbc.Col([
+#                         # Hier wird angenommen, dass 'BeforeAfter' ein benutzerdefiniertes Dash-Component ist
+#                         html.Div(id='image-slider', style={'width': '612px', 'height': '512px'}),
+#                     ], width=6),
+#                     dbc.Col([
+#                         html.H2("Aufnahme für Nachher-vergleich auswählen"),
+#                         dcc.RadioItems(
+#                             id='after-radio',
+#                             options=[
+#                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
+#                             ],
+#                             value=satellite_data[-1]['value'],  # Annahme, dass das letzte Element als Standardwert gesetzt wird
+#                             labelStyle={'display': 'block'},
+#                         ),
+#                     ], width=3),
+#                 ]),
+#             ]),
+#         ]),
+#     ])
