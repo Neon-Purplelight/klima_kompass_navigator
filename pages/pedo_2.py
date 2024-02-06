@@ -40,7 +40,7 @@ layout = html.Div(
         dbc.Row(lf.make_NavBar()),  # Navigation Bar
         dbc.Row(
             [
-                dbc.Col(lf.make_pedo_2_sidebar(), width=4),
+                dbc.Col(lf.make_pedo_2_sidebar(), width=4, lg=3, md=12),  # Fixiert die Größe der Sidebar auf 3 Spalten in großen Bildschirmen und 12 Spalten in mittleren
                 dbc.Col(
                     [
                         lf.make_pedo_2_settings(),
@@ -65,7 +65,7 @@ layout = html.Div(
                                         ),
                                     ], justify='center', className='mb-3'),
                                     # Iframe für die Anzeige des Bildes
-                                    html.Iframe(id='image-display', style={'width': '90%', 'height': '96.5vh', 'border': '1px solid #000', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
+                                    html.Iframe(id='image-display', style={'width': '80%', 'height': '96.5vh', 'border': '1px solid #000', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
                                     # Intervall für die Play-Funktion
                                     dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
                                 ], style={'text-align': 'center'}),
@@ -107,14 +107,16 @@ layout = html.Div(
                                     ]),
                                 ]),
                             ]),
-                        ]),
+                         ]),
                     ],
-                    width=8,
+                    width=8, lg=9, md=12  # Fixiert die Größe der Hauptspalte auf 9 Spalten in großen Bildschirmen und 12 Spalten in mittleren
                 ),
-            ]
+            ],
+            className="g-0",  # Ersetzt no_gutters für Bootstrap 5
         ),
         dbc.Row([lf.make_CC_licenseBanner()]),
     ],
+    className="my-3",  # Fügt einen Außenabstand hinzu
 )
 
 # Callbacks für die Interaktivität des Dashboards

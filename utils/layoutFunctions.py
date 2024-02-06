@@ -9,7 +9,6 @@ import numpy as np
 import os
 import base64
 
-
 # ------------------------------------------------------------------------------
 # make_ FUNCTIONS
 # These functions are called only once to create the backbone of the graphical
@@ -1887,7 +1886,11 @@ def make_pedo_1_sidebar():
                     " auf eine sukzessive Austrocknung der insbesondere der Gesamtböden hindeuten. Analysen von Dürren sind von entscheidender Bedeutung, um etwaige Muster zu erkennen und künftige Herausforderungen im Zusammenhang mit dem Klimawandel vorherzusagen. Eine verbesserte Kenntnis der Dürreentwicklung kann dazu beitragen, geeignete Anpassungs- und Schutzmaßnahmen zu entwickeln.",
                     ]),                    
                     html.P([
-                    "Diese Erkenntnisse verdeutlichen, dass der Klimawandel bereits messbare Auswirkungen auf die Bodenfeuchte in Deutschland hat. Um dieser Herausforderung zu begegnen, ist eine nachhaltige Bewirtschaftung unserer Ressourcen unerlässlich. Dies könnte die Förderung wassersparender landwirtschaftlicher Praktiken, den Schutz natürlicher Wassereinzugsgebiete und die Entwicklung innovativer Technologien zur Wasserrückgewinnung umfassen..",
+                    "Diese Erkenntnisse verdeutlichen, dass der Klimawandel bereits messbare Auswirkungen auf die Bodenfeuchte in Deutschland hat. Im Jahr 2023 rechneten laut ",
+                    html.A("agrarheute", href="https://www.agrarheute.com/pflanze/getreide/duerreschaeden-weizen-wassernot-aktuell-schlimmsten-608544", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " Experten mit regionalen Ernteeinbußen von bis zu 17 Prozent und ",
+                    html.A("laut des Statistischen Bundesamtes", href="https://www.destatis.de/DE/Themen/Querschnitt/Hitze/_inhalt.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),                  
+                      " nutzten landwirtschaftliche Betriebe im Jahr 2019 bereits 38,4 % mehr Wasser zur Bewässerung der Anbauflächen, als noch 3 Jahre zuvor. Um dieser Herausforderung zu begegnen, ist eine nachhaltige Bewirtschaftung unserer Ressourcen unerlässlich. Dies könnte die Förderung wassersparender landwirtschaftlicher Praktiken, den Schutz natürlicher Wassereinzugsgebiete und die Entwicklung innovativer Technologien zur Wasserrückgewinnung umfassen.",
                     ]),
                 ],
                 className='mb-3',
@@ -2043,12 +2046,12 @@ def make_pedo_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "white-space": "normal"},  # Erlaubt den Textumbruch
                                     href="/pedo_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " Permafrostböden"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "white-space": "normal"},  # Erlaubt den Textumbruch
                                     href="/pedo_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
@@ -2058,7 +2061,7 @@ def make_pedo_2_sidebar():
         brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
         color="primary",
         dark=True,
-        className="d-flex flex-column justify-content-center",
+        #className="d-flex flex-column justify-content-center",
     )
 
     # Second row with sample text and collapse component
@@ -2169,66 +2172,66 @@ def generate_initial_image_overlay(dataFolder, satellite_data):
     ], style={'position': 'relative', 'text-align': 'center'})
     return initial_image_html
 
-# def create_tabs_layout(satellite_data):
-#     return dcc.Tabs([
-#         dcc.Tab(label='Zeitraffer', children=[
-#             html.Div([
-#                 # Play, Stopp und Vorwärts-Buttons über dem Iframe
-#                 dbc.Row([
-#                     dbc.Col(
-#                         dbc.Button('Play', id='play-button', n_clicks=0, color='primary', className='mr-2'),
-#                         width='auto'
-#                     ),
-#                     dbc.Col(
-#                         dbc.Button('Stopp', id='stop-button', n_clicks=0, color='primary', className='mr-2'),
-#                         width='auto'
-#                     ),
-#                     dbc.Col(
-#                         dbc.Button('Vorwärts', id='next-button', n_clicks=0, color='primary'),
-#                         width='auto'
-#                     ),
-#                 ], justify='center', className='mb-3'),
-#                 # Iframe für die Anzeige des Bildes
-#                 html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
-#                 # Intervall für die Play-Funktion
-#                 dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
-#             ], style={'text-align': 'center'}),
-#         ]),
+def create_tabs_layout(satellite_data):
+    return dcc.Tabs([
+        dcc.Tab(label='Zeitraffer', children=[
+            html.Div([
+                # Play, Stopp und Vorwärts-Buttons über dem Iframe
+                dbc.Row([
+                    dbc.Col(
+                        dbc.Button('Play', id='play-button', n_clicks=0, color='primary', className='mr-2'),
+                        width='auto'
+                    ),
+                    dbc.Col(
+                        dbc.Button('Stopp', id='stop-button', n_clicks=0, color='primary', className='mr-2'),
+                        width='auto'
+                    ),
+                    dbc.Col(
+                        dbc.Button('Vorwärts', id='next-button', n_clicks=0, color='primary'),
+                        width='auto'
+                    ),
+                ], justify='center', className='mb-3'),
+                # Iframe für die Anzeige des Bildes
+                html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
+                # Intervall für die Play-Funktion
+                dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
+            ], style={'text-align': 'center'}),
+        ]),
 
-#         dcc.Tab(label='Vergleich', children=[
-#             dbc.Container([
-#                 dbc.Row(
-#                     dbc.Col(html.H1("Vorher- Nachher Vergleich", style={'textAlign': 'center'}), width=12)
-#                 ),
-#                 html.Hr(),
-#                 dbc.Row([
-#                     dbc.Col([
-#                         html.H2("Aufnahme für Vorher-Vergleich auswählen"),
-#                         dcc.RadioItems(
-#                             id='before-radio',
-#                             options=[
-#                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
-#                             ],
-#                             value=satellite_data[0]['value'],  # Annahme, dass das erste Element als Standardwert gesetzt wird
-#                             labelStyle={'display': 'block'},
-#                         ),
-#                     ], width=3),
-#                     dbc.Col([
-#                         # Hier wird angenommen, dass 'BeforeAfter' ein benutzerdefiniertes Dash-Component ist
-#                         html.Div(id='image-slider', style={'width': '612px', 'height': '512px'}),
-#                     ], width=6),
-#                     dbc.Col([
-#                         html.H2("Aufnahme für Nachher-vergleich auswählen"),
-#                         dcc.RadioItems(
-#                             id='after-radio',
-#                             options=[
-#                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
-#                             ],
-#                             value=satellite_data[-1]['value'],  # Annahme, dass das letzte Element als Standardwert gesetzt wird
-#                             labelStyle={'display': 'block'},
-#                         ),
-#                     ], width=3),
-#                 ]),
-#             ]),
-#         ]),
-#     ])
+        dcc.Tab(label='Vergleich', children=[
+            dbc.Container([
+                dbc.Row(
+                    dbc.Col(html.H1("Vorher- Nachher Vergleich", style={'textAlign': 'center'}), width=12)
+                ),
+                html.Hr(),
+                dbc.Row([
+                    dbc.Col([
+                        html.H2("Aufnahme für Vorher-Vergleich auswählen"),
+                        dcc.RadioItems(
+                            id='before-radio',
+                            options=[
+                                {'label': data['label'], 'value': data['value']} for data in satellite_data
+                            ],
+                            value=satellite_data[0]['value'],  # Annahme, dass das erste Element als Standardwert gesetzt wird
+                            labelStyle={'display': 'block'},
+                        ),
+                    ], width=3),
+                    dbc.Col([
+                        # Hier wird angenommen, dass 'BeforeAfter' ein benutzerdefiniertes Dash-Component ist
+                        html.Div(id='image-slider', style={'width': '612px', 'height': '512px'}),
+                    ], width=6),
+                    dbc.Col([
+                        html.H2("Aufnahme für Nachher-vergleich auswählen"),
+                        dcc.RadioItems(
+                            id='after-radio',
+                            options=[
+                                {'label': data['label'], 'value': data['value']} for data in satellite_data
+                            ],
+                            value=satellite_data[-1]['value'],  # Annahme, dass das letzte Element als Standardwert gesetzt wird
+                            labelStyle={'display': 'block'},
+                        ),
+                    ], width=3),
+                ]),
+            ]),
+        ]),
+    ])
