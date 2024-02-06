@@ -764,13 +764,15 @@ def make_klima_1_sidebar():
                             html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                             ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
                             html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " (Datensatz wird fortlaufend aktualisiert).",
+                            ".",
                         ]),
 
                         html.P([  
-                            "Der umfangreiche Owid Datensatz wurde nur teilweise übernommen, umstrukturiert und um einige Datenpunkte ergänzt (",
-                            html.A("link", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") (Stand: 2015)."
+                            "Der umfangreiche Owid Datensatz wurde nur teilweise übernommen, umstrukturiert und um einige ",
+                            html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
+                            html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ".",
                         ]),
                     ],
                     className='mb-3',
