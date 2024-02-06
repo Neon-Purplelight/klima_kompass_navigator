@@ -26,7 +26,7 @@ layout = html.Div(
         dbc.Row(
             [
                 # Sidebar for the klima-1 page
-                dbc.Col(lf.make_start_page_sidebar(), width=4),
+                dbc.Col(lf.make_start_page_2_sidebar(), width=4),
                 
                 # Main content area with settings and selected graph container
                 dbc.Col(

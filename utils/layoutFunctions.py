@@ -72,7 +72,7 @@ def make_CC_licenseBanner():
 # ------------------------------------------------------------------------------
 # start_page_1 functions
 # ------------------------------------------------------------------------------
-def make_start_page_sidebar():
+def make_start_page_1_sidebar():
     # Bootstrap Sidebar
     # Verwenden Sie Font Awesome-Symbole für Links
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
@@ -268,6 +268,118 @@ def make_interactive_controls_example():
 # ------------------------------------------------------------------------------
 # start_page_2 functions
 # ------------------------------------------------------------------------------
+def make_start_page_2_sidebar():
+    # Bootstrap Sidebar
+    # Verwenden Sie Font Awesome-Symbole für Links
+    link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+
+    # Erstellen Sie die Sidebar mit den Links und Symbolen
+    sidebar = dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink([link_icon, "CO2- Budget"],
+                                    style={"text-decoration": "underline"},
+                                    href="/", 
+                                    id="navlink-1", 
+                                    className="nav-link-custom")),
+            dbc.NavItem(dbc.NavLink([link_icon, "CO2 und das Klima"],
+                                    style={"text-decoration": "underline"},
+                                    href="/start_page_2", 
+                                    id="navlink-2", 
+                                    className="nav-link-custom")),
+        ],
+        brand=html.Span("Home:"),
+        color="primary",
+        dark=True,
+        className="d-flex justify-content-center",
+    )
+
+    # Second row with sample text and collapse component
+    second_row = dbc.Container(
+        [
+            html.Div(
+                [
+                html.P([
+                    "Die Diskussionen über den Klimawandel sind von Emotionen, politischen und wirtschaftlichen Motivationen sowie persönlichen Vorurteilen geprägt. Um einen Beitrag zur Diskussion liefern zu können ist es daher wichtig, die Datengrundlage sowie die Methodik zur Erstellung von Infografiken so transparent und klar wie möglich darzulegen."
+                ]),
+                html.P([
+                    "Einige Skeptiker argumentieren, dass der menschliche Einfluss auf das Klima gering sei und natürliche Faktoren die Hauptursache für Klimaschwankungen darstellen. Sie betonen, dass vertieftes Verständnis natürlicher Prozesse die behauptete Dominanz des menschlichen Einflusses in Frage stellt. Für Häufig vorgebrachte Positionen von Klimaskeptikern siehe auch ",
+                    html.A("Sceptical Science", href="https://skepticalscience.com/argument.php", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    "."
+                ]),
+                html.P([
+                    "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO2 dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO2-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO2 und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
+                    html.A("sechste Sachstandsbericht", href="https://www.ipcc.ch/report/ar6/wg1/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " des IPPC."
+                ]),
+                html.P([
+                    "Kürzlich hat die ",
+                    html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    " Neuigkeiten und Erkenntnisse ",
+                    html.A("veröffentlicht", href="https://www.nasa.gov/news-release/nasa-analysis-confirms-2023-as-warmest-year-on-record/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                    ", wie zum Beispiel die jährlichen globalen Temperaturanomalie für das Jahr 2023, welche hervorhebt, wie außergewöhnlich die Temperaturen im Vergleich zu historischen Daten waren. Dieses Dashboard soll veranschaulichen, wie sich solche Daten anhand verschiedener Diagramme veranschaulichen lassen."
+                ]),
+                ],
+                className='mb-3',
+                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+            ),
+
+            html.Div(
+                [
+                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                ],
+            ),
+
+            dbc.Collapse(
+                html.Div(
+                    [
+                    html.P([
+                        "Die GISS Oberflächentemperaturanalyse Version 4 (",
+                        html.A("GISTEMP v4", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ") ist eine wichtige wissenschaftliche Arbeit, die von der NASA durchgeführt wird, um Veränderungen der globalen Oberflächentemperatur zu schätzen. Diese Analyse nutzt aktuelle Daten von meteorologischen Stationen und Ozeanbereichen, um monatlich aktualisierte Grafiken und Tabellen zu erstellen. Ziel ist es, ein klares Bild darüber zu vermitteln, wie sich die Temperaturen auf der Erde über die Zeit verändern.",
+                    ]),
+                    html.P([
+                        "Für Interessierte und Forscher sind neben den Temperaturanomalien auch die verwendeten ",
+                        html.A("Programme und der Quellcode", href="https://www.giss.nasa.gov/tools/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " verfügbar, was die Transparenz und Nachvollziehbarkeit der Analyse erhöht. Zudem werden regelmäßige Updates und detaillierte Informationen zu Veränderungen in der Analysemethodik veröffentlicht, um die Aktualität und Genauigkeit der Daten zu gewährleisten."
+                    ]),
+                                                                  
+                    html.Hr(),
+                    html.H4("Verwendete Datensätze:"),
+                    html.P([
+                        "Die Daten über die CO2 Emissionen stützen sich auf Datensätze von ",
+                        html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
+                        html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ".",
+                    ]),
+
+                    html.P([  
+                        "Die ",
+                        html.A("Temperaturdaten", href="https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.txt", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " stammen von der National Aeronautics and Space Administration (",
+                        html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar. Weitere Informationen zum Datensatz finden sich ",
+                        html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "."
+                        ]),
+                    ],
+                    className='mb-3',
+                    #style={'max-width': '600px'}
+                ),
+                id='collapse_more_info_klima_2',
+                is_open=False,
+            ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1')
+        ],
+        fluid=True,
+        className="py-1 bg-primary rounded-1 text-white",
+    )
+
+    # Combine the sidebar, second row, and the new settings row
+    layout = dbc.Container([sidebar, second_row])
+
+    return layout
+
 def make_start_page_2_settings(default_value='average_temp', options=None):
     # start_page_1 settings
     if options is None:
@@ -532,23 +644,22 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
                     "Eine einfachere Alternative wäre, die beiden Diagramme direkt nebeneinander zu zeigen. Du könntest so besser erkennen, ",
                     "wie sich die Temperaturen und CO₂-Emissionen im Laufe der Zeit ändern. Allerdings ist es nicht ganz einfach, diese auf dem gleichen Diagramm abzubilden, ",
                     "da die Temperaturen in Grad Celsius gemessen werden, während die CO₂-Emissionen in Milliarden Tonnen angegeben sind. Um dieses Problem zu lösen, könnten wir ",
-                    "ein spezielles Diagramm nutzen, das zwei vertikale Achsen hat, aber dieselbe Zeit auf der horizontalen Achse. Leider kann dies nicht direkt mit einer bestimmten Software umgesetzt werden, ",
-                    "aber wir können auf eine etwas fortgeschrittenere Methode zurückgreifen."
+                    "ein spezielles Diagramm nutzen, das zwei vertikale Achsen hat, aber dieselbe Zeit auf der horizontalen Achse."
                 ]),
                 html.Hr(),
                 html.P([
-                    "Auf diesem Diagramm siehst du, dass auf der linken Seite die Temperaturentwicklung und auf der rechten Seite die CO₂-Emissionen abgebildet sind. ",
+                    "Auf diesem Diagramm sind auf der linken Seite die Temperaturentwicklungen und auf der rechten Seite die CO₂-Emissionen abgebildet.",
                     "Das Streudiagramm der CO₂-Emissionen erscheint vielleicht seltsam, aber es dient dazu, den Zusammenhang zwischen den Daten zu verdeutlichen. ",
                     "Für ein allgemeines Publikum könnte jedoch diese Darstellung helfen, die Verbindung zwischen steigenden CO₂-Emissionen und Temperaturveränderungen besser zu verstehen."
                 ]),
                 html.Hr(),
                 html.P([
-                    "Wir können den wissenschaftlichen Konsens akzeptieren, dass CO₂-Emissionen die globale Erwärmung verstärken, müssen jedoch gleichzeitig anerkennen, ",
-                    "dass auch andere Faktoren eine Rolle spielen. Temperaturveränderungen sind nicht allein darauf zurückzuführen, dass Menschen Treibhausgase in die Atmosphäre pumpen. ",
+                    "Wir können den wissenschaftlichen Konsens akzeptieren, dass CO₂-Emissionen die globale Erwärmung verstärkt, müssen jedoch gleichzeitig anerkennen, ",
+                    "dass auch andere Faktoren eine Rolle spielen. Temperaturveränderungen sind nicht allein darauf zurückzuführen, dass Menschen Treibhausgase in die Atmosphäre entlassen. ",
                     "Wie die ",
                     html.A("Umweltschutzbehörde der Vereinigten Staaten (EPA)", href="https://www.epa.gov/climatechange-science/causes-climate-change"),
                     " klarstellt, gibt es auch andere Faktoren wie solare Aktivität und Veränderungen in der ",
-                    "Reflektivität der Erde aufgrund von beispielsweise Entwaldung. Es gibt auch Treibhausgase neben Kohlendioxid, wie Methan und Lachgas. Die EPA stellt auch klar, ",
+                    "Reflektivität der Erde, etwa durch das abschmelzen der Pole oder der Entwaldung. Es gibt auch Treibhausgase neben Kohlendioxid, wie Methan und Lachgas. Die EPA stellt hierbei jedoch auch klar, ",
                     "dass keiner der Ursachen außer den menschengenerierten Treibhausgasemissionen das aktuelle Ausmaß des Klimawandels erklären kann."
                 ]),
             ],

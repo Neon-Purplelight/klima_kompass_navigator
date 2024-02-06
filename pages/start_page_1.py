@@ -13,7 +13,7 @@ layout = html.Div(
         dbc.Row(
             [
                 # Sidebar for the start page
-                dbc.Col(lf.make_start_page_sidebar(), width=4),
+                dbc.Col(lf.make_start_page_1_sidebar(), width=4),
                 
                 # Main content area with interactive controls and iframe
                 dbc.Col(
