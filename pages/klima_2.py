@@ -39,9 +39,10 @@ countries = df['country'].unique()
 chart_type_buttons = dbc.ButtonGroup(
     [
         dbc.Button("Weltkarte", id='button-map', color="primary", className="me-1"),
-        dbc.Button("Liniendiagramm", id='button-line', color="secondary"),
+        dbc.Button("Liniendiagramm", id='button-line', color="primary"),
     ],
     className="mb-3",
+    style={'color': 'white'}  # Setzen Sie die Schriftfarbe auf Weiß für nicht ausgewählte Buttons
 )
 
 # ------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ layout = html.Div(
                 # Main content area with settings and selected graph container
                 dbc.Col(
                     [
-                        lf.make_co2_world_map(countries, min_year, max_year, chart_type_buttons)
+                        lf.make_co2_world_map(countries, min_year, max_year, chart_type_buttons),
                     ],
                     width=8,
                 ),
@@ -76,20 +77,32 @@ layout = html.Div(
 # CALLBACKS
 # ------------------------------------------------------------------------------
 @callback(
-    Output('chart-type-status', 'children'),
+    [Output('chart-type-status', 'children'),
+     Output('button-map', 'style'),
+     Output('button-line', 'style')],
     [Input('button-map', 'n_clicks'),
      Input('button-line', 'n_clicks')],
     [State('chart-type-status', 'children')]
 )
-def update_chart_type_status(button_map, button_line, current_status):
+def update_chart_type_and_button_styles(button_map, button_line, current_status):
     ctx = dash.callback_context
 
-    # Wenn der Callback zum ersten Mal ausgelöst wird, wird der Standardwert zurückgegeben
+    # Standardstyles für nicht ausgewählte Buttons
+    default_style = {'color': 'white'}
+    # Style für den ausgewählten Button
+    selected_style = {'color': '#7fff00'}
+
+    # Wenn der Callback zum ersten Mal ausgelöst wird, werden Standardwerte zurückgegeben
     if not ctx.triggered:
-        return 'map'
+        # Angenommen, die Weltkarte ist die Standardansicht
+        return 'map', selected_style, default_style
 
     button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    return 'map' if button_id == 'button-map' else 'line'
+
+    if button_id == 'button-map':
+        return 'map', selected_style, default_style
+    else:
+        return 'line', default_style, selected_style
 
 # Callback zum Aktualisieren des Diagramms
 @callback(

@@ -80,18 +80,19 @@ def make_start_page_1_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, "CO2- Budget"],
-                                    style={"text-decoration": "underline"},
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2- Budget"],
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, "CO2 und das Klima"],
-                                    style={"text-decoration": "underline"},
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/start_page_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span("Home:"),
+    brand=html.Span([link_icon, " Home:"],
+        style={"color": "#7fff00"}),
         color="primary",
         dark=True,
         className="d-flex justify-content-center",
@@ -276,18 +277,19 @@ def make_start_page_2_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, "CO2- Budget"],
-                                    style={"text-decoration": "underline"},
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2- Budget"],
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, "CO2 und das Klima"],
-                                    style={"text-decoration": "underline"},
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/start_page_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span("Home:"),
+    brand=html.Span([link_icon, " Home:"],
+        style={"color": "#7fff00"}),
         color="primary",
         dark=True,
         className="d-flex justify-content-center",
@@ -693,18 +695,18 @@ def make_klima_1_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span([link_icon, " Klimatologie:"], 
-                        style={"text-decoration": "underline"}),
+    brand=html.Span([link_icon, " Klimatologie:"],
+        style={"text-decoration": "underline", "color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Klimatologie",
         color="primary",
         dark=True,
@@ -1117,18 +1119,18 @@ def make_klima_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span([link_icon, " Klimatologie:"], 
-                        style={"text-decoration": "underline"}),
+    brand=html.Span([link_icon, " Klimatologie:"],
+        style={"text-decoration": "underline", "color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Klimatologie",
         color="primary",
         dark=True,
@@ -1185,54 +1187,65 @@ def make_co2_world_map(countries, min_year, max_year, chart_type_buttons):
     layout = dbc.Container([
         dbc.Row([
             dbc.Col(
-                [
-                    chart_type_buttons,
-                    dcc.Dropdown(
-                        id='co2-type-selector',
-                    options=[
-                        {'label': 'Population', 'value': 'population'},
-                        {'label': 'GDP', 'value': 'gdp'},
-                        {'label': 'CO2', 'value': 'co2'},
-                        {'label': 'Coal CO2', 'value': 'coal_co2'},
-                        {'label': 'Oil CO2', 'value': 'oil_co2'},
-                        {'label': 'Gas CO2', 'value': 'gas_co2'},
-                        {'label': 'Cement CO2', 'value': 'cement_co2'},
-                        {'label': 'Flaring CO2', 'value': 'flaring_co2'},
-                        {'label': 'CO2 per Capita', 'value': 'co2_per_capita'},
-                        {'label': 'Land Use Change CO2', 'value': 'land_use_change_co2'},
-                        {'label': 'Share of Global CO2', 'value': 'share_global_co2'},
-                        {'label': 'Temperature Change from CO2', 'value': 'temperature_change_from_co2'},
-                        {'label': 'Total GHG', 'value': 'total_ghg'},
-                        {'label': 'Total GHG Excluding LUCF', 'value': 'total_ghg_excluding_lucf'}
+                dbc.Card(
+                    [
+                        dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
+                        dbc.CardBody([
+                            html.Label("Beobachtungsgegenstand:", htmlFor='co2-type-selector', style={'color': 'white'}),
+                            dcc.Dropdown(
+                                id='co2-type-selector',
+                                options=[
+                                    {'label': 'Population', 'value': 'population'},
+                                    {'label': 'GDP', 'value': 'gdp'},
+                                    {'label': 'CO2', 'value': 'co2'},
+                                    {'label': 'Coal CO2', 'value': 'coal_co2'},
+                                    {'label': 'Oil CO2', 'value': 'oil_co2'},
+                                    {'label': 'Gas CO2', 'value': 'gas_co2'},
+                                    {'label': 'Cement CO2', 'value': 'cement_co2'},
+                                    {'label': 'Flaring CO2', 'value': 'flaring_co2'},
+                                    {'label': 'CO2 per Capita', 'value': 'co2_per_capita'},
+                                    {'label': 'Land Use Change CO2', 'value': 'land_use_change_co2'},
+                                    {'label': 'Share of Global CO2', 'value': 'share_global_co2'},
+                                    {'label': 'Temperature Change from CO2', 'value': 'temperature_change_from_co2'},
+                                    {'label': 'Total GHG', 'value': 'total_ghg'},
+                                    {'label': 'Total GHG Excluding LUCF', 'value': 'total_ghg_excluding_lucf'}
+                                ],
+                                value='co2',
+                                className="mb-3",
+                                style={'color': 'black'}  # Textfarbe auf Schwarz ändern
+                            ),
+                            html.Label("Länderauswahl:", htmlFor='country-selector', style={'color': 'white'}),
+                            dcc.Dropdown(
+                                id='country-selector',
+                                options=[{'label': country, 'value': country} for country in countries],
+                                value=[],
+                                multi=True,
+                                className="mb-3",
+                                style={'color': 'black'}  # Textfarbe auf Schwarz ändern
+                            ),
+                            html.Label("Zeitraum:", htmlFor='year-slider', style={'color': 'white'}),
+                            dcc.RangeSlider(
+                                id='year-slider',
+                                min=min_year,
+                                max=max_year,
+                                value=[min_year, max_year],
+                                marks={str(year): str(year) for year in range(min_year, max_year+1, 5)},
+                            ),
+                        ])
                     ],
-                        value='co2',
-                        className="mb-3",
-                    ),
-                    dcc.Dropdown(
-                        id='country-selector',
-                        options=[{'label': country, 'value': country} for country in countries],
-                        value=[],
-                        multi=True,
-                        className="mb-3",
-                    ),
-                    dcc.Graph(id='chart', style={'height': '70vh'}),
-                    dcc.RangeSlider(
-                        id='year-slider',
-                        min=min_year,
-                        max=max_year,
-                        value=[min_year, max_year],
-                        marks={str(year): str(year) for year in range(min_year, max_year+1, 5)},
-                    )
-                ],
+                    color="primary",
+                    style={'color': 'white'}
+                )
+            ),
+        ]),
+        chart_type_buttons,
+        dbc.Row([
+            dbc.Col(
+                dcc.Graph(id='chart', style={'height': '70vh'}),
                 width=12
             )
         ]),
-        dbc.Row([
-            dbc.Col(
-                html.Div(id='slider-output'),
-                width=9, className="offset-md-3"
-            )
-        ]),
+        html.Div(id='slider-output'),
         html.Div(id='chart-type-status', style={'display': 'none'})
     ], fluid=True)
     return layout
@@ -1249,18 +1262,18 @@ def make_hydro_1_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/hydro_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " Waldökosysteme und ihr Wasserhaushalt"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/hydro_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-        brand=html.Span([link_icon, " Hydrologie:"], 
-                        style={"text-decoration": "underline"}),
+    brand=html.Span([link_icon, " Hydrologie:"],
+        style={"text-decoration": "underline","color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Hydrologie",
         color="primary",
         dark=True,
@@ -1627,18 +1640,18 @@ def make_hydro_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/hydro_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " Waldökosysteme und ihr Wasserhaushalt"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/hydro_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
         brand=html.Span([link_icon, " Hydrologie:"], 
-                        style={"text-decoration": "underline"}),
+        style={"text-decoration": "underline", "color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Hydrologie",
         color="primary",
         dark=True,
@@ -1965,18 +1978,18 @@ def make_pedo_1_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/pedo_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " Permafrostböden"], 
-                                    style={"text-decoration": "underline"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/pedo_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
         brand=html.Span([link_icon, " Pedologie:"], 
-                        style={"text-decoration": "underline"}),
+        style={"text-decoration": "underline", "color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
         color="primary",
         dark=True,
@@ -2159,22 +2172,22 @@ def make_pedo_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
-                                    style={"text-decoration": "underline", "white-space": "normal"},  # Erlaubt den Textumbruch
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/pedo_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " Permafrostböden"], 
-                                    style={"text-decoration": "underline", "white-space": "normal"},  # Erlaubt den Textumbruch
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/pedo_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
         brand=html.Span([link_icon, " Pedologie:"], 
-                        style={"text-decoration": "underline"}),
+        style={"text-decoration": "underline", "color": "#7fff00"}),
         brand_href="https://de.wikipedia.org/wiki/Bodenkunde",
         color="primary",
         dark=True,
-        #className="d-flex flex-column justify-content-center",
+        className="d-flex flex-column justify-content-center",
     )
 
     # Second row with sample text and collapse component

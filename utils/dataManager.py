@@ -11,11 +11,6 @@ import json
 # Here, all classes and functions for data processing 
     # Load data (once, to improve performance)
 
-# For temp rolling-average: Skip 
-# def preprocess_temperature_data(df_temp):
-#     df_temp['mov_avg'] = df_temp['JJA'].rolling(20).mean()
-#     return df_temp
-
 # ------------------------------------------------------------------------------
 # start_page_2
 # ------------------------------------------------------------------------------
@@ -230,17 +225,17 @@ def remove_months(input_file, output_file):
             # Attribute zuweisen, nachdem die Daten zugewiesen wurden
             new_var.setncatts(attrs)
 
+    # Pfade zur ursprünglichen und zur neuen Datei
+    #input_file = 'SMI_Gesamtboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+    #output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
+
+    #input_file = 'SMI_Oberboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
+    #output_file = 'filtered_SMI_Oberboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
+
+    # Ausführen der Funktion
+    #remove_months(input_file, output_file)
+
     print(f'Gefilterte NetCDF-Datei gespeichert als: {output_file}')
-
-# Pfade zur ursprünglichen und zur neuen Datei
-#input_file = 'SMI_Gesamtboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
-#output_file = 'filtered_SMI_Gesamtboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
-
-#input_file = 'SMI_Oberboden_monatlich.nc'   # Pfad zur ursprünglichen Datei
-#output_file = 'filtered_SMI_Oberboden_monatlich.nc'   # Pfad zur neuen gefilterten Datei
-
-# Ausführen der Funktion
-#remove_months(input_file, output_file)
 
 def translate_month(date):
     english_to_german_months = {
@@ -284,14 +279,14 @@ def merge_schadholz_niederschlag_and_save(schadholz_path, niederschlag_path):
     # Speichern des zusammengeführten Datensatzes als CSV-Datei mit Semikolon als Trennzeichen
     merged_df.to_csv(output_path, sep=';', index=False, encoding='utf-8')
     
+    # Pfade der Eingabedateien
+    #schadholz_path = 'data/processedData/hydro_2/processed_schadholz.csv'
+    #niederschlag_path = 'data/originalData/hydro_2/niederschlag_gebietsmittel.txt'
+
+    # Ausführen der Funktion und Speichern des neuen Datensatzes
+    #output_path = merge_schadholz_niederschlag_and_save(schadholz_path, niederschlag_path)
+
     return output_path
-
-# Pfade der Eingabedateien
-schadholz_path = 'data/processedData/hydro_2/processed_schadholz.csv'
-niederschlag_path = 'data/originalData/hydro_2/niederschlag_gebietsmittel.txt'
-
-# Ausführen der Funktion und Speichern des neuen Datensatzes
-#output_path = merge_schadholz_niederschlag_and_save(schadholz_path, niederschlag_path)
 
 def process_dataset(file_path, output_path):
     data = pd.read_csv(file_path, sep=';', encoding='ISO-8859-1')
@@ -330,12 +325,13 @@ def format_european_decimal(x):
     integer_part = parts[0].replace(',', '.')
     # Kombinieren der Teile mit europäischen Trennzeichen
     european_formatted = integer_part + ',' + parts[1]
+
+    #Beispielausführung
+    #file_path = 'data/originalData/hydro_2/41261-0003_flat.csv'
+    #output_path = 'data/processedData/hydro_2/processed_schadholz.csv'
+    #process_dataset(file_path, output_path)
+
     return european_formatted
-
-file_path = 'data/originalData/hydro_2/41261-0003_flat.csv'
-output_path = 'data/processedData/hydro_2/processed_schadholz.csv'
-
-#process_dataset(file_path, output_path)
 
 def process_logging_data(csv_file_path):
     data = pd.read_csv(csv_file_path, delimiter=';', decimal=',', na_values=[''])
