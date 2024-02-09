@@ -1183,7 +1183,7 @@ def make_klima_2_sidebar():
 
     return layout
 
-def make_co2_world_map(countries, min_year, max_year, chart_type_buttons):
+def make_co2_world_map(translated_country_options, min_year, max_year, chart_type_buttons):
     layout = dbc.Container([
         dbc.Row([
             dbc.Col(
@@ -1195,29 +1195,29 @@ def make_co2_world_map(countries, min_year, max_year, chart_type_buttons):
                             dcc.Dropdown(
                                 id='co2-type-selector',
                                 options=[
-                                    {'label': 'Population', 'value': 'population'},
-                                    {'label': 'GDP', 'value': 'gdp'},
+                                    {'label': 'Bevölkerung', 'value': 'population'},
+                                    {'label': 'BIP', 'value': 'gdp'},
                                     {'label': 'CO2', 'value': 'co2'},
-                                    {'label': 'Coal CO2', 'value': 'coal_co2'},
-                                    {'label': 'Oil CO2', 'value': 'oil_co2'},
-                                    {'label': 'Gas CO2', 'value': 'gas_co2'},
-                                    {'label': 'Cement CO2', 'value': 'cement_co2'},
-                                    {'label': 'Flaring CO2', 'value': 'flaring_co2'},
-                                    {'label': 'CO2 per Capita', 'value': 'co2_per_capita'},
-                                    {'label': 'Land Use Change CO2', 'value': 'land_use_change_co2'},
-                                    {'label': 'Share of Global CO2', 'value': 'share_global_co2'},
-                                    {'label': 'Temperature Change from CO2', 'value': 'temperature_change_from_co2'},
-                                    {'label': 'Total GHG', 'value': 'total_ghg'},
-                                    {'label': 'Total GHG Excluding LUCF', 'value': 'total_ghg_excluding_lucf'}
+                                    {'label': 'Kohle-CO2', 'value': 'coal_co2'},
+                                    {'label': 'Öl-CO2', 'value': 'oil_co2'},
+                                    {'label': 'Gas-CO2', 'value': 'gas_co2'},
+                                    {'label': 'Zement-CO2', 'value': 'cement_co2'},
+                                    {'label': 'Fackel-CO2', 'value': 'flaring_co2'},
+                                    {'label': 'CO2 pro Kopf', 'value': 'co2_per_capita'},
+                                    {'label': 'Landnutzungsänderung CO2', 'value': 'land_use_change_co2'},
+                                    {'label': 'Anteil am globalen CO2', 'value': 'share_global_co2'},
+                                    {'label': 'Temperaturänderung durch CO2', 'value': 'temperature_change_from_co2'},
+                                    {'label': 'Gesamte Treibhausgase', 'value': 'total_ghg'},
+                                    {'label': 'Gesamte Treibhausgase ohne LUCF', 'value': 'total_ghg_excluding_lucf'}
                                 ],
                                 value='co2',
                                 className="mb-3",
                                 style={'color': 'black'}  # Textfarbe auf Schwarz ändern
                             ),
-                            html.Label("Länderauswahl:", htmlFor='country-selector', style={'color': 'white'}),
+
                             dcc.Dropdown(
                                 id='country-selector',
-                                options=[{'label': country, 'value': country} for country in countries],
+                                options=translated_country_options,  # Verwenden der übersetzten Optionen
                                 value=[],
                                 multi=True,
                                 className="mb-3",
@@ -2320,7 +2320,7 @@ def create_tabs_layout(satellite_data):
                 # Iframe für die Anzeige des Bildes
                 html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
                 # Intervall für die Play-Funktion
-                dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
+                dcc.Interval(id='play-interval', interval=500, n_intervals=0, disabled=True),
             ], style={'text-align': 'center'}),
         ]),
 
