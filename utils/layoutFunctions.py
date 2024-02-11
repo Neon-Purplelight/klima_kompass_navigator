@@ -103,8 +103,12 @@ def make_start_page_1_sidebar():
         [
             html.Div(
                 [
-                    html.P("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
-                ],
+                html.P(["Diese Seite bindet die Carbon Uhr des Mercator Research Institute on Global Commons and Climate Change (",
+                html.A("MCC", href="https://de.wikipedia.org/wiki/Mercator_Research_Institute_on_Global_Commons_and_Climate_Change", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                ") ein. Diese wurde anhand der neuesten Daten des Intergovernmental Panel on Climate Change (",
+                html.A("IPCC", href="https://de.wikipedia.org/wiki/Mercator_Research_Institute_on_Global_Commons_and_Climate_Change", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                ") überarbeitet, um das verbleibende globale Budget für Treibhausgasemissionen anzuzeigen. Dies verdeutlicht den Druck für politische Maßnahmen zur Begrenzung der globalen Erwärmung auf 1,5 und 2 Grad Celsius über dem vorindustriellen Niveau. Die aktualisierte Uhr veranschaulicht, dass das Zeitfenster für entscheidende Maßnahmen zur Begrenzung der Auswirkungen des Klimawandels immer knapper wird."]),
+               ],
                 className='mb-3',
                 #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
@@ -119,12 +123,16 @@ def make_start_page_1_sidebar():
                 html.Div(
                     [
                         html.P([
-                            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                            "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO2-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO2. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
+                            html.A("basierend auf zwei Dritteln der untersuchten Szenarien", href="https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM_final.pdf#page=33", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            "). Die Generalsekretärin des MCC Brigitte Knopf betont den enormen Handlungsdruck angesichts der zunehmenden Extremwetterereignisse und des besorgniserregenden Trends im IPCC-Bericht und fordert dringend wirksame Maßnahmen in der globalen Klimapolitik.",
                         ]),
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         html.P([  
-                            "Lorem Ipsum",
+                            "Weitere Informationen zur Carbon Uhr finden sich auf der ",
+                            html.A("Website", href="https://www.mcc-berlin.net/en/research/co2-budget.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " des Mercator Instituts.",
                         ]),
                     ],
                     className='mb-3',
