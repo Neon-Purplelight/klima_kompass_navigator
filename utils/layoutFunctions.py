@@ -21,19 +21,19 @@ def make_NavBar():
     """
     navbar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink('Home', href='/', id='navlink')),
+            dbc.NavItem(dbc.NavLink('Startseite', href='/', id='navlink')),
             dbc.NavItem(dbc.NavLink('Klimatologie', href='/klima_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Hydrologie', href='/hydro_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Pedologie', href='/pedo_1', id='navlink')),
             #dbc.NavItem(dbc.NavLink('Ökologie', href='/oeko_1', id='navlink')),
             dbc.DropdownMenu(
                 children=[
-                    dbc.DropdownMenuItem('Lorem', id='citeDropdown'),
-                    dbc.DropdownMenuItem('Ipsum', id='aboutUsDropdown'),
+                    dbc.DropdownMenuItem('Link zum Quellcode', href='https://github.com/Neon-Purplelight/klima_kompass_navigator'),
+                    dbc.DropdownMenuItem('Link zum Studiengang', href='https://www.bht-berlin.de/m-ugis'),
                 ],
                 nav=True,
                 in_navbar=True,
-                label='More',
+                label='Mehr',
             ),
         ],
         brand='Klima Kompass Navigator',
@@ -47,7 +47,7 @@ def make_NavBar():
     )
     return navbar
 
-def make_CC_licenseBanner():
+def make_footer():
     banner = []
 
     banner = html.Div([
@@ -91,7 +91,7 @@ def make_start_page_1_sidebar():
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-    brand=html.Span([link_icon, " Home:"],
+    brand=html.Span([link_icon, " Startseite:"],
         style={"color": "#7fff00"}),
         color="primary",
         dark=True,
@@ -115,7 +115,7 @@ def make_start_page_1_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -274,6 +274,24 @@ def make_interactive_controls_example():
 
     return controls_example
 
+def make_data_info_start_page_1():
+    return html.Div(
+        children=[
+            html.Hr(className="mt-2 mb-2"),
+            html.H5("Lizenzinformationen"),
+            html.P(
+                """
+                Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von Our World in Data und basieren auf dem Global Carbon Project. 
+                Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. 
+                Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das GitHub- Repository sowie die offizielle Website: 
+                """
+            ),
+            html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+            html.Br(),
+            html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+        ],
+        className="py-1 bg-primary rounded-1 text-white",
+    )
 # ------------------------------------------------------------------------------
 # start_page_2 functions
 # ------------------------------------------------------------------------------
@@ -296,7 +314,7 @@ def make_start_page_2_sidebar():
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-    brand=html.Span([link_icon, " Home:"],
+    brand=html.Span([link_icon, " Startseite:"],
         style={"color": "#7fff00"}),
         color="primary",
         dark=True,
@@ -335,13 +353,14 @@ def make_start_page_2_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
             dbc.Collapse(
                 html.Div(
                     [
+                    html.Br(),
                     html.P([
                         "Die GISS Oberflächentemperaturanalyse Version 4 (",
                         html.A("GISTEMP v4", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -355,23 +374,8 @@ def make_start_page_2_sidebar():
                                                                   
                     html.Hr(),
                     html.H4("Verwendete Datensätze:"),
-                    html.P([
-                        "Die Daten über die CO2 Emissionen stützen sich auf Datensätze von ",
-                        html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
-                        html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ".",
-                    ]),
-
-                    html.P([  
-                        "Die ",
-                        html.A("Temperaturdaten", href="https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.txt", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " stammen von der National Aeronautics and Space Administration (",
-                        html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar. Weitere Informationen zum Datensatz finden sich ",
-                        html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        "."
-                        ]),
+                    make_owid_info_modal(),
+                    make_gistemp_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}
@@ -379,7 +383,7 @@ def make_start_page_2_sidebar():
                 id='collapse_more_info_klima_2',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1')
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1'),
         ],
         fluid=True,
         className="py-1 bg-primary rounded-1 text-white",
@@ -692,6 +696,86 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
 
     return graph_with_info_button
 
+def make_owid_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
+                id="open-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
+                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                                    " und basieren auf dem ",
+                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
+                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
+                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
+                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
+                                    "Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das GitHub-Repository sowie die offizielle Website."
+                                ]
+                            ),
+                            html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
+                            html.Br(),
+                            html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
+
+def make_gistemp_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Temperaturdatensatz"], 
+                id="open-gistemp-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("GLB.Ts+dSST.csv")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die ",
+                                    html.A("Temperaturdaten", href="https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.txt", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " stammen von der National Aeronautics and Space Administration (",
+                                    html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar.",
+                                    " Sie beinhalten Temperaturanomalien, die von meteorologischen Stationen und ozeanischen Messpunkten abgeleitet sind (nähre Informationen zum Datensatz finden sich ",
+                                    html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "). Die Daten und Visualisierungen sind gemäß den Richtlinien der NASA zur Verwendung von Bildern und Medien frei nutzbar, wobei eine Quellenangabe erforderlich ist. Programme und der Quellcode der Analyse sind öffentlich zugänglich und dürfen unter Einhaltung der jeweiligen Lizenzbedingungen genutzt werden. Bitte beachten Sie die genauen Nutzungsbedingungen und Referenzierungsanforderungen auf der offiziellen ",
+                                    html.A("Goddard Institute for Space Studies-Website", href="https://www.giss.nasa.gov/", target="_blank", className="link-primary"),
+                                    "."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-gistemp-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="gistemp-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # klima_1 functions
 # ------------------------------------------------------------------------------
@@ -1115,6 +1199,7 @@ def create_co2_treemap_per_capita(df_filtered):
     ])
 
     return graph_with_info_button
+
 
 # ------------------------------------------------------------------------------
 # klima_2 functions

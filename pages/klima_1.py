@@ -65,7 +65,7 @@ layout = html.Div(
                 ),
             ]
         ),
-        dbc.Row([lf.make_CC_licenseBanner()]),
+        dbc.Row([lf.make_footer()]),
     ],
 )
 

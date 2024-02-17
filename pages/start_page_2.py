@@ -40,7 +40,7 @@ layout = html.Div(
         ),
         
         # Row containing the Creative Commons license banner
-        dbc.Row([lf.make_CC_licenseBanner()]),
+        dbc.Row([lf.make_footer()]),
     ],
 )
 
@@ -127,3 +127,25 @@ def toggle_info_card_barplot(n_clicks):
 )
 def toggle_collapse_more_info(n_clicks, is_open):
     return not is_open
+
+# Callback zum Öffnen des Modals
+@callback(
+    Output("modal", "is_open"),
+    [Input("open-modal-button", "n_clicks"), Input("close-modal-button", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+# Callback zum Öffnen und Schließen des GISTEMP-Modals
+@callback(
+    Output("gistemp-modal", "is_open"),
+    [Input("open-gistemp-modal-button", "n_clicks"), Input("close-gistemp-modal-button", "n_clicks")],
+    [State("gistemp-modal", "is_open")],
+)
+def toggle_gistemp_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open

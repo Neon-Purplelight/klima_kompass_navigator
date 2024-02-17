@@ -27,7 +27,7 @@ layout = html.Div(
         ),
         
         # Row containing the Creative Commons license banner
-        dbc.Row([lf.make_CC_licenseBanner()]),
+        dbc.Row([lf.make_footer()]),
     ],
     # Styling for the background image
     style={

@@ -114,7 +114,7 @@ layout = html.Div(
             ],
             className="g-0",  # Ersetzt no_gutters für Bootstrap 5
         ),
-        dbc.Row([lf.make_CC_licenseBanner()]),
+        dbc.Row([lf.make_footer()]),
     ],
     className="my-3",  # Fügt einen Außenabstand hinzu
 )
