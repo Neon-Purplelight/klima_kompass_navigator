@@ -52,12 +52,6 @@ def make_footer():
 
     banner = html.Div([
         html.Hr(className="mt-2 mb-2"),
-        html.P([
-            "Link zum ",
-            dcc.Link("Quellcode",
-                     href="https://github.com/Neon-Purplelight/klima_kompass_navigator",
-                     target="_blank"),
-        ]),
         html.A([
             html.Img([], alt="Creative Commons Lizenz",
                      src="https://i.creativecommons.org/l/by/4.0/88x31.png")],
@@ -122,18 +116,15 @@ def make_start_page_1_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                             "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO2-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO2. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
                             html.A("basierend auf zwei Dritteln der untersuchten Szenarien", href="https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM_final.pdf#page=33", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                             "). Die Generalsekretärin des MCC Brigitte Knopf betont den enormen Handlungsdruck angesichts der zunehmenden Extremwetterereignisse und des besorgniserregenden Trends im IPCC-Bericht und fordert dringend wirksame Maßnahmen in der globalen Klimapolitik.",
                         ]),
                         html.Hr(),
-                        html.H4("Verwendete Datensätze:"),
-                        html.P([  
-                            "Weitere Informationen zur Carbon Uhr finden sich auf der ",
-                            html.A("Website", href="https://www.mcc-berlin.net/en/research/co2-budget.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " des Mercator Instituts.",
-                        ]),
+                        html.H4("Verwendete Daten:"),
+                        make_mcc_carbon_clock_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -274,23 +265,40 @@ def make_interactive_controls_example():
 
     return controls_example
 
-def make_data_info_start_page_1():
+def make_mcc_carbon_clock_info_modal():
     return html.Div(
         children=[
-            html.Hr(className="mt-2 mb-2"),
-            html.H5("Lizenzinformationen"),
-            html.P(
-                """
-                Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von Our World in Data und basieren auf dem Global Carbon Project. 
-                Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. 
-                Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das GitHub- Repository sowie die offizielle Website: 
-                """
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " MCC Carbon Clock"],
+                id="open-mcc-carbon-clock-modal-button",
+                className="mt-2 mb-2",
+                color="primary"
             ),
-            html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-            html.Br(),
-            html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-        ],
-        className="py-1 bg-primary rounded-1 text-white",
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("MCC Carbon Clock")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die MCC Carbon Clock zeigt, wie viel CO2 noch in die Atmosphäre ausgestoßen werden darf, um die globale Erwärmung auf maximal 1,5°C bzw. 2°C zu begrenzen. ",
+                                    "Diese Schätzung basiert auf den neuesten wissenschaftlichen Erkenntnissen und berechnet die verbleibende Zeit bis zum Erreichen dieser Grenzwerte. ",
+                                    "Die Uhr wird regelmäßig aktualisiert, um die neuesten Daten und Forschungsergebnisse widerzuspiegeln, was eine wichtige Ressource für die Einschätzung der Dringlichkeit von Klimaschutzmaßnahmen darstellt. ",
+                                    "Die Uhr kann kostenlos auf jeder website eingebunden werden. Weitere Informationen zur MCC Carbon Clock und den zugrundeliegenden Daten können auf der offiziellen ",
+                                    html.A("Website des Mercator Research Institute on Global Commons and Climate Change (MCC)", href="https://www.mcc-berlin.net/en/research/co2-budget.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " gefunden werden."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-mcc-carbon-clock-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="mcc-carbon-clock-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
     )
 # ------------------------------------------------------------------------------
 # start_page_2 functions
@@ -719,12 +727,20 @@ def make_owid_info_modal():
                                     " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
                                     html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
                                     "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
-                                    "Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das GitHub-Repository sowie die offizielle Website."
+                                    "Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
+                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
+                                    " des Datensatzes.",
                                 ]
                             ),
-                            html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
-                            html.Br(),
-                            html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                            html.P(
+                                [
+                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
+                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "."
+                                ]
+                            ),
                         ]
                     ),
                     dbc.ModalFooter(
@@ -810,9 +826,16 @@ def make_klima_1_sidebar():
         [
             html.Div(
                 [
-                    html.P("Die Rolle von Kohlendioxidemissionen als Haupttreiber des globalen Klimawandels steht außer Frage. Ein breiter Konsens besteht darüber, dass eine rasche Reduzierung dieser Emissionen unerlässlich ist, um die schlimmsten Auswirkungen des Klimawandels zu verhindern. In internationalen Diskussionen ist die Verteilung der Verantwortung für Emissionsreduktionen jedoch ein kontroverses Thema."),
-                    html.P("Die Uneinigkeit erstreckt sich über Regionen, Länder und sogar individuelle Verantwortlichkeiten. Unterschiedliche Vergleichsmethoden tragen zu vielfältigen Erzählungen bei. Die Analyse jährlicher Emissionen pro Land gibt Einblicke in nationale Beiträge, während die Betrachtung von Emissionen pro Person individuelle Verantwortlichkeiten verdeutlicht. Historische Emissionsbeiträge werfen zudem die Frage auf, wer historisch gesehen maßgeblich zur aktuellen Klimakrise beigetragen hat."),
-                    html.P("Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."),
+                    html.P([
+                        "Die Rolle von Kohlendioxidemissionen als Haupttreiber des globalen Klimawandels steht außer Frage. Ein breiter Konsens besteht darüber, dass eine rasche Reduzierung dieser Emissionen unerlässlich ist, um die schlimmsten Auswirkungen des Klimawandels zu verhindern. In internationalen Diskussionen ist die Verteilung der Verantwortung für Emissionsreduktionen jedoch ein kontroverses Thema.",
+                        html.Br(),
+                        html.Br(),
+                        "Die Uneinigkeit erstreckt sich über Regionen, Länder und sogar individuelle Verantwortlichkeiten. Unterschiedliche Vergleichsmethoden tragen zu vielfältigen Erzählungen bei. Die Analyse jährlicher Emissionen pro Land gibt Einblicke in nationale Beiträge, während die Betrachtung von Emissionen pro Person individuelle Verantwortlichkeiten verdeutlicht. Historische Emissionsbeiträge werfen zudem die Frage auf, wer historisch gesehen maßgeblich zur aktuellen Klimakrise beigetragen hat. Eine anschauliche Zusammenfassung der Problematik bietet folgendes ",
+                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=ipVxxxqwBQw", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ".",
+                        html.Br(),
+                        html.Br(),
+                        "Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."]),
                 ],
                 className='mb-3',
                 #style={'max-width': '600px'}
@@ -827,6 +850,7 @@ def make_klima_1_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                             "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
                             html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -853,21 +877,7 @@ def make_klima_1_sidebar():
                         
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
-                        html.P([
-                            "Daten für die hier verwendeten Treemaps stützen sich auf Datensätze von ",
-                            html.A("Our World in Data", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Weitere Informationen zur Zusammenstellung sowie Prozessierung des Datensatzes finden sich ",
-                            html.A("hier", href="https://github.com/owid/co2-data", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
-                        ]),
-
-                        html.P([  
-                            "Der umfangreiche Owid Datensatz wurde nur teilweise übernommen, umstrukturiert und um einige ",
-                            html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
-                            html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
-                        ]),
+                        make_owid_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}
@@ -1200,7 +1210,6 @@ def create_co2_treemap_per_capita(df_filtered):
 
     return graph_with_info_button
 
-
 # ------------------------------------------------------------------------------
 # klima_2 functions
 # ------------------------------------------------------------------------------
@@ -1250,14 +1259,14 @@ def make_klima_2_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                             "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
                         ]),
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
-                        html.P([  
-                            "Lorem Ipsum",
-                        ]),
+                        make_owid_info_modal(),
+                        make_world_countries_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -1343,6 +1352,41 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
     ], fluid=True)
     return layout
 
+def make_world_countries_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Weltländer-Datensatz"],
+                id="open-world-countries-modal-button",
+                className="mt-2 mb-2",
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("world-countries.json")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Der 'world-countries.json' Datensatz enthält geografische Daten der Länder weltweit, strukturiert im ",
+                                    html.A("GeoJSON-Format", href="https://de.wikipedia.org/wiki/GeoJSON", target="_blank", style={"color": "black", "text-decoration": "underline"}),                        
+                                    ". Dieses Format ermöglicht es, komplexe geografische Strukturen digital abzubilden, einschließlich Landesgrenzen und geografischen Merkmalen. ",
+                                    "Weitere Details und die Möglichkeit zum download des Datensatzes finden Sie ",
+                                    html.A("hier", href="https://www.kaggle.com/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-world-countries-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="world-countries-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # hydro_1 functions
 # ------------------------------------------------------------------------------
@@ -1378,6 +1422,7 @@ def make_hydro_1_sidebar():
         [
             html.Div(
                 [
+                    html.Br(),
                     html.P([
                     "Die Dashboards auf dieser Seite bieten Einblicke in die dynamischen Veränderungen des arktischen Eisschildes um die norwegische Inselgruppe ",
                     html.A("Spitzbergen ", href="https://de.wikipedia.org/wiki/Spitzbergen_(Inselgruppe)", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -1397,6 +1442,7 @@ def make_hydro_1_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                         "Der Klimawandel hat erhebliche Auswirkungen auf die arktischen Eisschilde, die eine zentrale Rolle im globalen Klimasystem spielen. Die steigenden Temperaturen in der Arktis führen zu einer ",
                         html.A("beschleunigten Eisschmelze", href="https://www.ardalpha.de/wissen/umwelt/klima/klimawandel/eisschmelze-antarktis-arktis-polkappen-schmelzen-nordpol-suedpol-100.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -1412,11 +1458,7 @@ def make_hydro_1_sidebar():
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         html.P([  
-                            "Die verwendeten Shapefiles basieren auf den täglichen Eisanalysen des U.S. National Ice Center (",
-                            html.A("USNIC", href="https://usicecenter.gov/About", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") Den vollen Datenkatalog der USNIC finden Sie ",
-                            html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
+                            make_nic_shp_info_modal(),
                         ]),
                     ],
                     className='mb-3',
@@ -1701,6 +1743,43 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     with open(output_file, 'w') as file:
         file.write(html_content)
 
+def make_nic_shp_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Eisdaten Shapefiles"],
+                id="open-nic-shp-modal-button",
+                className="mt-2 mb-2",
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("nic_autocXXXXXXXn_pl_a.shp")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die verwendeten ",
+                                    html.A("Shapefiles", href="https://de.wikipedia.org/wiki/Shapefile", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " basieren auf den täglichen Eisanalysen des U.S. National Ice Center (",
+                                    html.A("USNIC", href="https://usicecenter.gov/About", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "). Den vollen Datenkatalog der USNIC finden Sie ",
+                                    html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    ". Shapefiles sind ein beliebtes geografisches Informationsformat, das für Kartierung und räumliche Analyse verwendet wird. Sie enthalten geometrische Standorte und Attribute von geografischen Merkmalen. ",
+                                    "In diesem Fall, sind solche Daten entscheidend für die Überwachung der Eisdynamik und unterstützen sowohl wissenschaftliche Forschung als auch Navigationsentscheidungen in eisigen Gewässern. ",
+                                ],
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-nic-shp-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="nic-shp-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # hydro_2 functions
 # ------------------------------------------------------------------------------
@@ -1708,25 +1787,25 @@ def make_hydro_2_sidebar():
     # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Video-Icon Button
-    video_icon_button = dbc.Button(
-        children=[html.I(className="fa fa-play-circle")], 
-        id="toggle-video-button", 
-        color="info", 
-        className="mb-2",
-        style={"margin": "auto", "display": "block"}  # Zentriert den Button
-    )
+    # # Video-Icon Button
+    # video_icon_button = dbc.Button(
+    #     children=[html.I(className="fa fa-play-circle")], 
+    #     id="toggle-video-button", 
+    #     color="info", 
+    #     className="mb-2",
+    #     style={"margin": "auto", "display": "block"}  # Zentriert den Button
+    # )
 
-    # Video in dbc.Collapse
-    video_collapse = dbc.Collapse(
-        dbc.Card(
-            dbc.CardBody(
-                html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"})
-            )
-        ),
-        id="collapse-video",
-        is_open=False
-    )
+    # # Video in dbc.Collapse
+    # video_collapse = dbc.Collapse(
+    #     dbc.Card(
+    #         dbc.CardBody(
+    #             html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"})
+    #         )
+    #     ),
+    #     id="collapse-video",
+    #     is_open=False
+    # )
 
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
@@ -1757,12 +1836,14 @@ def make_hydro_2_sidebar():
             html.Div(
                 [
                     html.P([
-                        "Der Klimawandel führt zu veränderten Niederschlagsmustern und erhöhten Temperaturen, was die Verfügbarkeit von Wasser in den Wäldern beeinflusst. In vielen Regionen Deutschlands hat die Zunahme von Trockenperioden bereits spürbare Auswirkungen auf die Waldgesundheit.",
+                        "Der Klimawandel führt zu veränderten Niederschlagsmustern und erhöhten Temperaturen, was die Verfügbarkeit von Wasser in den Wäldern beeinflusst. In vielen Regionen Deutschlands hat die Zunahme von Trockenperioden bereits spürbare Auswirkungen auf die Waldgesundheit. Eines von vielen dramatischen Beispielen liefert das Waldsterben im ",
+                        html.A("Nationalpark Harz", href="https://www.youtube.com/watch?v=UTP99X3e7-A", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ".",
                     ]),
-                    html.Hr(),
-                    video_icon_button,  # Fügen Sie den Button hier ein
-                    video_collapse,     # und das ein-/ausklappbare Video
-                    html.Hr(),
+                    # html.Hr(),
+                    # video_icon_button,  # Fügen Sie den Button hier ein
+                    # video_collapse,     # und das ein-/ausklappbare Video
+                    # html.Hr(),
                     html.P([
                         "Diese Veränderungen im Wasserhaushalt wirken sich nicht nur auf das Wachstum und die Entwicklung der Bäume aus, sondern auch auf die Biodiversität und die Ökosystemdienstleistungen, die der Wald erbringt. Wasser ist dabei nicht nur Grundlage für die Photosynthese, sondern spielt darüber hinaus eine entscheidende Rolle für die allgemeine Gesundheit und Widerstandsfähigkeit gegenüber Schädlingen, wie dem Borkenkäfer, Unwetterereignissen oder Waldbränden.",
                         "Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
@@ -1781,6 +1862,7 @@ def make_hydro_2_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                         "Früher waren vor allem Unwetterereignisse (wie etwa 2007 der ",
                         html.A("Orkan Kyrill", href="https://de.wikipedia.org/wiki/Orkan_Kyrill", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -1798,17 +1880,7 @@ def make_hydro_2_sidebar():
                         ]),    
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
-                        html.P([  
-                            "Die verwendeten Daten zur Menge des Schadholzeinschlages finden sich unter der Datenbank des statistischen Bundesamtes (",
-                            html.A("GENESIS", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1707070432276#abreadcrumb", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            "). Der Datensatz wurde um ",
-                            html.A("Niederschlags- Daten", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html#buehneTop", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " des Deutschen Wetterdienstes (",
-                            html.A("DWD", href="https://www.dwd.de/DE/Home/home_node.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") erweitert. Weitere details zur genauen Prozessierung der Datensätze finden sich im ",
-                            html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ".",
-                        ]),
+                        make_schadholz_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -2059,6 +2131,43 @@ def hydro_2_stacked_line_chart(df, colors):
             hoverlabel={'namelength': -1, 'bgcolor': 'white', 'bordercolor': 'black'}
         )
     }
+
+def make_schadholz_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Schadholzeinschlag Datensatz"], 
+                id="open-schadholz-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("Schadholzeinschlag in Deutschland")),
+                    dbc.ModalBody(
+                            [
+                                html.P([  
+                                "Die verwendeten Daten zur Menge des Schadholzeinschlages finden sich unter der Datenbank des statistischen Bundesamtes (",
+                                html.A("GENESIS", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1707070432276#abreadcrumb", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                "). Hier lassen sich die Daten nach bestimmten Kriterien filtern und danach als Datenpaket herunterladen. Der Datensatz wurde zusätzlich um ",
+                                html.A("Niederschlags- Daten", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html#buehneTop", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " des Deutschen Wetterdienstes (",
+                                html.A("DWD", href="https://www.dwd.de/DE/Home/home_node.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                ") erweitert. Weitere details zur genauen Prozessierung der Datensätze finden sich im ",
+                                html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                ".",
+                            ]),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-schadholz-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="schadholz-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # pedo_1 functions
 # ------------------------------------------------------------------------------
@@ -2125,6 +2234,7 @@ def make_pedo_1_sidebar():
             dbc.Collapse(
                 html.Div(
                     [
+                        html.Br(),
                         html.P([
                         "Die Identifikation von Dürrebedingungen in Deutschland basiert auf einem Bodenfeuchteindex (SMI), der über das hydrologische Modell ",
                         html.A("mHM", href="https://www.ufz.de/index.php?en=40114", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -2148,15 +2258,7 @@ def make_pedo_1_sidebar():
                         " veröffentlicht.",
                         ]),
                         html.H4("Verwendeter Datensatz:"),
-                        html.P([
-                        "Die historischen, monatlichen SMI-Daten von 1951-2022 können im  ",
-                        html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " ",
-                        html.A("hier ", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " heruntergeladen werden. Die Daten basieren auf ", 
-                        html.A("Zink et al. 2015 (ERL) ", href="https://www.ufz.de/export/data/2/126777_2016-Zink-Soil_Moisture_Droughts_in_Germany.pdf", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        "und enthalten den Bodenfeuchteindex (SMI, soil moisture index) skaliert zwischen [0-1], sowie Koordinaten in den Formaten Gauß-Krüger Zone 4 (EPSG: 31468) [variablen easting/northing] als auch Lat/Lon Informationen (EPSG:4326).",
-                        ]),
+                        make_smi_info_modal()
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -2253,6 +2355,46 @@ def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
         ],
     )
 
+def make_smi_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Bodenfeuchtigkeitsdatensatz"], 
+                id="open-smi-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("SMI_Oberboden/Gesamtboden_monatlich.nc")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die historischen, monatlichen Bodenfeuchtigkeitsdaten von 1951-2022 stammen von dem Helmholtz-Zentrum für Umweltforschung (",
+                                    html.A("UFZ", href="https://www.ufz.de/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    ") und könnem im  ",
+                                    html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " ",
+                                    html.A("hier", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " heruntergeladen werden. ",
+                                    "Die Daten basieren auf den Messungen von ungefähr 2500 Wetterstationen des Deutschen Wetterdienstes. Diese werden zunächst qualitätsgeprüft und dann auf ein 4 km Raster interpoliert. Auf dieser Grundlagen kann dann schließlich durch Modellrechnungen eine Annäherung an die tatsächliche Bodenfeuchte simuliert werden. Weitere Informationen hierzu finden sich unter ", 
+                                    html.A("Zink et al. 2016", href="https://iopscience.iop.org/article/10.1088/1748-9326/11/7/074002/meta", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    ". Die Nutzung der Daten unterliegt den jeweiligen Lizenzbedingungen, die auf der ",
+                                    html.A("UFZ-Website", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                     " angegeben sind.",
+                                ]),
+                            ]
+                        ),
+                        dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-smi-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="smi-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # pedo_2 functions
 # ------------------------------------------------------------------------------
@@ -2334,19 +2476,7 @@ def make_pedo_2_sidebar():
                         ")."
                         ]),
                         html.H4("Verwendete Daten:"),
-                        html.P([
-                        "Die hier verwendeten Satellitendaten stammen aus einer vorab ausgewählten Sammlung des US Geological Survey (USGS) (",
-                        html.A("Link", href="https://eros.usgs.gov/earthshots/the-craters-size", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ") und sind Teil der Satellitenmissionen ",
-                        html.A("Landsat 5", href="https://de.wikipedia.org/wiki/Landsat_5", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " (1991), ", 
-                        html.A("Landsat 7", href="https://de.wikipedia.org/wiki/Landsat_7", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " (1999, 2005, 2010), ",
-                        html.A("Landsat 8", href="https://de.wikipedia.org/wiki/Landsat_8", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " (2014, 2018, 2022) sowie ",
-                        html.A("Sentinel-2A", href="https://de.wikipedia.org/wiki/Sentinel-2", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        " (2022)."
-                        ]),
+                        make_satellitendaten_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -2454,3 +2584,42 @@ def create_tabs_layout(satellite_data):
             ]),
         ]),
     ])
+
+def make_satellitendaten_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Satellitenbilddaten"], 
+                id="open-satellitendaten-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("Satellitenbilddaten")),
+                    dbc.ModalBody(
+                        [
+                            html.P([
+                                "Die hier verwendeten Satellitenbilddaten stammen aus einer vorab ausgewählten ",
+                                html.A("Sammlung", href="https://eros.usgs.gov/earthshots/the-craters-size", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " des US Geological Survey (USGS) und sind Teil der Satellitenmissionen ",
+                                html.A("Landsat 5", href="https://de.wikipedia.org/wiki/Landsat_5", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " (1991), ", 
+                                html.A("Landsat 7", href="https://de.wikipedia.org/wiki/Landsat_7", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " (1999, 2005, 2010), ",
+                                html.A("Landsat 8", href="https://de.wikipedia.org/wiki/Landsat_8", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " (2014, 2018, 2022) sowie ",
+                                html.A("Sentinel-2A", href="https://de.wikipedia.org/wiki/Sentinel-2", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                " (2022)."
+                            ]),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-satellitendaten-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="satellitendaten-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )

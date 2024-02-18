@@ -65,3 +65,13 @@ def toggle_info_card_iframe(n_clicks):
 )
 def toggle_collapse_more_info(n_clicks, is_open):
     return not is_open
+
+@callback(
+    Output('mcc-carbon-clock-modal', 'is_open'),
+    [Input('open-mcc-carbon-clock-modal-button', 'n_clicks'), Input('close-mcc-carbon-clock-modal-button', 'n_clicks')],
+    [State('mcc-carbon-clock-modal', 'is_open')]
+)
+def toggle_mcc_carbon_clock_modal(open_n_clicks, close_n_clicks, is_open):
+    if open_n_clicks or close_n_clicks:
+        return not is_open
+    return is_open

@@ -1,8 +1,7 @@
 import base64
 from io import BytesIO
 import matplotlib.pyplot as plt
-import dash
-from dash import html, Input, Output, callback, dcc
+from dash import html, Input, Output, State, dcc, callback
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 import numpy as np
@@ -187,3 +186,13 @@ def update_comparison_tab(selected_datasets, selected_times):
         plots_container.extend(plots)
 
     return [html.Div(plots_container, style={'display': 'flex', 'flexWrap': 'wrap'})]
+
+@callback(
+    Output('smi-modal', 'is_open'),
+    [Input('open-smi-modal-button', 'n_clicks'), Input('close-smi-modal-button', 'n_clicks')],
+    [State('smi-modal', 'is_open')]
+)
+def toggle_smi_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open

@@ -182,3 +182,13 @@ def toggle_collapse_more_info(n_clicks, is_open):
 )
 def toggle_info_card_settings(n_clicks):
     return {"display": "none"} if n_clicks % 2 == 0 else {"display": "block"}
+
+@callback(
+    Output('nic-shp-modal', 'is_open'),
+    [Input('open-nic-shp-modal-button', 'n_clicks'), Input('close-nic-shp-modal-button', 'n_clicks')],
+    [State('nic-shp-modal', 'is_open')]
+)
+def toggle_nic_shp_modal(open_n_clicks, close_n_clicks, is_open):
+    if open_n_clicks or close_n_clicks:
+        return not is_open
+    return is_open
