@@ -937,7 +937,7 @@ def create_co2_treemap(df_filtered):
     last_5_years_data = df_filtered[df_filtered['year'] >= df_filtered['year'].max() - 4].copy()
 
     # Create a new column for the top level (in this case, "world")
-    last_5_years_data['world'] = 'World'
+    last_5_years_data['world'] = 'Weltweit'
 
     # Calculate the log transformation, handling NaN values
     last_5_years_data.loc[:, 'log_co2'] = np.log1p(last_5_years_data['co2'])
@@ -947,7 +947,7 @@ def create_co2_treemap(df_filtered):
         {'co2': 'mean', 'log_co2': 'mean'}).reset_index()
 
     # Calculate the percentage of CO2 contribution for each country and continent relative to the world
-    total_world_co2 = average_co2_data[average_co2_data['world'] == 'World']['co2'].sum()
+    total_world_co2 = average_co2_data[average_co2_data['world'] == 'Weltweit']['co2'].sum()
     average_co2_data['percentage_co2'] = (average_co2_data['co2'] / total_world_co2) * 100
 
     # Create the Plotly Express treemap figure
@@ -1052,13 +1052,13 @@ def create_co2_treemap_historic(df_filtered):
     last_year_data = df_filtered[df_filtered['year'] == last_year].copy()
 
     # Create a new column for the top level (in this case, "world")
-    last_year_data['world'] = 'World'
+    last_year_data['world'] = 'Weltweit'
 
     # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_cumulative_co2'] = np.log1p(last_year_data['cumulative_co2'])
 
     # Calculate the percentage of CO2 contribution for each country and continent relative to the world
-    total_world_co2 = last_year_data[last_year_data['world'] == 'World']['cumulative_co2'].sum()
+    total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['cumulative_co2'].sum()
     last_year_data['percentage_cumulative_co2'] = (last_year_data['cumulative_co2'] / total_world_co2) * 100
 
     fig = px.treemap(last_year_data, path=['world', 'continent', 'country'], values='cumulative_co2',
@@ -1137,13 +1137,13 @@ def create_co2_treemap_per_capita(df_filtered):
     last_year_data = df_filtered[df_filtered['year'] == last_year].copy()
 
     # Create a new column for the top level (in this case, "world")
-    last_year_data['world'] = 'World'
+    last_year_data['world'] = 'Weltweit'
 
     # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_co2_per_capita'] = np.log1p(last_year_data['co2_per_capita'])
 
     # Calculate the percentage of CO2 contribution for each country and continent relative to the world
-    total_world_co2 = last_year_data[last_year_data['world'] == 'World']['co2_per_capita'].sum()
+    total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['co2_per_capita'].sum()
     last_year_data['percentage_co2_per_capita'] = (last_year_data['co2_per_capita'] / total_world_co2) * 100
 
     fig = px.treemap(last_year_data, path=['world', 'continent', 'country'], values='co2_per_capita',

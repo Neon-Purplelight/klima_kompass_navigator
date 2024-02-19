@@ -41,7 +41,7 @@ layout = html.Div(
         
         # Row containing the Creative Commons license banner
         dbc.Row([lf.make_footer()]),
-    ],
+    ],                                  
 )
 
 # ...
