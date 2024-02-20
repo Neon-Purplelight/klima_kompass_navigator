@@ -105,14 +105,14 @@ def process_and_save_csv(input_file_path, output_file_path, country_names):
     df['iso_code'] = df['iso_code'].replace('SSD', 'SDS')
 
     # Select and reorder columns
-    selected_columns = ["country", "iso_code", "population", "gdp", "year", "co2", "coal_co2", 
+    selected_columns = ["country", "iso_code", "population", "gdp", "consumption_co2", "consumption_co2_per_capita", "trade_co2", "year", "co2", "coal_co2", 
                         "oil_co2", "gas_co2", "cement_co2", "flaring_co2", 
                         "other_industry_co2", "co2_per_capita", "cumulative_co2", 
                         "cumulative_coal_co2", "cumulative_oil_co2", 
                         "cumulative_gas_co2", "cumulative_cement_co2", 
                         "cumulative_flaring_co2", "cumulative_other_co2", 
                         "land_use_change_co2", "share_global_co2", 
-                        "share_global_cumulative_co2", "temperature_change_from_co2", 
+                        "share_global_cumulative_co2", "share_global_co2_including_luc","temperature_change_from_co2", 
                         "total_ghg", "total_ghg_excluding_lucf"]
     df = df[selected_columns]
 

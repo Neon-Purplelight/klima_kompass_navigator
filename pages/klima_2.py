@@ -246,6 +246,28 @@ chart_type_buttons = dbc.ButtonGroup(
     style={'color': 'white'}  # Setzen Sie die Schriftfarbe auf Weiß für nicht ausgewählte Buttons
 )
 
+
+# Informationen zu den CO2-Typen
+co2_info = {
+    "population": "*Bevölkerung nach Ländern, verfügbar von 10.000 v. Chr. bis 2100, basierend auf Daten und Schätzungen aus verschiedenen Quellen.",
+    "gdp": "*Bruttoinlandsprodukt in der Leitwährung Dollar (Bemessungsgrundlage 2011), um Preisänderungen im Laufe der Zeit (Inflation) und Preisunterschiede zwischen den Ländern zu berücksichtigen. Berechnet durch Multiplikation des Pro-Kopf-BIP mit der Bevölkerung.",
+    "consumption_co2":"*Jährliche verbrauchsbedingte Emissionen von Kohlendioxid (CO₂), gemessen in Millionen Tonnen.",
+    "consumption_co2_per_capita":"*Jährliche verbrauchsbedingte Emissionen von Kohlendioxid (CO₂), gemessen in Tonnen pro Person.",
+    "trade_co2": "*Jährliche Netto-Kohlendioxid (CO₂)-Emissionen im Handel, gemessen in Millionen Tonnen.",
+    "co2": "*Jährliche Gesamtemissionen von Kohlendioxid (CO₂), ohne Landnutzungsänderungen, gemessen in Millionen Tonnen.",
+    "co2_per_capita": "*Jährliche Gesamtemissionen von Kohlendioxid (CO₂), ohne Landnutzungsänderungen, gemessen in Tonnen pro Person.",
+    "coal_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus Kohle, gemessen in Millionen Tonnen.",
+    "oil_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus Öl, gemessen in Millionen Tonnen.",
+    "gas_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus Gas, gemessen in Millionen Tonnen.",
+    "cement_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus Zement, gemessen in Millionen Tonnen.",
+    "flaring_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus dem Abfackeln von Gas bei der Ölförderung.",
+    "land_use_change_co2": "*Jährliche Emissionen von Kohlendioxid (CO₂) aus Landnutzungsänderungen, gemessen in Millionen Tonnen.",
+    "share_global_co2": "*Jährliche Gesamtemissionen von Kohlendioxid (CO₂), ohne Landnutzungsänderungen, gemessen als Prozentsatz der weltweiten CO₂-Emissionen im selben Jahr.",
+    "share_global_co2_including_luc": "*Jährliche Gesamtemissionen von Kohlendioxid (CO₂), einschließlich Landnutzungsänderungen, gemessen als Prozentsatz der weltweiten Gesamtemissionen von CO₂ im selben Jahr.",
+    "temperature_change_from_co2": "*Veränderung der globalen mittleren Oberflächentemperatur durch CO₂-Emissionen - gemessen in °C.",
+    "total_ghg": "*Die Emissionen werden in Millionen Tonnen Kohlendioxid-Äquivalenten gemessen.",
+    "total_ghg_excluding_lucf": "*Die Emissionen werden in Millionen Tonnen Kohlendioxid-Äquivalenten gemessen."
+}
 # ------------------------------------------------------------------------------
 # LAYOUT
 # ------------------------------------------------------------------------------
@@ -364,3 +386,10 @@ def toggle_world_countries_modal(open_n_clicks, close_n_clicks, is_open):
     if open_n_clicks or close_n_clicks:
         return not is_open
     return is_open
+
+@callback(
+    Output('co2-info-panel', 'children'),
+    [Input('co2-type-selector', 'value')]
+)
+def update_info_panel(selected_co2_type):
+    return html.P(co2_info[selected_co2_type], className="mt-3")

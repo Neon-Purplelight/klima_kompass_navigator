@@ -63,6 +63,60 @@ def make_footer():
 
     return banner
 
+def make_owid_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
+                id="open-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
+                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                                    " und basieren auf dem ",
+                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
+                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
+                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
+                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
+                                    "Die Daten sind unter der MIT-Lizenz verfügbar und unter Angabe der Quelle frei nutzbar:",
+                                    html.Hr(),
+                                    html.P(
+                                        "Global Carbon Budget (2023) – with major processing by Our World in Data",
+                                        style={'color': 'grey'} ),
+                                    html.Hr(),
+                                    " Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
+                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
+                                    " des Datensatzes.",
+                                ]
+                            ),
+                            html.P(
+                                [
+                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
+                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # start_page_1 functions
 # ------------------------------------------------------------------------------
@@ -704,55 +758,6 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
 
     return graph_with_info_button
 
-def make_owid_info_modal():
-    return html.Div(
-        children=[
-            dbc.Button(
-                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
-                id="open-modal-button", 
-                className="mt-2 mb-2", 
-                color="primary"
-            ),
-            dbc.Modal(
-                [
-                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
-                    dbc.ModalBody(
-                        [
-                            html.P(
-                                [
-                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
-                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
-                                    " und basieren auf dem ",
-                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
-                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
-                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
-                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
-                                    "Der Code und die Daten sind unter der MIT-Lizenz verfügbar. Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
-                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
-                                    " des Datensatzes.",
-                                ]
-                            ),
-                            html.P(
-                                [
-                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
-                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
-                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    "."
-                                ]
-                            ),
-                        ]
-                    ),
-                    dbc.ModalFooter(
-                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
-                    ),
-                ],
-                id="modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
-            ),
-        ]
-    )
-
 def make_gistemp_info_modal():
     return html.Div(
         children=[
@@ -877,7 +882,7 @@ def make_klima_1_sidebar():
                         
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
-                        make_owid_info_modal(),
+                        make_owid_info_modal_treemaps(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}
@@ -1210,6 +1215,60 @@ def create_co2_treemap_per_capita(df_filtered):
 
     return graph_with_info_button
 
+def make_owid_info_modal_treemaps():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
+                id="open-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
+                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                                    " und basieren auf dem ",
+                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
+                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
+                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
+                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
+                                    "Die Daten sind unter der MIT-Lizenz verfügbar und unter Angabe der Quelle frei nutzbar:",
+                                    html.Hr(),
+                                    html.P(
+                                        "Hannah Ritchie, Pablo Rosado and Max Roser (2023) - “Per capita, national, historical: how do countries compare on CO2 metrics?” Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-emissions-metrics' [Online Resource]",
+                                        style={'color': 'grey'} ),
+                                    html.Hr(),
+                                    " Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
+                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
+                                    " des Datensatzes.",
+                                ]
+                            ),
+                            html.P(
+                                [
+                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
+                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
 # ------------------------------------------------------------------------------
 # klima_2 functions
 # ------------------------------------------------------------------------------
@@ -1221,12 +1280,12 @@ def make_klima_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
-                                    style={"text-decoration": "underline", "color": "white"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
-                                    style={"text-decoration": "underline", "color": "#7fff00"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
@@ -1244,10 +1303,19 @@ def make_klima_2_sidebar():
         [
             html.Div(
                 [
-                    html.P("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
+                    html.P([
+                        "Die Rolle von Kohlendioxidemissionen als Haupttreiber des globalen Klimawandels steht außer Frage. Ein breiter Konsens besteht darüber, dass eine rasche Reduzierung dieser Emissionen unerlässlich ist, um die schlimmsten Auswirkungen des Klimawandels zu verhindern. In internationalen Diskussionen ist die Verteilung der Verantwortung für Emissionsreduktionen jedoch ein kontroverses Thema.",
+                        html.Br(),
+                        html.Br(),
+                        "Die Uneinigkeit erstreckt sich über Regionen, Länder und sogar individuelle Verantwortlichkeiten. Unterschiedliche Vergleichsmethoden tragen zu vielfältigen Erzählungen bei. Die Analyse jährlicher Emissionen pro Land gibt Einblicke in nationale Beiträge, während die Betrachtung von Emissionen pro Person individuelle Verantwortlichkeiten verdeutlicht. Historische Emissionsbeiträge werfen zudem die Frage auf, wer historisch gesehen maßgeblich zur aktuellen Klimakrise beigetragen hat. Eine anschauliche Zusammenfassung der Problematik bietet folgendes ",
+                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=ipVxxxqwBQw", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ".",
+                        html.Br(),
+                        html.Br(),
+                        "Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                #style={'max-width': '600px'}
             ),
 
             html.Div(
@@ -1261,26 +1329,47 @@ def make_klima_2_sidebar():
                     [
                         html.Br(),
                         html.P([
-                            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
+                            html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
                         ]),
+                        
+                        html.P([
+                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
+                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            " und der ",
+                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
+                        ]),
+                        
+                        html.P([
+                            "Der Internationale Ausschuss für Klimaänderungen (",
+                            html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
+                        ]),
+                        
+                        html.P([
+                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
+                        ]),
+                        
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         make_owid_info_modal(),
                         make_world_countries_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
+                    #style={'max-width': '600px'}
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_1', className='ms-1')
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1')
         ],
         fluid=True,
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
+    # Combine the sidebar and second row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -1293,39 +1382,47 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                     [
                         dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
                         dbc.CardBody([
-                            html.Label("Beobachtungsgegenstand:", htmlFor='co2-type-selector', style={'color': 'white'}),
+                            html.Label("Beobachtungsgegenstand:", style={'color': 'white'}),
                             dcc.Dropdown(
                                 id='co2-type-selector',
                                 options=[
                                     {'label': 'Bevölkerung', 'value': 'population'},
                                     {'label': 'BIP', 'value': 'gdp'},
-                                    {'label': 'CO2', 'value': 'co2'},
-                                    {'label': 'Kohle-CO2', 'value': 'coal_co2'},
-                                    {'label': 'Öl-CO2', 'value': 'oil_co2'},
-                                    {'label': 'Gas-CO2', 'value': 'gas_co2'},
-                                    {'label': 'Zement-CO2', 'value': 'cement_co2'},
-                                    {'label': 'Fackel-CO2', 'value': 'flaring_co2'},
-                                    {'label': 'CO2 pro Kopf', 'value': 'co2_per_capita'},
-                                    {'label': 'Landnutzungsänderung CO2', 'value': 'land_use_change_co2'},
-                                    {'label': 'Anteil am globalen CO2', 'value': 'share_global_co2'},
+                                    {'label': 'Jährliche verbrauchsbedingte CO₂-Emissionen', 'value': 'consumption_co2'},
+                                    {'label': 'Pro-Kopf-verbrauchsbedingte CO₂-Emissionen', 'value': 'consumption_co2_per_capita'},
+                                    {'label': 'Jährliche CO₂-Emissionen im Handel', 'value': 'trade_co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen', 'value': 'co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen (pro Kopf)', 'value': 'co2_per_capita'},
+                                    {'label': 'Jährliche CO₂-Emissionen aus Kohle', 'value': 'coal_co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen aus Öl', 'value': 'oil_co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen aus Gas', 'value': 'gas_co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen aus Zement', 'value': 'cement_co2'},
+                                    {'label': 'FJährliche CO₂-Emissionen aus dem Abfackeln', 'value': 'flaring_co2'},
+                                    {'label': 'Jährliche CO₂-Emissionen aus Landnutzungsänderungen', 'value': 'land_use_change_co2'},
+                                    {'label': 'Anteil an den weltweiten jährlichen CO₂-Emissionen ', 'value': 'share_global_co2'},
+                                    {'label': 'Anteil an den weltweiten jährlichen CO₂-Emissionen einschließlich Landnutzungsänderungen', 'value': 'share_global_cumulative_co2'},
                                     {'label': 'Temperaturänderung durch CO2', 'value': 'temperature_change_from_co2'},
-                                    {'label': 'Gesamte Treibhausgase', 'value': 'total_ghg'},
-                                    {'label': 'Gesamte Treibhausgase ohne LUCF', 'value': 'total_ghg_excluding_lucf'}
+                                    {'label': 'Gesamte Treibhausgasemissionen einschließlich Landnutzungsänderungen und Forstwirtschaft', 'value': 'total_ghg'},
+                                    {'label': 'Gesamte Treibhausgasemissionen ohne Landnutzungsänderungen und Forstwirtschaft', 'value': 'total_ghg_excluding_lucf'}
                                 ],
                                 value='co2',
                                 className="mb-3",
                                 style={'color': 'black'}  # Textfarbe auf Schwarz ändern
                             ),
+                            html.Div(id='co2-info-panel', style={'color': 'grey'}),
 
+                            html.Label("Länderauswahl:", style={'color': 'white'}),
                             dcc.Dropdown(
                                 id='country-selector',
                                 options=translated_country_options,  # Verwenden der übersetzten Optionen
                                 value=[],
                                 multi=True,
                                 className="mb-3",
-                                style={'color': 'black'}  # Textfarbe auf Schwarz ändern
+                                style={'color': 'black'},
+                                placeholder="Wählen Sie ein Land aus..."
                             ),
                             html.Label("Zeitraum:", htmlFor='year-slider', style={'color': 'white'}),
+                            html.P("(Unter der Ansicht 'Weltkarte' wird nur der aktuellste Wert des gewählten Beobachtungsgegenstandes, d.h. die rechte Grenze des Zeitraum- Sliders, präsentiert)", style={'color': 'grey'}),
                             dcc.RangeSlider(
                                 id='year-slider',
                                 min=min_year,
@@ -2379,10 +2476,13 @@ def make_smi_info_modal():
                                     html.A("hier", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     " heruntergeladen werden. ",
                                     "Die Daten basieren auf den Messungen von ungefähr 2500 Wetterstationen des Deutschen Wetterdienstes. Diese werden zunächst qualitätsgeprüft und dann auf ein 4 km Raster interpoliert. Auf dieser Grundlagen kann dann schließlich durch Modellrechnungen eine Annäherung an die tatsächliche Bodenfeuchte simuliert werden. Weitere Informationen hierzu finden sich unter ", 
-                                    html.A("Zink et al. 2016", href="https://iopscience.iop.org/article/10.1088/1748-9326/11/7/074002/meta", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    ". Die Nutzung der Daten unterliegt den jeweiligen Lizenzbedingungen, die auf der ",
-                                    html.A("UFZ-Website", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                     " angegeben sind.",
+                                    html.A("Zink et al. 2016", href="https://iopscience.iop.org/article/10.1088/1748-9326/11/7/074002/meta", target="_blank", style={"color": "black", "text-decoration": "underline"}),                                    
+                                    ". Die Daten können im Rahmen von Wissenschaft und Forschung sowie für redaktionelle Zwecke unter Angabe des folgenden Vermerks unentgeltlich genutzt werden: ",
+                                    html.Hr(),
+                                    html.P(
+                                        "UFZ-Dürremonitor/ Helmholtz-Zentrum für Umweltforschung",
+                                        style={'color': 'grey'} ),
+                                    html.Hr(),
                                 ]),
                             ]
                         ),
