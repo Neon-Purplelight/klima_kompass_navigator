@@ -863,14 +863,6 @@ def make_klima_1_sidebar():
                         ]),
                         
                         html.P([
-                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
-                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " und der ",
-                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
-                        ]),
-                        
-                        html.P([
                             "Der Internationale Ausschuss für Klimaänderungen (",
                             html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                             ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
@@ -1280,12 +1272,12 @@ def make_klima_2_sidebar():
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
-                                    style={"text-decoration": "underline", "color": "#7fff00"},
+                                    style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
             dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
-                                    style={"text-decoration": "underline", "color": "white"},
+                                    style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_2", 
                                     id="navlink-2", 
                                     className="nav-link-custom")),
@@ -1304,15 +1296,11 @@ def make_klima_2_sidebar():
             html.Div(
                 [
                     html.P([
-                        "Die Rolle von Kohlendioxidemissionen als Haupttreiber des globalen Klimawandels steht außer Frage. Ein breiter Konsens besteht darüber, dass eine rasche Reduzierung dieser Emissionen unerlässlich ist, um die schlimmsten Auswirkungen des Klimawandels zu verhindern. In internationalen Diskussionen ist die Verteilung der Verantwortung für Emissionsreduktionen jedoch ein kontroverses Thema.",
-                        html.Br(),
-                        html.Br(),
-                        "Die Uneinigkeit erstreckt sich über Regionen, Länder und sogar individuelle Verantwortlichkeiten. Unterschiedliche Vergleichsmethoden tragen zu vielfältigen Erzählungen bei. Die Analyse jährlicher Emissionen pro Land gibt Einblicke in nationale Beiträge, während die Betrachtung von Emissionen pro Person individuelle Verantwortlichkeiten verdeutlicht. Historische Emissionsbeiträge werfen zudem die Frage auf, wer historisch gesehen maßgeblich zur aktuellen Klimakrise beigetragen hat. Eine anschauliche Zusammenfassung der Problematik bietet folgendes ",
-                        html.A("Kurzvideo", href="https://www.youtube.com/watch?v=ipVxxxqwBQw", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ".",
-                        html.Br(),
-                        html.Br(),
-                        "Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."]),
+                        html.P("Das Dashboard auf dieser Seite ermöglicht die Auswahl und den Vergleich verschiedener Beobachtungsgegenstände und Länder. Der zugrunde liegende Datensatz umfasst über viele Jahre hinweg gesammelte Daten zu insgesamt 79 verschiedenen Datenkategorien (zur besseren Übersicht, werden daher hier nicht alle diese Beobachtungsgegenstände präsentiert) zu insgesamt 195 Ländern. In der Summe umfasst der Datensatz 50.598 Einträge."),
+                        html.P("Zum besseren Verständnis der Komplexität eines solchen Datensatzes, könnte man diesen mit einer umfangreichen Bibliothek vergleichen, in der jedes Buch ein Jahr in einem bestimmten Land repräsentiert. Jedes Buch (Jahr) enthält Kapitel (Datenkategorien) über die Wirtschaft, die Bevölkerung, die Nutzung natürlicher Ressourcen und die Auswirkungen menschlicher Aktivitäten auf die Umwelt. Innerhalb jedes Kapitels gibt es Abschnitte (Datenpunkte), die spezifische Informationen darüber enthalten, wie dieses Land in diesem Jahr zur globalen CO2-Bilanz beigetragen hat, wie sich seine Wirtschaft und Bevölkerung auf seinen CO2-Fußabdruck ausgewirkt haben und wie es im Vergleich zu anderen Ländern steht."),
+                        html.P("In dieser Bibliothek werden die Bücher (Jahre) ständig aktualisiert und neue Kapitel (Daten) hinzugefügt, um ein vollständiges Bild davon zu zeichnen, wie sich menschliche Aktivitäten im Laufe der Zeit auf unseren Planeten auswirken. Die Besucher (Forscher, Politiker, Bürger) können durch diese Bibliothek wandern, Bücher auswählen und darin lesen, um zu verstehen, wie komplex und vielfältig die Herausforderungen des Klimawandels sind und warum es so wichtig ist, informierte Entscheidungen für unsere Zukunft zu treffen."),
+                        html.P("Datensätzen zur Überwachung und Analyse von Kohlenstoffdioxidemissionen sind entscheidend für das Verständnis und die Bekämpfung des globalen Klimawandels, doch sie sind mit Unsicherheiten und methodischen Schwierigkeiten behaftet.")
+                    ]),
                 ],
                 className='mb-3',
                 #style={'max-width': '600px'}
@@ -1325,33 +1313,27 @@ def make_klima_2_sidebar():
             ),
 
             dbc.Collapse(
-                html.Div(
+            html.Div(
                     [
                         html.Br(),
                         html.P([
-                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
-                            html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
+                        "Die Erfassung und Analyse von CO2-Emissionen sind mit zahlreichen Herausforderungen verbunden. Eine der größten Schwierigkeiten besteht darin, genaue und umfassende Daten zu sammeln, die alle relevanten Emissionsquellen abdecken. Emissionen aus fossilen Brennstoffen und industriellen Prozessen, wie der Zementproduktion, lassen sich relativ direkt berechnen. Doch die Emissionen aus ",
+                        html.A("Landnutzungsänderungen", href="https://www.umweltbundesamt.de/daten/klima/treibhausgas-emissionen-in-deutschland/emissionen-der-landnutzung-aenderung#bedeutung-von-landnutzung-und-forstwirtschaft", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", die einen signifikanten Anteil an den globalen Emissionen haben, sind schwieriger zu quantifizieren und mit höheren Unsicherheiten behaftet. So sind viele Datensätze Produkte aus verschiedenen Quellen. Daten zur Zementproduktion und Gasfackelung beispielsweise, werden auf Basis von ",
+                        html.A("UN-Daten", href="https://data.un.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        ", dem ",
+                        html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " und der ",
+                        html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " ermittelt. Die Zuverlässigkeit der Daten hängt stark von der Qualität und Verfügbarkeit historischer Energie- und Produktionsstatistiken, Handelsdaten sowie aktuellen Erhebungen ab. Zudem gibt es methodische Unterschiede in der Berechnung von Emissionen, beispielsweise zwischen territorialen Emissionen und konsumbasierten Emissionen, was Vergleiche erschwert. Um ein umfassendes Bild der globalen und nationalen Emissionstrends zu bieten, müssen zunächst alle Daten gesammelt, analysiert und schließlich aufbereitet werden."
                         ]),
-                        
                         html.P([
-                            "Die Berücksichtigung von Daten zur Zementproduktion und Gasfackelung erfolgt auf Basis von UN-Daten, dem ",
-                            html.A("Geological Survey (USGS)", href="https://www.usgs.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            " und der ",
-                            html.A("US-Energieinformationsverwaltung", href="https://www.eia.gov/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ". Um genaue Schätzungen der CO2-Emissionen zu erhalten, ist eine zuverlässige Abdeckung von Inlands- und Handelsenergie entscheidend, wobei das Verständnis in den letzten beiden Jahrhunderten zunehmend präzisiert wurde."
+                        "Glücklicherweise gibt es Organisationen, welche sich der Zusammenstellung und Pflege solcher Datensätze widmen. Der hier verwendete Datensatz stammt von Our World in Data (",
+                        html.A("OWID", href="https://ourworldindata.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "). OWID nutzt hierbei eine Vielzahl von Datenquellen, um die Genauigkeit und Relevanz der bereitgestellten Informationen zu maximieren. Neben der kostenfreien Bereitstellung der Daten, liefert OWID auch ausführliche ",
+                        html.A("Hintergrundinformationen", href="https://ourworldindata.org/co2-dataset-sources", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        " darüber, wie genau sie hierbei vorgehen. Ohne diese Transparenz wäre der Datensatz trotz der ganzen Arbeit nicht viel Wert."
                         ]),
-                        
-                        html.P([
-                            "Der Internationale Ausschuss für Klimaänderungen (",
-                            html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
-                        ]),
-                        
-                        html.P([
-                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
-                        ]),
-                        
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         make_owid_info_modal(),
@@ -1422,7 +1404,6 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                                 placeholder="Wählen Sie ein Land aus..."
                             ),
                             html.Label("Zeitraum:", htmlFor='year-slider', style={'color': 'white'}),
-                            html.P("(Unter der Ansicht 'Weltkarte' wird nur der aktuellste Wert des gewählten Beobachtungsgegenstandes, d.h. die rechte Grenze des Zeitraum- Sliders, präsentiert)", style={'color': 'grey'}),
                             dcc.RangeSlider(
                                 id='year-slider',
                                 min=min_year,
@@ -1430,6 +1411,7 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                                 value=[min_year, max_year],
                                 marks={str(year): str(year) for year in range(min_year, max_year+1, 5)},
                             ),
+                            html.P("*Unter der Ansicht 'Weltkarte' wird nur der aktuellste Wert des gewählten Beobachtungsgegenstandes, d.h. die rechte Grenze des Zeitraum- Sliders, präsentiert.", style={'color': 'grey'}),
                         ])
                     ],
                     color="primary",
