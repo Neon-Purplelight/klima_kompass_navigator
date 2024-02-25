@@ -8,7 +8,32 @@ from utils import layoutFunctions as lf
 
 # Main layout structure with navigation bar, sidebar, interactive controls, and license banner.
 layout = html.Div(
-    [
+    [   
+        dbc.Modal([
+            dbc.ModalHeader(html.H2("Willkommen auf dem Klima-Kompass-Navigator", style={'font-size': '28px', 'color': 'black'})),
+                    dbc.ModalBody(
+                    html.P(
+                        [
+                        #html.Hr(style={'border-top': '2px solid black'}),
+                        "Der Klima-Kompass-Navigator ist eine Sammlung verschiedener Dashboards, "
+                        "welche sich mit dem Klimawandel, seinen Auswirkungen auf die Umwelt sowie "
+                        "den jeweiligen wissenschaftlichen Grundlagen auseinandersetzen. Der Grundaufbau "
+                        "der jeweiligen Dashboards ist dabei immer derselbe. Über die Navigationsleiste "
+                        "am oberen Bildschirmrand können sie zwischen den thematischen Hauptseiten wechseln. "
+                        "Über eine weitere Navigationsleiste oberhalb  des Informationsbereiches am linken "
+                        "Bildschirmrand können Sie weiter zwischen verschiedenen Unterkategorien wechseln. "
+                        "Diese Einführungsseite enthält weitere Informationen zum Verständnis der wichtigsten Funktionen."
+                        ]
+                    )
+                ),
+                dbc.ModalFooter(
+                    dbc.Button("Okay", id="close-welcome-modal-button", className="ms-auto", n_clicks=0)
+                ),
+            ],
+            id="welcome-modal",
+            is_open=True,  # Automatisches Öffnen beim Laden der Seite
+            size="xl",  # Größe des Modals
+        ),
         dbc.Row(lf.make_NavBar()),  
         dbc.Row(
             [
@@ -43,6 +68,17 @@ layout = html.Div(
 # ...
 
 # Callback for toggling the visibility of the info card iframe on the start page
+@callback(
+    Output('welcome-modal', 'is_open'),
+    [Input('close-welcome-modal-button', 'n_clicks')],
+    [State('welcome-modal', 'is_open')],
+    prevent_initial_call=True
+)
+def toggle_welcome_modal(n_clicks, is_open):
+    if n_clicks > 0:
+        return not is_open
+    return is_open
+
 @callback(
     Output("info-card_start_page_iframe", "style"),
     Input("info-button_start_page_iframe", "n_clicks"),

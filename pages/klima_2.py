@@ -246,7 +246,6 @@ chart_type_buttons = dbc.ButtonGroup(
     style={'color': 'white'}  # Setzen Sie die Schriftfarbe auf Weiß für nicht ausgewählte Buttons
 )
 
-
 # Informationen zu den CO2-Typen
 co2_info = {
     "population": "*Bevölkerung nach Ländern, verfügbar von 10.000 v. Chr. bis 2100, basierend auf Daten und Schätzungen aus verschiedenen Quellen.",
@@ -267,6 +266,28 @@ co2_info = {
     "temperature_change_from_co2": "*Veränderung der globalen mittleren Oberflächentemperatur durch CO₂-Emissionen - gemessen in °C.",
     "total_ghg": "*Die Emissionen werden in Millionen Tonnen Kohlendioxid-Äquivalenten gemessen.",
     "total_ghg_excluding_lucf": "*Die Emissionen werden in Millionen Tonnen Kohlendioxid-Äquivalenten gemessen."
+}
+
+# Mapping von 'value' zu 'label' für Hover-Informationen
+value_to_label = {
+    'population': 'Bevölkerung',
+    'gdp': 'BIP',
+    'consumption_co2': 'Jährliche verbrauchsbedingte CO₂-Emissionen',
+    'consumption_co2_per_capita': 'Pro-Kopf-verbrauchsbedingte CO₂-Emissionen',
+    'trade_co2': 'Jährliche CO₂-Emissionen im Handel',
+    'co2': 'Jährliche CO₂-Emissionen',
+    'co2_per_capita': 'Jährliche CO₂-Emissionen (pro Kopf)',
+    'coal_co2': 'Jährliche CO₂-Emissionen aus Kohle',
+    'oil_co2': 'Jährliche CO₂-Emissionen aus Öl',
+    'gas_co2': 'Jährliche CO₂-Emissionen aus Gas',
+    'cement_co2': 'Jährliche CO₂-Emissionen aus Zement',
+    'flaring_co2': 'Jährliche CO₂-Emissionen aus dem Abfackeln',
+    'land_use_change_co2': 'Jährliche CO₂-Emissionen aus Landnutzungsänderungen',
+    'share_global_co2': 'Anteil an den weltweiten jährlichen CO₂-Emissionen',
+    'share_global_cumulative_co2': 'Anteil an den weltweiten jährlichen CO₂-Emissionen einschließlich Landnutzungsänderungen',
+    'temperature_change_from_co2': 'Temperaturänderung durch CO2',
+    'total_ghg': 'Gesamte Treibhausgasemissionen einschließlich Landnutzungsänderungen und Forstwirtschaft',
+    'total_ghg_excluding_lucf': 'Gesamte Treibhausgasemissionen ohne Landnutzungsänderungen und Forstwirtschaft'
 }
 # ------------------------------------------------------------------------------
 # LAYOUT
@@ -333,9 +354,34 @@ def update_chart_type_and_button_styles(button_map, button_line, current_status)
 def update_chart(selected_co2_type, selected_year_range, selected_countries, chart_type):
     min_year, max_year = selected_year_range
     filtered_df = df[(df['year'] >= min_year) & (df['year'] <= max_year)]
-
+    
+    # Definition von Einheiten für verschiedene Beobachtungsgegenstände
+    units = {
+            'population': '',  
+            'gdp': ' Dollar', 
+            'consumption_co2': ' Mio. t', 
+            'consumption_co2_per_capita': ' Mio. t',  
+            'trade_co2': ' t',  
+            'co2': ' Mio. t',  
+            'co2_per_capita': ' t',  
+            'coal_co2': ' Mio. t',  
+            'oil_co2': ' Mio. t',  
+            'gas_co2': ' Mio. t', 
+            'cement_co2': ' Mio. t', 
+            'flaring_co2': ' Mio. t', 
+            'land_use_change_co2': ' Mio. t',  
+            'share_global_co2': ' %',  
+            'share_global_co2_including_luc': ' %', 
+            'temperature_change_from_co2': ' °C',  
+            'total_ghg': ' Mio. t',  
+            'total_ghg_excluding_lucf': ' Mio. t',  
+        }
     if selected_countries:
         filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
+
+    # Dynamische Festlegung der Einheit und übersetzten Bezeichnung basierend auf dem ausgewählten Beobachtungsgegenstand
+    unit = units.get(selected_co2_type, '')  # Standard: keine Einheit
+    translated_label = value_to_label.get(selected_co2_type, selected_co2_type)  # Übersetzung des Labels
 
     if chart_type == 'map':
         fig = px.choropleth(
@@ -343,8 +389,10 @@ def update_chart(selected_co2_type, selected_year_range, selected_countries, cha
             locations="iso_code",
             geojson=countries_json,
             color=selected_co2_type,
-            hover_name="translated_country",
-            color_continuous_scale="YlOrRd"  # Hier ändern Sie die Farbskala
+            hover_name="translated_country",  # Anzeigename beim Hovern
+            hover_data={selected_co2_type: ':.2f' + unit, 'iso_code': False, 'translated_country': False},  # Anpassung der Hover-Daten mit Formatierung und Einheit
+            color_continuous_scale="YlOrRd",  # Farbskala
+            labels={selected_co2_type: translated_label}  # Verwendung der übersetzten Bezeichnung für die Legende und Hovertexte
         )
         fig.update_layout(
             margin={"r":0, "t":0, "l":0, "b":0},
@@ -372,8 +420,11 @@ def update_chart(selected_co2_type, selected_year_range, selected_countries, cha
             x='year',
             y=selected_co2_type,
             color='translated_country',
-            title=f"CO2 Emissions by {selected_co2_type} Over Time"
+            labels={selected_co2_type: translated_label + ' (' + unit.strip() + ')'},  # Dynamische Beschriftung der Achsen
         )
+        # Anpassung der Hoverformatierung mit dynamischer Einheit und Jahr
+        fig.update_traces(hovertemplate='%{x}: %{y:.2f}' + unit)  # Das Jahr wird mit dem Wert und der Einheit ergänzt
+        fig.update_layout(showlegend=False)
 
     return fig
 

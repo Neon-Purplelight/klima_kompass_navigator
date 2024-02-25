@@ -21,7 +21,7 @@ def make_NavBar():
     """
     navbar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink('Startseite', href='/', id='navlink')),
+            dbc.NavItem(dbc.NavLink('Einführung', href='/', id='navlink')),
             dbc.NavItem(dbc.NavLink('Klimatologie', href='/klima_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Hydrologie', href='/hydro_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Pedologie', href='/pedo_1', id='navlink')),
@@ -56,9 +56,10 @@ def make_footer():
             html.Img([], alt="Creative Commons Lizenz",
                      src="https://i.creativecommons.org/l/by/4.0/88x31.png")],
             rel="license", href="http://creativecommons.org/licenses/by/4.0/", className="border-width:0 me-2"),
-        "Dieses Werk ist lizenziert unter ",
+        "Der Klima-Kompass-Navigator ist unter der ",
         html.A(["Creative Commons Attribution 4.0 International License"],
-               rel='license', href="http://creativecommons.org/licenses/by/4.0/")
+               rel='license', href="http://creativecommons.org/licenses/by/4.0/"),
+        "lizensiert und darf nach belieben genutzt und verändert werden. Für die Nutzung der Datensätze gelten die Lizenzbestimmungen der jeweiligen Anbieter."
     ], className='pt-5')
 
     return banner
@@ -124,11 +125,12 @@ def make_start_page_1_sidebar():
     # Bootstrap Sidebar
     # Verwenden Sie Font Awesome-Symbole für Links
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
+    info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
 
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2- Budget"],
+            dbc.NavItem(dbc.NavLink([link_icon, " Hinweise zur Bedienung"],
                                     style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/", 
                                     id="navlink-1", 
@@ -139,7 +141,7 @@ def make_start_page_1_sidebar():
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-    brand=html.Span([link_icon, " Startseite:"],
+    brand=html.Span([link_icon, " Einführung:"],
         style={"color": "#7fff00"}),
         color="primary",
         dark=True,
@@ -151,6 +153,9 @@ def make_start_page_1_sidebar():
         [
             html.Div(
                 [
+                html.P([info_icon, html.Br(), "Die Seitenleiste bietet Informationen und weiterführende ",
+                html.A("links", href="https://de.wikipedia.org/wiki/Hyperlink", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                " zu den jeweiligen Dashboards. Durch klicken auf '' WEITERE INFORMATIONEN '' unterhalb des Textes, erweitern sie diesen."], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
                 html.P(["Diese Seite bindet die Carbon Uhr des Mercator Research Institute on Global Commons and Climate Change (",
                 html.A("MCC", href="https://de.wikipedia.org/wiki/Mercator_Research_Institute_on_Global_Commons_and_Climate_Change", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                 ") ein. Diese wurde anhand der neuesten Daten des Intergovernmental Panel on Climate Change (",
@@ -164,20 +169,23 @@ def make_start_page_1_sidebar():
             html.Div(
                 [
                     html.H4(" Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    dbc.Tooltip("Klick mich !", target='more_info_button_klima_2', className='ms-1')
                 ],
             ),
 
             dbc.Collapse(
                 html.Div(
                     [
-                        html.Br(),
+                        html.P([info_icon, html.Br(), "Hier finden sich spezifischere Informationen, etwa zur Datengrundlage oder der näheren Einordnung der jeweiligen Dashboards."], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
                         html.P([
-                            "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO2-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO2. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
-                            html.A("basierend auf zwei Dritteln der untersuchten Szenarien", href="https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM_final.pdf#page=33", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            "). Die Generalsekretärin des MCC Brigitte Knopf betont den enormen Handlungsdruck angesichts der zunehmenden Extremwetterereignisse und des besorgniserregenden Trends im IPCC-Bericht und fordert dringend wirksame Maßnahmen in der globalen Klimapolitik.",
-                        ]),
+                        "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO2-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO2. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
+                        html.A("basierend auf zwei Dritteln der untersuchten Szenarien", href="https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM_final.pdf#page=33", target="_blank", style={"color": "white", "text-decoration": "underline"}),
+                        "). Die Generalsekretärin des MCC Brigitte Knopf betont den enormen Handlungsdruck angesichts der zunehmenden Extremwetterereignisse und des besorgniserregenden Trends im IPCC-Bericht und fordert dringend wirksame Maßnahmen in der globalen Klimapolitik.",
+                        ]
+                    ),
                         html.Hr(),
                         html.H4("Verwendete Daten:"),
+                        html.P([info_icon, html.Br(), "Und schließlich noch zu ausführlicheren Informationen zu den verwendeten Datensätzen. Klicken sie hierfür einfach auf die jeweiligen Datensätze"], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
                         make_mcc_carbon_clock_info_modal(),
                     ],
                     className='mb-3',
@@ -186,7 +194,6 @@ def make_start_page_1_sidebar():
                 id='collapse_more_info_klima_2',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_1', className='ms-1')
         ],
         fluid=True,
         className="py-1 bg-primary rounded-1 text-white",
@@ -200,11 +207,12 @@ def make_start_page_1_sidebar():
 def make_iframe():
     # Info Button und Info Card
     info_button_1 = dbc.Button("ℹ️ Info", id="info-button_start_page_iframe", color="primary", className="mr-1")
+    info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
 
     info_card_1 = dbc.Card(
         dbc.CardBody(
             [
-                html.P("Enthält weitere Informationen zu den jeweiligen Infografiken."),
+                html.P([info_icon, html.Br(),"Enthält weitere Informationen zu den jeweiligen Infografiken."], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
                 html.Hr(),
                 html.P([
                         "Die ",
@@ -229,10 +237,14 @@ def make_iframe():
         id="info-card_start_page_iframe",
         style={"display": "none"},
     )
+    
+    # Tooltip für den Info-Button
+    info_button_tooltip = dbc.Tooltip("Klick mich !", target="info-button_start_page_iframe", placement="auto", style={'color': '#2e8b57'})
 
     # Combine info button, info card and the iframe
     iframe_row = html.Div([
         info_button_1,
+        info_button_tooltip,
         info_card_1,
         dbc.Col(html.Iframe(src="https://www.mcc-berlin.net/fileadmin/data/clock/carbon_clock.htm?i=3267263", width="120%", height="800px", style={'margin': '0'}), width=10, align="start"),  # Set width=12 and adjust align
     ])
@@ -241,13 +253,18 @@ def make_iframe():
 
 def make_interactive_controls_example():
     # Create exemplary control elements
+    info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
+
     controls_example = dbc.CardGroup(
         [
+            
             dbc.Card(
                 [
-                    dbc.CardHeader("Beispielhafte Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
+                    dbc.CardHeader("Einstellungen:", style={'color': 'white', 'font-weight': 'bold', 'font-size': '1.5rem'}),
                     dbc.CardBody(
                         [
+                            html.P([info_icon, html.Br(),"Unter Einstellungen finden sich die Steuerungs- und Auswahlelemente (Hier nur beispielhaft). Der Infobutton unterhalb der Einstellungen liefert zusätzliche Informationen zu den jeweils ausgewählten Ansichten"], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
+
                             dbc.Row(
                                 [
                                     dbc.Col(
@@ -365,7 +382,7 @@ def make_start_page_2_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2- Budget"],
+            dbc.NavItem(dbc.NavLink([link_icon, " Hinweise zur Bedienung"],
                                     style={"text-decoration": "underline", "color": "white"},
                                     href="/", 
                                     id="navlink-1", 
@@ -376,7 +393,7 @@ def make_start_page_2_sidebar():
                                     id="navlink-2", 
                                     className="nav-link-custom")),
         ],
-    brand=html.Span([link_icon, " Startseite:"],
+    brand=html.Span([link_icon, " Einführung:"],
         style={"color": "#7fff00"}),
         color="primary",
         dark=True,
@@ -445,7 +462,6 @@ def make_start_page_2_sidebar():
                 id='collapse_more_info_klima_2',
                 is_open=False,
             ),
-            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1'),
         ],
         fluid=True,
         className="py-1 bg-primary rounded-1 text-white",
@@ -812,7 +828,7 @@ def make_klima_1_sidebar():
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emissionen nach Quelle"], 
                                     style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_2", 
                                     id="navlink-2", 
@@ -1276,7 +1292,7 @@ def make_klima_2_sidebar():
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " World Map"], 
+            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emissionen nach Quelle"], 
                                     style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_2", 
                                     id="navlink-2", 
@@ -1401,7 +1417,7 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                                 multi=True,
                                 className="mb-3",
                                 style={'color': 'black'},
-                                placeholder="Wählen Sie ein Land aus..."
+                                placeholder="Wählen Sie Länder zum direkten Vergleich aus..."
                             ),
                             html.Label("Zeitraum:", htmlFor='year-slider', style={'color': 'white'}),
                             dcc.RangeSlider(
@@ -1451,7 +1467,7 @@ def make_world_countries_info_modal():
                                     html.A("GeoJSON-Format", href="https://de.wikipedia.org/wiki/GeoJSON", target="_blank", style={"color": "black", "text-decoration": "underline"}),                        
                                     ". Dieses Format ermöglicht es, komplexe geografische Strukturen digital abzubilden, einschließlich Landesgrenzen und geografischen Merkmalen. ",
                                     "Weitere Details und die Möglichkeit zum download des Datensatzes finden Sie ",
-                                    html.A("hier", href="https://www.kaggle.com/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    html.A("hier", href="https://www.kaggle.com/datasets/ktochylin/world-countries/data", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     "."
                                 ]
                             ),
@@ -1960,6 +1976,7 @@ def make_hydro_2_sidebar():
                         html.Hr(),
                         html.H4("Verwendete Datensätze:"),
                         make_schadholz_info_modal(),
+                        make_niederschlag_gebietsmittel_info_modal(),
                     ],
                     className='mb-3',
                     #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
@@ -1991,37 +2008,6 @@ def make_hydro_2_settings():
     )
 
     return plot_cards
-
-def make_hydro_2_info_button():
-    # Info Button
-    info_button_hydro_2 = dbc.Button(
-        "ℹ️ Info", 
-        id="info-button-hydro-2", 
-        color="primary", 
-        className="mr-1"
-    )
-
-    # Info Card
-    info_card_hydro_2 = dbc.Card(
-        dbc.CardBody(
-            [
-                html.P("In folgendem Dashboard wird derselbe Datensatz auf drei verschiedene Diagrammtypen visualisiert. Obwohl es sich jeweils um den exakt gleichen Datensatz handelt, legt jede der Ansichten den Betrachtungsfokus etwas anders."),
-                html.Hr(),
-                html.Ul([
-                    html.Li("Anhand des Liniendiagramms lassen sich die zeitliche Entwicklung und Trends besonders gut ablesen."),
-                    html.Li("Anhand des gestapelten Liniendiagramms lässt sich schnell ein Überblick darüber verschaffen, wie sich die Zusammensetzung der Schäden im Laufe der Zeit verändert hat."),
-                    html.Li("Anhand des gestapelten Balkendiagramms können die Beiträge einzelner Schadensursachen in den jeweiligen Jahren verglichen, bzw. gut Unterschiede in deren Zusammensetzung ausgemacht werden.")
-                ]),
-                html.Hr(),
-                html.P("Durch Anklicken der einzelnen Schadholzkategorien unterhalb der Legende, lassen sich diese entfernen, hinzufügen oder durch Doppelklick hervorheben.")
-            ]
-        ),
-        id="info-card-hydro-2",
-        style={"display": "none"},
-    )
-
-    # Statt einer Liste von Komponenten, geben Sie eine einzelne Komponente zurück, die eine Liste als children hat.
-    return html.Div([info_button_hydro_2, info_card_hydro_2])
 
 def hydro_2_line_chart(df, colors):
 # Tab 1: Liniendiagramm
@@ -2211,6 +2197,37 @@ def hydro_2_stacked_line_chart(df, colors):
         )
     }
 
+def make_hydro_2_info_button():
+    # Info Button
+    info_button_hydro_2 = dbc.Button(
+        "ℹ️ Info", 
+        id="info-button-hydro-2", 
+        color="primary", 
+        className="mr-1"
+    )
+
+    # Info Card
+    info_card_hydro_2 = dbc.Card(
+        dbc.CardBody(
+            [
+                html.P("In folgendem Dashboard wird derselbe Datensatz auf drei verschiedene Diagrammtypen visualisiert. Obwohl es sich jeweils um den exakt gleichen Datensatz handelt, legt jede der Ansichten den Betrachtungsfokus etwas anders."),
+                html.Hr(),
+                html.Ul([
+                    html.Li("Anhand des Liniendiagramms lassen sich die zeitliche Entwicklung und Trends besonders gut ablesen."),
+                    html.Li("Anhand des gestapelten Liniendiagramms lässt sich schnell ein Überblick darüber verschaffen, wie sich die Zusammensetzung der Schäden im Laufe der Zeit verändert hat."),
+                    html.Li("Anhand des gestapelten Balkendiagramms können die Beiträge einzelner Schadensursachen in den jeweiligen Jahren verglichen, bzw. gut Unterschiede in deren Zusammensetzung ausgemacht werden.")
+                ]),
+                html.Hr(),
+                html.P("Durch Anklicken der einzelnen Schadholzkategorien unterhalb der Legende, lassen sich diese entfernen, hinzufügen oder durch Doppelklick hervorheben.")
+            ]
+        ),
+        id="info-card-hydro-2",
+        style={"display": "none"},
+    )
+
+    # Statt einer Liste von Komponenten, geben Sie eine einzelne Komponente zurück, die eine Liste als children hat.
+    return html.Div([info_button_hydro_2, info_card_hydro_2])
+
 def make_schadholz_info_modal():
     return html.Div(
         children=[
@@ -2222,7 +2239,7 @@ def make_schadholz_info_modal():
             ),
             dbc.Modal(
                 [
-                    dbc.ModalHeader(dbc.ModalTitle("Schadholzeinschlag in Deutschland")),
+                    dbc.ModalHeader(dbc.ModalTitle("41261-0003_flat.csv")),
                     dbc.ModalBody(
                             [
                                 html.P([  
@@ -2243,6 +2260,41 @@ def make_schadholz_info_modal():
                     ),
                 ],
                 id="schadholz-modal",
+                is_open=False,  # Modal ist standardmäßig geschlossen
+            ),
+        ]
+    )
+
+def make_niederschlag_gebietsmittel_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " Niederschlagsdaten Datensatz"], 
+                id="open-niederschlag-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("niederschlag_gebietsmittel.txt")),
+                    dbc.ModalBody(
+                        [
+                            html.P([
+                                "Die dargestellten Niederschläge sind Gebietsmittel (Mittelwerte der Rasterfelder von Deutschland mit einer Auflösung von 1km). Gegenüber Zeitreihen einzelner Stationen sind die Zeitreihen von Gebietsmitteln weitgehend frei von Inhomogenitäten, die durch Stationsverlegungen oder Veränderungen im Umfeld einer Station entstehen. Außerdem sind sie repräsentativer für ein größeres Gebiet als Einzelstationen oder einfache Kombinationen der verschiedenen Stationen.",
+                                html.Br(),
+                                html.Br(),
+                                "Die verwendeten Niederschlagsdaten stammen aus der Datenbank des Deutschen Wetterdienstes (",
+                                html.A("DWD", href="https://www.dwd.de/DE/Home/home_node.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                "), wo sie nach bestimmten Kriterien gefiltert und als Datensatz heruntergeladen werden können. Weitere Informationen und die Möglichkeit zum Download finden Sie ",
+                                html.A("hier", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                            ]),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-niederschlag-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="niederschlag-modal",
                 is_open=False,  # Modal ist standardmäßig geschlossen
             ),
         ]

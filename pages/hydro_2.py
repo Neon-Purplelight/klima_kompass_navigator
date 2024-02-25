@@ -97,3 +97,13 @@ def toggle_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
+
+@callback(
+    Output("niederschlag-modal", "is_open"),
+    [Input("open-niederschlag-modal-button", "n_clicks"), Input("close-niederschlag-modal-button", "n_clicks")],
+    [State("niederschlag-modal", "is_open")],
+)
+def toggle_niederschlag_modal(open_clicks, close_clicks, is_open):
+    if open_clicks or close_clicks:
+        return not is_open
+    return is_open
