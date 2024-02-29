@@ -59,7 +59,7 @@ def make_footer():
         "Der Klima-Kompass-Navigator ist unter der ",
         html.A(["Creative Commons Attribution 4.0 International License"],
                rel='license', href="http://creativecommons.org/licenses/by/4.0/"),
-        "lizensiert und darf nach belieben genutzt und verändert werden. Für die Nutzung der Datensätze gelten die Lizenzbestimmungen der jeweiligen Anbieter."
+        " lizensiert und darf nach belieben genutzt und verändert werden. Für die Nutzung der Datensätze gelten die Lizenzbestimmungen der jeweiligen Anbieter."
     ], className='pt-5')
 
     return banner
@@ -68,7 +68,7 @@ def make_owid_info_modal():
     return html.Div(
         children=[
             dbc.Button(
-                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
+                [html.I(className="fas fa-info-circle"), " CO₂ Datensatz"], 
                 id="open-modal-button", 
                 className="mt-2 mb-2", 
                 color="primary"
@@ -100,7 +100,7 @@ def make_owid_info_modal():
                             ),
                             html.P(
                                 [
-                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    "Der umfangreiche Owid- Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
                                     html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
                                     html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
@@ -135,7 +135,7 @@ def make_start_page_1_sidebar():
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ und das Klima"],
                                     style={"text-decoration": "underline", "color": "white"},
                                     href="/start_page_2", 
                                     id="navlink-2", 
@@ -178,7 +178,7 @@ def make_start_page_1_sidebar():
                     [
                         html.P([info_icon, html.Br(), "Hier finden sich spezifischere Informationen, etwa zur Datengrundlage oder der näheren Einordnung der jeweiligen Dashboards."], style={'color': 'white', 'background-color': '#2e8b57', 'padding': '5px', 'border-radius': '5px'}),
                         html.P([
-                        "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO2-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO2. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
+                        "Der IPCC kondensiert die Forschungsergebnisse aus rund 14.000 Fachveröffentlichungen zum physikalischen Grundlagen des Klimawandels und identifiziert schwerwiegendere Veränderungen als bisher angenommen. Die CO₂-Restbudgets für die 1,5- und 2-Grad-Ziele wurden zuletzt leicht erhöht und liegen nun bei 400 und 1150 Gigatonnen CO₂. Die Anhebung des Budgets folgt methodischen Weiterentwicklungen in der Klimaforschung. Die Budgets sind so berechnet, dass sie mit hoher Wahrscheinlichkeit die Temperaturziele erreichen (",
                         html.A("basierend auf zwei Dritteln der untersuchten Szenarien", href="https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM_final.pdf#page=33", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         "). Die Generalsekretärin des MCC Brigitte Knopf betont den enormen Handlungsdruck angesichts der zunehmenden Extremwetterereignisse und des besorgniserregenden Trends im IPCC-Bericht und fordert dringend wirksame Maßnahmen in der globalen Klimapolitik.",
                         ]
@@ -217,7 +217,7 @@ def make_iframe():
                 html.P([
                         "Die ",
                         html.A("MCC Carbon Clock", href="https://www.mcc-berlin.net/en/research/co2-budget.html"),
-                        " zeigt, wie viel CO2 in die Atmosphäre freigesetzt werden kann, um die globale Erwärmung auf maximal 1,5 °C bzw. 2 °C (Im Vergleich zum vorindustriellen Zeitalter) zu begrenzen. Mit nur einem Klick können Sie die Schätzungen für beide Temperaturziele vergleichen und sehen, wie viel Zeit in jedem Szenario noch bleibt."
+                        " zeigt, wie viel CO₂ in die Atmosphäre freigesetzt werden kann, um die globale Erwärmung auf maximal 1,5 °C bzw. 2 °C (Im Vergleich zum vorindustriellen Zeitalter) zu begrenzen. Mit nur einem Klick können Sie die Schätzungen für beide Temperaturziele vergleichen und sehen, wie viel Zeit in jedem Szenario noch bleibt."
                         ]),
                 html.P([
                         html.A("Das 1,5 °C Ziel", href="https://de.wikipedia.org/wiki/Sonderbericht_1,5_%C2%B0C_globale_Erw%C3%A4rmung"),
@@ -352,10 +352,10 @@ def make_mcc_carbon_clock_info_modal():
                         [
                             html.P(
                                 [
-                                    "Die MCC Carbon Clock zeigt, wie viel CO2 noch in die Atmosphäre ausgestoßen werden darf, um die globale Erwärmung auf maximal 1,5°C bzw. 2°C zu begrenzen. ",
+                                    "Die MCC Carbon Clock zeigt, wie viel CO₂ noch in die Atmosphäre ausgestoßen werden darf, um die globale Erwärmung auf maximal 1,5 °C bzw. 2 °C zu begrenzen. ",
                                     "Diese Schätzung basiert auf den neuesten wissenschaftlichen Erkenntnissen und berechnet die verbleibende Zeit bis zum Erreichen dieser Grenzwerte. ",
                                     "Die Uhr wird regelmäßig aktualisiert, um die neuesten Daten und Forschungsergebnisse widerzuspiegeln, was eine wichtige Ressource für die Einschätzung der Dringlichkeit von Klimaschutzmaßnahmen darstellt. ",
-                                    "Die Uhr kann kostenlos auf jeder website eingebunden werden. Weitere Informationen zur MCC Carbon Clock und den zugrundeliegenden Daten können auf der offiziellen ",
+                                    "Die Uhr kann kostenlos auf jeder Website eingebunden werden. Weitere Informationen zur MCC Carbon Clock und den zugrundeliegenden Daten können auf der offiziellen ",
                                     html.A("Website des Mercator Research Institute on Global Commons and Climate Change (MCC)", href="https://www.mcc-berlin.net/en/research/co2-budget.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     " gefunden werden."
                                 ]
@@ -387,7 +387,7 @@ def make_start_page_2_sidebar():
                                     href="/", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 und das Klima"],
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ und das Klima"],
                                     style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/start_page_2", 
                                     id="navlink-2", 
@@ -414,7 +414,7 @@ def make_start_page_2_sidebar():
                     "."
                 ]),
                 html.P([
-                    "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO2 dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO2-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO2 und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
+                    "Demgegenüber weist die wachsende Erkenntnis darauf hin, dass der menschliche Einfluss auf das Klima dominanter ist als zuvor angenommen. Als Belege für den verstärkenden Treibhauseffekt von CO₂ dienen verschiedene Messungen, darunter Satellitenmessungen der letzten 40 Jahre. Diese zeigen eine geringere Energieabstrahlung ins Weltall in CO₂-bezogenen Wellenlängen und eine zunehmende nach unten gerichtete Infrarotstrahlung an der Erdoberfläche. Diese Daten bestätigen einen direkten, empirischen Zusammenhang zwischen CO₂ und der globalen Erwärmung. Ohne wirksame Klimaschutzmaßnahmen droht ein erheblicher Temperaturanstieg im 21. Jahrhundert mit potenziell schwerwiegenden Folgen für Ökosysteme und Gesellschaften. Einen guten Überblick gibt der ",
                     html.A("sechste Sachstandsbericht", href="https://www.ipcc.ch/report/ar6/wg1/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                     " des IPPC."
                 ]),
@@ -462,6 +462,7 @@ def make_start_page_2_sidebar():
                 id='collapse_more_info_klima_2',
                 is_open=False,
             ),
+            dbc.Tooltip("Weitere Infos.", target='more_info_button_klima_2', className='ms-1')
         ],
         fluid=True,
         className="py-1 bg-primary rounded-1 text-white",
@@ -477,7 +478,7 @@ def make_start_page_2_settings(default_value='average_temp', options=None):
     if options is None:
         options = [
             {'label': 'Durchschnittstemperatur', 'value': 'average_temp'},
-            {'label': 'CO2 Emissionen', 'value': 'co2_emissions'},
+            {'label': 'CO₂ Emissionen', 'value': 'co2_emissions'},
             {'label': 'Korrelation', 'value': 'correlations'},
             {'label': 'Aufbereitete Präsentation', 'value': 'final_presentation'}
         ]
@@ -530,7 +531,7 @@ def plot_average_temp(df_temp):
         dbc.CardBody(
             [
                 html.P([
-                    "Die Temperatur Daten wurden von Wissenschaftlern ",
+                    "Die Temperaturdaten wurden von Wissenschaftlern ",
                     html.A("Goddard Institute of Space Studies (GISS)", href="https://www.giss.nasa.gov/"),
                     " der NASA in New York aufgezeichnet und erfassen die Temperaturanomalien für die Monate Juni, Juli und August. Diese Monate gelten als der meteorologische Sommer auf der Nordhalbkugel. Die Daten erstrecken sich von 1880 bis zum aktuellen Jahr und erfassen die Veränderung der Sommertemperaturen im Vergleich zu einem Durchschnitt, der aus den Jahren 1951 bis 1980 berechnet wurde. Gemäß ihrer ",
                     html.A("Pressemitteilung", href="https://www.nasa.gov/press-release/nasa-announces-summer-2023-hottest-on-record"),
@@ -751,8 +752,8 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
                     "Wie die ",
                     html.A("Umweltschutzbehörde der Vereinigten Staaten (EPA)", href="https://www.epa.gov/climatechange-science/causes-climate-change"),
                     " klarstellt, gibt es auch andere Faktoren wie solare Aktivität und Veränderungen in der ",
-                    "Reflektivität der Erde, etwa durch das abschmelzen der Pole oder der Entwaldung. Es gibt auch Treibhausgase neben Kohlendioxid, wie Methan und Lachgas. Die EPA stellt hierbei jedoch auch klar, ",
-                    "dass keiner der Ursachen außer den menschengenerierten Treibhausgasemissionen das aktuelle Ausmaß des Klimawandels erklären kann."
+                    "Reflektivität der Erde, etwa durch das Abschmelzen der Pole oder der Entwaldung. Es gibt auch Treibhausgase neben Kohlendioxid, wie Methan und Lachgas. Die EPA stellt hierbei jedoch auch klar, ",
+                    "dass keiner der Ursachen außer den von den Menschen generierten Treibhausgasemissionen das aktuelle Ausmaß des Klimawandels erklären kann."
                 ]),
             ],
             className="card-text",
@@ -795,7 +796,7 @@ def make_gistemp_info_modal():
                                     " stammen von der National Aeronautics and Space Administration (",
                                     html.A("NASA", href="https://www.nasa.gov/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     ") und stellen eine Schätzung der globalen Veränderung der Oberflächentemperatur dar.",
-                                    " Sie beinhalten Temperaturanomalien, die von meteorologischen Stationen und ozeanischen Messpunkten abgeleitet sind (nähre Informationen zum Datensatz finden sich ",
+                                    " Sie beinhalten Temperaturanomalien, die von meteorologischen Stationen und ozeanischen Messpunkten abgeleitet sind (nähere Informationen zum Datensatz finden sich ",
                                     html.A("hier", href="https://data.giss.nasa.gov/gistemp/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     "). Die Daten und Visualisierungen sind gemäß den Richtlinien der NASA zur Verwendung von Bildern und Medien frei nutzbar, wobei eine Quellenangabe erforderlich ist. Programme und der Quellcode der Analyse sind öffentlich zugänglich und dürfen unter Einhaltung der jeweiligen Lizenzbedingungen genutzt werden. Bitte beachten Sie die genauen Nutzungsbedingungen und Referenzierungsanforderungen auf der offiziellen ",
                                     html.A("Goddard Institute for Space Studies-Website", href="https://www.giss.nasa.gov/", target="_blank", className="link-primary"),
@@ -823,12 +824,12 @@ def make_klima_1_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emittenten"],
                                     style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emissionen nach Quelle"], 
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emissionen nach Quellen"], 
                                     style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_2", 
                                     id="navlink-2", 
@@ -864,7 +865,7 @@ def make_klima_1_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -873,19 +874,19 @@ def make_klima_1_sidebar():
                     [
                         html.Br(),
                         html.P([
-                            "Die Rekonstruktion historischer CO2-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO2-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
+                            "Die Rekonstruktion historischer CO₂-Emissionen aus fossilen Brennstoffen seit dem Jahr 1751 beruht auf einer Zusammenstellung von Energiestatistiken und Handelsdaten. Die Grundlage dieser Rekonstruktion bilden Produktionsmengen von Kohle, Braunkohle, Torf und Rohöl, die in nationale Analysen der fossilen Brennstoffproduktion und CO₂-Emissionen einfließen. Für aktuellere Daten greift man auf Informationen der ",
                             html.A("UN-Statistikabteilung", href="https://unstats.un.org/UNSDWebsite/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                             " zurück, die offizielle nationale Veröffentlichungen sowie jährliche Fragebögen nutzt."
                         ]),
                         
                         html.P([
-                            "Der Internationale Ausschuss für Klimaänderungen (",
+                            "Der internationale Ausschuss für Klimaänderungen (",
                             html.A("IPCC", href="https://www.ipcc.ch/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                            ") bietet klare Richtlinien für die nationale Messung von CO2-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
+                            ") bietet klare Richtlinien für die nationale Messung von CO₂-Emissionen. Dennoch bleiben Unsicherheitsquellen bestehen, vor allem in Bezug auf die Berichterstattung über den Energieverbrauch und die Annahme von Emissionsfaktoren. Die Größe eines Landes und die Unsicherheit in den Berechnungen beeinflussen maßgeblich die Genauigkeit globaler Emissionszahlen."
                         ]),
                         
                         html.P([
-                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10%. Insgesamt liegt die Unsicherheit bei globalen CO2-Emissionen üblicherweise im Bereich von 2-5%, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
+                            "Ein Beispiel für solche Unsicherheiten zeigt sich in Chinas Emissionsbericht von 2013. Hier führte die Verwendung globaler Durchschnittsemissionsfaktoren zu einer Überbewertung um 10 %. Insgesamt liegt die Unsicherheit bei globalen CO₂-Emissionen üblicherweise im Bereich von 2-5 %, was die Komplexität und Herausforderungen bei der präzisen Erfassung dieser entscheidenden Umweltindikatoren verdeutlicht."
                         ]),
                         
                         html.Hr(),
@@ -959,7 +960,7 @@ def create_co2_treemap(df_filtered):
     average_co2_data = last_5_years_data.groupby(['world', 'continent', 'country']).agg(
         {'co2': 'mean', 'log_co2': 'mean'}).reset_index()
 
-    # Calculate the percentage of CO2 contribution for each country and continent relative to the world
+    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = average_co2_data[average_co2_data['world'] == 'Weltweit']['co2'].sum()
     average_co2_data['percentage_co2'] = (average_co2_data['co2'] / total_world_co2) * 100
 
@@ -992,13 +993,13 @@ def create_co2_treemap(df_filtered):
     info_card_1 = dbc.Card(
         dbc.CardBody(
             [
-                html.P("Durchschnittliche CO2-Emissionen der letzten 5 Jahre visualisiert durch eine 'Baumkarte'. Jedes Rechteck repräsentiert ein Land, gruppiert nach den jeweiligen Kontinenten. Die Größe der Rechtecke entsprechen hierbei ihren relativen Beitrag zum Weltweiten Gesamtausstoß."),
+                html.P("Durchschnittliche CO₂-Emissionen der letzten 5 Jahre visualisiert durch eine 'Baumkarte'. Jedes Rechteck repräsentiert ein Land, gruppiert nach den jeweiligen Kontinenten. Die Größe der Rechtecke entsprechen hierbei ihren relativen Beitrag zum weltweiten Gesamtausstoß."),
                 html.Hr(),
                 html.Strong("Asien:"),
                 html.Ul(
                     [
-                        html.Li("Jährliche CO2-Emissionen von etwa 20,7 Milliarden Tonnen."),
-                        html.Li("Beherbergt 60% der Weltbevölkerung."),
+                        html.Li("Jährliche CO₂-Emissionen von etwa 20,7 Milliarden Tonnen."),
+                        html.Li("Beherbergt 60 % der Weltbevölkerung."),
                         html.Li("Pro-Kopf-Emissionen in Asien daher leicht unter dem weltweiten Durchschnitt."),
                     ]
                 ),
@@ -1006,15 +1007,15 @@ def create_co2_treemap(df_filtered):
                 html.Ul(
                     [
                         html.Li("Größter Emittent weltweit."),
-                        html.Li("Jährliche CO2-Emissionen von etwa 10,7 Milliarden Tonnen."),
+                        html.Li("Jährliche CO₂-Emissionen von etwa 10,7 Milliarden Tonnen."),
                         html.Li("Trägt mehr als ein Viertel zu den globalen Emissionen bei."),
                     ]
                 ),
                 html.Strong("Nordamerika:"),
                 html.Ul(
                     [
-                        html.Li("Zweigrößter regionaler Emittent weltweit."),
-                        html.Li("Jährliche CO2-Emissionen von etwa 6,3 Milliarden Tonnen."),
+                        html.Li("Zweitgrößter regionaler Emittent weltweit."),
+                        html.Li("Jährliche CO₂-Emissionen von etwa 6,3 Milliarden Tonnen."),
                         html.Li("USA dominieren den Beitrag zu den nordamerikanischen Emissionen."),
                     ]
                 ),
@@ -1022,13 +1023,13 @@ def create_co2_treemap(df_filtered):
                 html.Ul(
                     [
                         html.Li("Drittgrößter regionaler Emittent weltweit."),
-                        html.Li("Jährliche CO2-Emissionen von etwa 5,4 Milliarden Tonnen."),
+                        html.Li("Jährliche CO₂-Emissionen von etwa 5,4 Milliarden Tonnen."),
                     ]
                 ),
                 html.Strong("Afrika und Südamerika:"),
                 html.Ul(
                     [
-                        html.Li("Beide Regionen tragen jeweils 3-4% zu den globalen Emissionen bei."),
+                        html.Li("Beide Regionen tragen jeweils 3 bis 4 % zu den globalen Emissionen bei."),
                         html.Li("Emissionen in etwa vergleichbar mit internationalem Flugverkehr und Schifffahrt."),
                         html.Li("Diese sind hier explizit ausgelassen, da nicht eindeutig zugeordnet werden kann, ob sie dem Land der Abreise, dem Herkunftsland oder anderen beteiligten Ländern zuzuordnen sind."),
                     ]
@@ -1070,7 +1071,7 @@ def create_co2_treemap_historic(df_filtered):
     # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_cumulative_co2'] = np.log1p(last_year_data['cumulative_co2'])
 
-    # Calculate the percentage of CO2 contribution for each country and continent relative to the world
+    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['cumulative_co2'].sum()
     last_year_data['percentage_cumulative_co2'] = (last_year_data['cumulative_co2'] / total_world_co2) * 100
 
@@ -1101,10 +1102,10 @@ def create_co2_treemap_historic(df_filtered):
     info_card_2 = dbc.Card(
         dbc.CardBody(
             [
-                html.P("Seit 1751 hat die Welt über 1,5 Billionen Tonnen CO2 emittiert, und es ist dringend notwendig, die Emissionen zu reduzieren, um das Klimaziel von maximal 2°C Temperaturanstieg zu erreichen. Einige sind der Meinung, dass die reichen Länder, welche historisch betrachtet am meisten zum CO2 ausgestoßen haben, eine größere Verantwortung tragen sollten."),
+                html.P("Seit 1751 hat die Welt über 1,5 Billionen Tonnen CO₂ emittiert, und es ist dringend notwendig, die Emissionen zu reduzieren, um das Klimaziel von maximal 2 °C Temperaturanstieg zu erreichen. Einige sind der Meinung, dass die reichen Länder, welche historisch betrachtet am meisten zum CO₂ ausgestoßen haben, eine größere Verantwortung tragen sollten."),
                 html.Hr(),
                 html.Strong("1. USA als größter Emittent:"),
-                html.P("Die Vereinigten Staaten haben mit etwa 421 Milliarden Tonnen seit 1751 mehr CO2 emittiert als jedes andere Land, was rund ein Viertel der historischen Emissionen ausmacht. Dies ist fast doppelt so viel wie der Beitrag Chinas."),
+                html.P("Die Vereinigten Staaten haben mit etwa 421 Milliarden Tonnen seit 1751 mehr CO₂ emittiert als jedes andere Land, was rund ein Viertel der historischen Emissionen ausmacht. Dies ist fast doppelt so viel wie der Beitrag Chinas."),
 
                 html.Strong("2. Europa, Asien und Nordamerika:"),
                 html.P("Europa und Asien haben historisch betrachtet ähnliche Beiträge zu den globalen Emissionen geleistet und liegen somit beide insgesamt noch vor Nordamerika."),
@@ -1118,7 +1119,7 @@ def create_co2_treemap_historic(df_filtered):
                 html.Strong("5. Afrikas Beitrag:"),
                 html.P("Aufgrund sehr niedriger pro-Kopf-Emissionen ist der Beitrag Afrikas zu den globalen Emissionen sowohl historisch als auch aktuell relativ gering."),
                 html.Hr(),
-                html.P("Diese Repräsentation von CO2 Emissionen betonen die Notwendigkeit einer globalen Anstrengung, insbesondere von Ländern mit höheren historischen Emissionen, um die Emissionen zu reduzieren und das Klimaziel zu erreichen."),
+                html.P("Diese Repräsentation von CO₂ Emissionen betonen die Notwendigkeit einer globalen Anstrengung, insbesondere von Ländern mit höheren historischen Emissionen, um die Emissionen zu reduzieren und das Klimaziel zu erreichen."),
             ],
             className="card-text",
         ),
@@ -1155,7 +1156,7 @@ def create_co2_treemap_per_capita(df_filtered):
     # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_co2_per_capita'] = np.log1p(last_year_data['co2_per_capita'])
 
-    # Calculate the percentage of CO2 contribution for each country and continent relative to the world
+    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['co2_per_capita'].sum()
     last_year_data['percentage_co2_per_capita'] = (last_year_data['co2_per_capita'] / total_world_co2) * 100
 
@@ -1186,7 +1187,7 @@ def create_co2_treemap_per_capita(df_filtered):
     info_card_3 = dbc.Card(
         dbc.CardBody(
             [
-                html.P("Die weltweiten durchschnittlichen Pro Kopf CO2-Emissionen errechnen sich aus den Gesamtemissionen geteilt durch die Bevölkerung. Die Pro Kopf Emissionen variieren stark. Die größten pro Kopf-Emittenten sind oft ölproduzierende Länder, hauptsächlich in der Nahostregion. Länder mit niedriger Bevölkerung, wie viele Ölproduzenten, haben insgesamt jedoch niedrige Emissionen, während bevölkerungsreiche Länder wie die USA, Australien und Kanada trotz niedrigeren pro Kopf-Emissionen insgesamt überproportional zu den Gesamtemissionen beitragen."),
+                html.P("Die weltweiten durchschnittlichen Pro Kopf CO₂-Emissionen errechnen sich aus den Gesamtemissionen geteilt durch die Bevölkerung. Die Pro Kopf Emissionen variieren stark. Die größten pro Kopf-Emittenten sind oft ölproduzierende Länder, hauptsächlich in der Nahostregion. Länder mit niedriger Bevölkerung, wie viele Ölproduzenten, haben insgesamt jedoch niedrige Emissionen, während bevölkerungsreiche Länder wie die USA, Australien und Kanada trotz niedrigeren pro Kopf-Emissionen insgesamt überproportional zu den Gesamtemissionen beitragen."),
                 html.Hr(),
                 html.Ul(
                     [
@@ -1197,12 +1198,12 @@ def create_co2_treemap_per_capita(df_filtered):
                     ]
                 ),
                 html.Hr(),
-                html.P("Wohlstand ist ein Haupttreiber von CO2-Emissionen, aber politische und technologische Entscheidungen spielen ebenfalls eine Rolle. Insgesamt gibt es erhebliche Unterschiede in den pro Kopf-Emissionen zwischen Ländern mit ähnlichem Lebensstandard."),
+                html.P("Wohlstand ist ein Haupttreiber von CO₂-Emissionen, aber politische und technologische Entscheidungen spielen ebenfalls eine Rolle. Insgesamt gibt es erhebliche Unterschiede in den pro Kopf-Emissionen zwischen Ländern mit ähnlichem Lebensstandard."),
                 html.P(
                     ["Doch auch innerhalb der Länder können die Pro Kopf Emissionen sehr ungleich verteilt sein. Laut des ",
                     html.A("World Inequality Reports 2022", href="https://wir2022.wid.world/www-site/uploads/2021/12/WorldInequalityReport2022_Full_Report.pdf"),
-                    " stößt reichste Hundertstel der Deutschen pro Kopf im Jahr 117,8 Tonnen an Klimagasen aus. Die obersten 10 % kommen im Durchschnitt auf 34,1 Tonnen, die “Mitte” auf 12.2 Tonnen und die unteren 50 % nur auf 5,9 Tonnen. Die Reichen produzieren also 20-mal so viel CO2 wie die Armen."]), 
-                html.P("Der Pro Kopf Ausstoß spielt auch eine wichtige Rolle hinsichtlich des Zeitpunktes an dem ein Land Klimaneutral werden muss, um das 1,5 °Grad Ziel zu erreichen. Im Falle Deutschlands wäre dies beispielsweise das Jahr 2035. Indien hingegen erst um 2090, da der CO2 Pro- Kopf- Ausstoß bei nur 1,9 Tonnen liegt."),
+                    " stößt reichste Hundertstel der Deutschen pro Kopf im Jahr 117,8 Tonnen an Klimagasen aus. Die obersten 10 % kommen im Durchschnitt auf 34,1 Tonnen, die “Mitte” auf 12,2 Tonnen und die unteren 50 % nur auf 5,9 Tonnen. Die Reichen produzieren also 20-mal so viel CO₂ wie die Armen."]), 
+                html.P("Der Pro Kopf Ausstoß spielt auch eine wichtige Rolle hinsichtlich des Zeitpunktes an, dem ein Land klimaneutral werden muss, um das 1,5 °Grad Ziel zu erreichen. Im Falle Deutschlands wäre dies beispielsweise das Jahr 2035. Indien hingegen erst um 2090, da der CO₂ Pro- Kopf- Ausstoß bei nur 1,9 Tonnen liegt."),
             ],
             className="card-text",
         ),
@@ -1227,7 +1228,7 @@ def make_owid_info_modal_treemaps():
     return html.Div(
         children=[
             dbc.Button(
-                [html.I(className="fas fa-info-circle"), " CO2 Datensatz"], 
+                [html.I(className="fas fa-info-circle"), " CO₂ Datensatz"], 
                 id="open-modal-button", 
                 className="mt-2 mb-2", 
                 color="primary"
@@ -1249,7 +1250,7 @@ def make_owid_info_modal_treemaps():
                                     "Die Daten sind unter der MIT-Lizenz verfügbar und unter Angabe der Quelle frei nutzbar:",
                                     html.Hr(),
                                     html.P(
-                                        "Hannah Ritchie, Pablo Rosado and Max Roser (2023) - “Per capita, national, historical: how do countries compare on CO2 metrics?” Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-emissions-metrics' [Online Resource]",
+                                        "Hannah Ritchie, Pablo Rosado and Max Roser (2023) - “Per capita, national, historical: how do countries compare on CO₂ metrics?” Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-emissions-metrics' [Online Resource]",
                                         style={'color': 'grey'} ),
                                     html.Hr(),
                                     " Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
@@ -1259,7 +1260,7 @@ def make_owid_info_modal_treemaps():
                             ),
                             html.P(
                                 [
-                                    "Der umfangreiche Owid Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    "Der umfangreiche Owid- Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
                                     html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
                                     html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
@@ -1287,12 +1288,12 @@ def make_klima_2_sidebar():
     # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emittenten"],
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emittenten"],
                                     style={"text-decoration": "underline", "color": "white"},
                                     href="/klima_1", 
                                     id="navlink-1", 
                                     className="nav-link-custom")),
-            dbc.NavItem(dbc.NavLink([link_icon, " CO2 Emissionen nach Quelle"], 
+            dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emissionen nach Quellen"], 
                                     style={"text-decoration": "underline", "color": "#7fff00"},
                                     href="/klima_2", 
                                     id="navlink-2", 
@@ -1313,7 +1314,7 @@ def make_klima_2_sidebar():
                 [
                     html.P([
                         html.P("Das Dashboard auf dieser Seite ermöglicht die Auswahl und den Vergleich verschiedener Beobachtungsgegenstände und Länder. Der zugrunde liegende Datensatz umfasst über viele Jahre hinweg gesammelte Daten zu insgesamt 79 verschiedenen Datenkategorien (zur besseren Übersicht, werden daher hier nicht alle diese Beobachtungsgegenstände präsentiert) zu insgesamt 195 Ländern. In der Summe umfasst der Datensatz 50.598 Einträge."),
-                        html.P("Zum besseren Verständnis der Komplexität eines solchen Datensatzes, könnte man diesen mit einer umfangreichen Bibliothek vergleichen, in der jedes Buch ein Jahr in einem bestimmten Land repräsentiert. Jedes Buch (Jahr) enthält Kapitel (Datenkategorien) über die Wirtschaft, die Bevölkerung, die Nutzung natürlicher Ressourcen und die Auswirkungen menschlicher Aktivitäten auf die Umwelt. Innerhalb jedes Kapitels gibt es Abschnitte (Datenpunkte), die spezifische Informationen darüber enthalten, wie dieses Land in diesem Jahr zur globalen CO2-Bilanz beigetragen hat, wie sich seine Wirtschaft und Bevölkerung auf seinen CO2-Fußabdruck ausgewirkt haben und wie es im Vergleich zu anderen Ländern steht."),
+                        html.P("Zum besseren Verständnis der Komplexität eines solchen Datensatzes, könnte man diesen mit einer umfangreichen Bibliothek vergleichen, in der jedes Buch ein Jahr in einem bestimmten Land repräsentiert. Jedes Buch (Jahr) enthält Kapitel (Datenkategorien) über die Wirtschaft, die Bevölkerung, die Nutzung natürlicher Ressourcen und die Auswirkungen menschlicher Aktivitäten auf die Umwelt. Innerhalb jedes Kapitels gibt es Abschnitte (Datenpunkte), die spezifische Informationen darüber enthalten, wie dieses Land in diesem Jahr zur globalen CO₂-Bilanz beigetragen hat, wie sich seine Wirtschaft und Bevölkerung auf seinen CO₂-Fußabdruck ausgewirkt haben und wie es im Vergleich zu anderen Ländern steht."),
                         html.P("In dieser Bibliothek werden die Bücher (Jahre) ständig aktualisiert und neue Kapitel (Daten) hinzugefügt, um ein vollständiges Bild davon zu zeichnen, wie sich menschliche Aktivitäten im Laufe der Zeit auf unseren Planeten auswirken. Die Besucher (Forscher, Politiker, Bürger) können durch diese Bibliothek wandern, Bücher auswählen und darin lesen, um zu verstehen, wie komplex und vielfältig die Herausforderungen des Klimawandels sind und warum es so wichtig ist, informierte Entscheidungen für unsere Zukunft zu treffen."),
                         html.P("Datensätzen zur Überwachung und Analyse von Kohlenstoffdioxidemissionen sind entscheidend für das Verständnis und die Bekämpfung des globalen Klimawandels, doch sie sind mit Unsicherheiten und methodischen Schwierigkeiten behaftet.")
                     ]),
@@ -1324,7 +1325,7 @@ def make_klima_2_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_klima_2', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -1333,7 +1334,7 @@ def make_klima_2_sidebar():
                     [
                         html.Br(),
                         html.P([
-                        "Die Erfassung und Analyse von CO2-Emissionen sind mit zahlreichen Herausforderungen verbunden. Eine der größten Schwierigkeiten besteht darin, genaue und umfassende Daten zu sammeln, die alle relevanten Emissionsquellen abdecken. Emissionen aus fossilen Brennstoffen und industriellen Prozessen, wie der Zementproduktion, lassen sich relativ direkt berechnen. Doch die Emissionen aus ",
+                        "Die Erfassung und Analyse von CO₂-Emissionen sind mit zahlreichen Herausforderungen verbunden. Eine der größten Schwierigkeiten besteht darin, genaue und umfassende Daten zu sammeln, die alle relevanten Emissionsquellen abdecken. Emissionen aus fossilen Brennstoffen und industriellen Prozessen, wie der Zementproduktion, lassen sich relativ direkt berechnen. Doch die Emissionen aus ",
                         html.A("Landnutzungsänderungen", href="https://www.umweltbundesamt.de/daten/klima/treibhausgas-emissionen-in-deutschland/emissionen-der-landnutzung-aenderung#bedeutung-von-landnutzung-und-forstwirtschaft", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         ", die einen signifikanten Anteil an den globalen Emissionen haben, sind schwieriger zu quantifizieren und mit höheren Unsicherheiten behaftet. So sind viele Datensätze Produkte aus verschiedenen Quellen. Daten zur Zementproduktion und Gasfackelung beispielsweise, werden auf Basis von ",
                         html.A("UN-Daten", href="https://data.un.org/", target="_blank", style={"color": "white", "text-decoration": "underline"}),
@@ -1399,7 +1400,7 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                                     {'label': 'Jährliche CO₂-Emissionen aus Landnutzungsänderungen', 'value': 'land_use_change_co2'},
                                     {'label': 'Anteil an den weltweiten jährlichen CO₂-Emissionen ', 'value': 'share_global_co2'},
                                     {'label': 'Anteil an den weltweiten jährlichen CO₂-Emissionen einschließlich Landnutzungsänderungen', 'value': 'share_global_cumulative_co2'},
-                                    {'label': 'Temperaturänderung durch CO2', 'value': 'temperature_change_from_co2'},
+                                    {'label': 'Temperaturänderung durch CO₂', 'value': 'temperature_change_from_co2'},
                                     {'label': 'Gesamte Treibhausgasemissionen einschließlich Landnutzungsänderungen und Forstwirtschaft', 'value': 'total_ghg'},
                                     {'label': 'Gesamte Treibhausgasemissionen ohne Landnutzungsänderungen und Forstwirtschaft', 'value': 'total_ghg_excluding_lucf'}
                                 ],
@@ -1530,7 +1531,7 @@ def make_hydro_1_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -1541,7 +1542,7 @@ def make_hydro_1_sidebar():
                         html.P([
                         "Der Klimawandel hat erhebliche Auswirkungen auf die arktischen Eisschilde, die eine zentrale Rolle im globalen Klimasystem spielen. Die steigenden Temperaturen in der Arktis führen zu einer ",
                         html.A("beschleunigten Eisschmelze", href="https://www.ardalpha.de/wissen/umwelt/klima/klimawandel/eisschmelze-antarktis-arktis-polkappen-schmelzen-nordpol-suedpol-100.html", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ", insbesondere auf Grönland und der Arktischen Ozeanregion. Dies hat weitreichende Konsequenzen, da die schwindenden Eismassen den Meeresspiegel ansteigen lassen und potenziell zu katastrophalen Überschwemmungen in küstennahen Gebieten führen können. Darüber hinaus, hat der Rückgang der Eismassen auch Auswirkungen auf ",
+                        ", insbesondere auf Grönland und der arktischen Ozeanregion. Dies hat weitreichende Konsequenzen, da die schwindenden Eismassen den Meeresspiegel ansteigen lassen und potenziell zu katastrophalen Überschwemmungen in küstennahen Gebieten führen können. Darüber hinaus, hat der Rückgang der Eismassen auch Auswirkungen auf ",
                         html.A("Meeresströmungen", href="https://www.sueddeutsche.de/wissen/golfstrom-klimawandel-amoc-groenland-1.5374481", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         ", welche einen bedeutenden Einfluss im globalen Klimasystem ausüben."
                         ]),
@@ -1861,7 +1862,7 @@ def make_nic_shp_info_modal():
                                     "). Den vollen Datenkatalog der USNIC finden Sie ",
                                     html.A("hier", href="https://usicecenter.gov/Products/ArcticData", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     ". Shapefiles sind ein beliebtes geografisches Informationsformat, das für Kartierung und räumliche Analyse verwendet wird. Sie enthalten geometrische Standorte und Attribute von geografischen Merkmalen. ",
-                                    "In diesem Fall, sind solche Daten entscheidend für die Überwachung der Eisdynamik und unterstützen sowohl wissenschaftliche Forschung als auch Navigationsentscheidungen in eisigen Gewässern. ",
+                                    "In diesem Fall sind solche Daten entscheidend für die Überwachung der Eisdynamik und unterstützen sowohl wissenschaftliche Forschung als auch Navigationsentscheidungen in eisigen Gewässern. ",
                                 ],
                             ),
                         ]
@@ -1941,7 +1942,7 @@ def make_hydro_2_sidebar():
                     # html.Hr(),
                     html.P([
                         "Diese Veränderungen im Wasserhaushalt wirken sich nicht nur auf das Wachstum und die Entwicklung der Bäume aus, sondern auch auf die Biodiversität und die Ökosystemdienstleistungen, die der Wald erbringt. Wasser ist dabei nicht nur Grundlage für die Photosynthese, sondern spielt darüber hinaus eine entscheidende Rolle für die allgemeine Gesundheit und Widerstandsfähigkeit gegenüber Schädlingen, wie dem Borkenkäfer, Unwetterereignissen oder Waldbränden.",
-                        "Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
+                        " Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
                     ]), 
                 ],
                 className='mb-3',
@@ -1950,7 +1951,7 @@ def make_hydro_2_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -1963,7 +1964,7 @@ def make_hydro_2_sidebar():
                         html.A("Orkan Kyrill", href="https://de.wikipedia.org/wiki/Orkan_Kyrill", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         " oder 2015 ",
                         html.A("Sturmtief Niklas", href="https://de.wikipedia.org/wiki/Orkan_Niklas", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                        ") die Hauptursache für Schadholz. Orkane oder Stürme sind meist Singuläre Ereignisse, welche von Jahr zu Jahr starken Schwankungen unterworfen sein können, sich daher aber auch deutlich in den Diagrammen ablesen lassen. Seit der großen Dürre von 2018 sind vor allem Schädlinge die Einschlagsursache Nummer 1. Ihr Anteil hat seit 2018 deutlich zugenommen und 2021 mit 81,4 % einen vorläufigen Höchststand erreicht (2012 hatte er noch bei 17,8 % gelegen)."
+                        ") die Hauptursache für Schadholz. Orkane oder Stürme sind meist singuläre Ereignisse, welche von Jahr zu Jahr starken Schwankungen unterworfen sein können, sich daher aber auch deutlich in den Diagrammen ablesen lassen. Seit der großen Dürre von 2018 sind vor allem Schädlinge die Einschlagsursache Nummer 1. Ihr Anteil hat seit 2018 deutlich zugenommen und 2021 mit 81,4 % einen vorläufigen Höchststand erreicht (2012 hatte er noch bei 17,8 % gelegen)."
                         " Als Einschlagsursache wird schlussendlich lediglich die finale Ursache erfasst. Durch Trockenheit geschwächte Bäume sind anfälliger für alle anderen in der Statistik geführten Schadholzeinschlagsursachen. Daher wird Trockenheit seit 2020 auch als separate Schadholzkategorie geführt."
                         ]),  
                         html.P([
@@ -2246,10 +2247,10 @@ def make_schadholz_info_modal():
                                 "Die verwendeten Daten zur Menge des Schadholzeinschlages finden sich unter der Datenbank des statistischen Bundesamtes (",
                                 html.A("GENESIS", href="https://www-genesis.destatis.de/genesis//online?operation=table&code=41261-0003&bypass=true&levelindex=0&levelid=1707070432276#abreadcrumb", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                 "). Hier lassen sich die Daten nach bestimmten Kriterien filtern und danach als Datenpaket herunterladen. Der Datensatz wurde zusätzlich um ",
-                                html.A("Niederschlags- Daten", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html#buehneTop", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                html.A("Niederschlags-Daten", href="https://www.dwd.de/DE/leistungen/zeitreihen/zeitreihen.html#buehneTop", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                 " des Deutschen Wetterdienstes (",
                                 html.A("DWD", href="https://www.dwd.de/DE/Home/home_node.html", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                ") erweitert. Weitere details zur genauen Prozessierung der Datensätze finden sich im ",
+                                ") erweitert. Weitere Details zur genauen Prozessierung der Datensätze finden sich im ",
                                 html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                 ".",
                             ]),
@@ -2280,7 +2281,7 @@ def make_niederschlag_gebietsmittel_info_modal():
                     dbc.ModalBody(
                         [
                             html.P([
-                                "Die dargestellten Niederschläge sind Gebietsmittel (Mittelwerte der Rasterfelder von Deutschland mit einer Auflösung von 1km). Gegenüber Zeitreihen einzelner Stationen sind die Zeitreihen von Gebietsmitteln weitgehend frei von Inhomogenitäten, die durch Stationsverlegungen oder Veränderungen im Umfeld einer Station entstehen. Außerdem sind sie repräsentativer für ein größeres Gebiet als Einzelstationen oder einfache Kombinationen der verschiedenen Stationen.",
+                                "Die dargestellten Niederschläge sind Gebietsmittel (Mittelwerte der Rasterfelder von Deutschland mit einer Auflösung von 1 km). Gegenüber Zeitreihen einzelner Stationen sind die Zeitreihen von Gebietsmitteln weitgehend frei von Inhomogenitäten, die durch Stationsverlegungen oder Veränderungen im Umfeld einer Station entstehen. Außerdem sind sie repräsentativer für ein größeres Gebiet als Einzelstationen oder einfache Kombinationen der verschiedenen Stationen.",
                                 html.Br(),
                                 html.Br(),
                                 "Die verwendeten Niederschlagsdaten stammen aus der Datenbank des Deutschen Wetterdienstes (",
@@ -2358,7 +2359,7 @@ def make_pedo_1_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 
@@ -2379,7 +2380,7 @@ def make_pedo_1_sidebar():
                             html.Li("SMI 0,00 - 0,02 = außergewöhnliche Dürre"),
                         ]),
                         html.P([
-                            "Hierbei wird Dürre als Abweichung vom langjährigen Erwartungswert geschätzt. Erst wenn die aktuelle Bodenfeuchte unter das langjährige 20-Perzentil fällt, also den Wert, der nur in 20% der Jahre in einer langen Zeitreihe erreicht wird, spricht man von Dürre. So bedeutet also ein Wert von 0.3 (ungewöhnliche Trockenheit), dass die aktuelle Bodenfeuchte so niedrig wie in 30% der Fälle von 1951-2015 ist. Genauso bedeutet ein SMI von 0.02 (außergewöhnliche Dürre), dass der Wert nur in 2% der langjährigen Simulationswerte unterschritten wird."
+                            "Hierbei wird Dürre als Abweichung vom langjährigen Erwartungswert geschätzt. Erst wenn die aktuelle Bodenfeuchte unter das langjährige 20-Perzentil fällt, also den Wert, der nur in 20 % der Jahre in einer langen Zeitreihe erreicht wird, spricht man von Dürre. So bedeutet also ein Wert von 0.3 (ungewöhnliche Trockenheit), dass die aktuelle Bodenfeuchte so niedrig wie in 30 % der Fälle von 1951 bis 2015 ist. Genauso bedeutet ein SMI von 0.02 (außergewöhnliche Dürre), dass der Wert nur in 2% der langjährigen Simulationswerte unterschritten wird."
                         ]),
                         html.P([
                         "Das  ",
@@ -2504,7 +2505,7 @@ def make_smi_info_modal():
                                 [
                                     "Die historischen, monatlichen Bodenfeuchtigkeitsdaten von 1951-2022 stammen von dem Helmholtz-Zentrum für Umweltforschung (",
                                     html.A("UFZ", href="https://www.ufz.de/", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    ") und könnem im  ",
+                                    ") und können im  ",
                                     html.A("Netcdf-Format", href="https://de.wikipedia.org/wiki/NetCDF", target="_blank", style={"color": "black", "text-decoration": "underline"}),
                                     " ",
                                     html.A("hier", href="https://www.ufz.de/index.php?de=37937", target="_blank", style={"color": "black", "text-decoration": "underline"}),
@@ -2575,15 +2576,15 @@ def make_pedo_2_sidebar():
                     html.A("befindet sich in Sibirien", href="https://www.google.de/maps/place/Batagaika+crater/@67.5786202,134.7822196,7564m/data=!3m1!1e3!4m12!1m5!3m4!2zNjfCsDM0JzQ3LjYiTiAxMzTCsDQ2JzE3LjgiRQ!8m2!3d67.5798889!4d134.7716111!3m5!1s0x5bbfe98a616b146b:0x100d1ed2d264a68c!8m2!3d67.5783832!4d134.7728567!16s%2Fg%2F11fn4n5bg1?entry=ttu", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                     " und ist der größte Klimawandel- induzierte Permafrost-Krater der Welt(",
                     html.A("Videolink", href="https://www.youtube.com/watch?v=lbvTmLBrdps", target="_blank", style={"color": "white", "text-decoration": "underline"}),
-                    "). Ursprünglich in den 1950er und 1960er Jahren durch Mineralerkundung und Abholzung für Brennholz ausgelöst, hat sich der Krater aufgrund warmer Sommer und kürzerer Winter in der Region rapide vergrößert. Die stetige Erderwärmung führt zum Auftauen des Permafrosts, wodurch der Boden auf den Hängen nachgibt und erodiert. Der Krater, der mittlerweile beeindruckende Ausmaße von etwa 1 km Länge, 800 m Breite, wächst jährlich um mehr als 10 Meter. Die Kraterwand des aufgetautem Permafrostbodens, die in einigen Bereichen mehr als 85 Meter hoch ist, bietet Forschern einen einzigartigen Einblick in vergangene Klimabedingungen."
+                    "). Ursprünglich in den 1950er und 1960er Jahren durch Mineralerkundung und Abholzung für Brennholz ausgelöst, hat sich der Krater aufgrund warmer Sommer und kürzerer Winter in der Region rapide vergrößert. Die stetige Erderwärmung führt zum Auftauen des Permafrosts, wodurch der Boden auf den Hängen nachgibt und erodiert. Der Krater, der mittlerweile beeindruckende Ausmaße von etwa 1 km Länge, 800 m Breite, wächst jährlich um mehr als 10 Meter. Die Kraterwand des aufgetauten Permafrostbodens, die in einigen Bereichen mehr als 85 Meter hoch ist, bietet Forschern einen einzigartigen Einblick in vergangene Klimabedingungen."
                     ]),
                     html.P([
-                    "Darüber hinaus hat das Phänomem jedoch auch ernsthaften Konsequenzen hinsichtlich des Klimawandels. Denn das Auftauen des Permafrosts setzt bedeutende Mengen an Treibhausgasen wie Kohlendioxid, Methan und Lachgas frei, was wiederum Rückwirkend den Klimawandel antreibt. Dieser Teufelkreis gilt zudem als einer der möglichen ",
+                    "Darüber hinaus hat das Phänomen jedoch auch ernsthaften Konsequenzen hinsichtlich des Klimawandels. Denn das Auftauen des Permafrosts setzt bedeutende Mengen an Treibhausgasen wie Kohlendioxid, Methan und Lachgas frei, was wiederum Rückwirkend den Klimawandel antreibt. Dieser Teufelkreis gilt zudem als einer der möglichen ",
                     html.A("Klimakipppunkte", href="https://de.wikipedia.org/wiki/Kippelemente_im_Erdklimasystem#Methan-_und_Kohlendioxidemissionen_aus_tauenden_Permafrostb%C3%B6den", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                     " und ist auch in anderen Permafrostregionen zu beobachten. Der Batagaika-Krater dient somit als eindrückliches Beispiel für die drängende Notwendigkeit, Maßnahmen zur Eindämmung des Klimawandels zu ergreifen, um solche katastrophalen Umweltauswirkungen zu minimieren."
                     ]),
                     html.P([
-                    "Das Dashboard ermöglicht einen historischen Vergleich verschiedener Sattelitenaufnahmen des Batagaika- Kraters und führt vor Augen, wie der Krater Jahr für Jahr wächst",
+                    "Das Dashboard ermöglicht einen historischen Vergleich verschiedener Satellitenaufnahmen des Batagaika- Kraters und führt vor Augen, wie der Krater Jahr für Jahr wächst",
                     ]),
                 ],
                 className='mb-3',
@@ -2592,7 +2593,7 @@ def make_pedo_2_sidebar():
 
             html.Div(
                 [
-                    html.H4("Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
+                    html.H4(" Weitere Informationen", id='more_info_button_hydro_1', className="fa-solid fa-book-open ms-3 mt-1 primary", n_clicks=0),
                 ],
             ),
 

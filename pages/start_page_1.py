@@ -9,20 +9,17 @@ from utils import layoutFunctions as lf
 # Main layout structure with navigation bar, sidebar, interactive controls, and license banner.
 layout = html.Div(
     [   
-        dbc.Modal([
-            dbc.ModalHeader(html.H2("Willkommen auf dem Klima-Kompass-Navigator", style={'font-size': '28px', 'color': 'black'})),
-                    dbc.ModalBody(
+            dbc.Modal([
+                dbc.ModalHeader(html.H2("Willkommen auf dem Klima-Kompass-Navigator", style={'font-size': '28px', 'color': 'black'})),
+                dbc.ModalBody(
                     html.P(
                         [
-                        #html.Hr(style={'border-top': '2px solid black'}),
-                        "Der Klima-Kompass-Navigator ist eine Sammlung verschiedener Dashboards, "
-                        "welche sich mit dem Klimawandel, seinen Auswirkungen auf die Umwelt sowie "
-                        "den jeweiligen wissenschaftlichen Grundlagen auseinandersetzen. Der Grundaufbau "
-                        "der jeweiligen Dashboards ist dabei immer derselbe. Über die Navigationsleiste "
-                        "am oberen Bildschirmrand können sie zwischen den thematischen Hauptseiten wechseln. "
-                        "Über eine weitere Navigationsleiste oberhalb  des Informationsbereiches am linken "
-                        "Bildschirmrand können Sie weiter zwischen verschiedenen Unterkategorien wechseln. "
-                        "Diese Einführungsseite enthält weitere Informationen zum Verständnis der wichtigsten Funktionen."
+                            "Der Klima-Kompass-Navigator ist eine Sammlung verschiedener Dashboards, die sich mit dem Klimawandel "
+                            "und seinen Auswirkungen auf die Umwelt auseinandersetzen. Der Grundaufbau der jeweiligen Dashboards "
+                            "ist dabei immer derselbe. Über die Navigationsleiste am oberen Bildschirmrand können Sie zwischen den "
+                            "thematischen Hauptseiten Klimatologie (Luft), Hydrologie (Wasser) und Pedologie (Böden) wechseln. Über eine weitere Navigationsleiste oberhalb "
+                            "des Informationsbereichs am linken Bildschirmrand können Sie weiter zwischen verschiedenen Unterkategorien "
+                            "wechseln. Diese Einführungsseite enthält weitere Informationen zum Verständnis der wichtigsten Funktionen."
                         ]
                     )
                 ),
@@ -59,7 +56,7 @@ layout = html.Div(
         'background-image': 'url("/assets/wallpaper.jpg")',
         'background-size': 'cover', 'background-repeat': 'no-repeat',
         'background-position': 'center',
-        'height': '120vh', 'margin': 0
+        'height': '150vh', 'margin': 0
     },
 )
 

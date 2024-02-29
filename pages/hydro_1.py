@@ -83,8 +83,8 @@ layout = html.Div(
                                     dbc.CardBody(
                                         [
                                             html.P("Das Laden der jeweiligen Eisschilde kann ein bis zwei Sekunden dauern."),
-                                            html.P("Der Standart Kartenausschnitt zentriert um die norwegische Inselgruppe Spitzbergen. Der Beobachtungsraum kann jedoch auch durch klicken und ziehen auf der Karte verschoben werden."),
-                                            html.P("Bei Auswahl mehrerer Monate oder Jahre kann es zu überlappungen kommen. Um einen besseren visuellen Vergleich zu ermöglichen lassen sich die verschiedenen Eisschilde durch anklicken hervorheben."),
+                                            html.P("Der Standard Kartenausschnitt zentriert um die norwegische Inselgruppe Spitzbergen. Der Beobachtungsraum kann jedoch auch durch klicken und ziehen auf der Karte verschoben werden."),
+                                            html.P("Bei Auswahl mehrerer Monate oder Jahre kann es zu Überlappungen kommen. Um einen besseren visuellen Vergleich zu ermöglichen, lassen sich die verschiedenen Eisschilde durch anklicken hervorheben."),
                                         ],
                                         className="card-text",
                                     ),
