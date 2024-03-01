@@ -1,25 +1,17 @@
-from dash import html, Input, Output, State, callback
-import dash_bootstrap_components as dbc
-from pathlib import Path
-from utils import dataManager as dm
-from utils import layoutFunctions as lf
-from dash import dcc
-from dash.dependencies import Input, Output, State
 import os
 import base64
-from dash_extensions import BeforeAfter
+from pathlib import Path
+from dash import html, Input, Output, State, callback, dcc
+import dash_bootstrap_components as dbc
 import dash
+from dash_extensions import BeforeAfter
+from utils import dataManager as dm
+from utils import layoutFunctions as lf
 
-# ------------------------------------------------------------------------------
 # Initialize utility objects and useful functions
-# ------------------------------------------------------------------------------
-# Define the full path of the data folder to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'assets/batagaika_crater'
 
-# ------------------------------------------------------------------------------
 # Load the necessary data
-# ------------------------------------------------------------------------------
-# Daten für die Satellitenbilder
 satellite_data = [
     {'label': '13.08.1991', 'value': '19910813_Crater.png'},
     {'label': '27.08.1999', 'value': '19990827_Crater.png'},
@@ -31,23 +23,19 @@ satellite_data = [
     {'label': '11.08.2022', 'value': '20220811_Crater.png'},
 ]
 
-# ------------------------------------------------------------------------------
 # LAYOUT
-# ------------------------------------------------------------------------------
-# Define the layout structure with navigation bar, sidebar, settings, and selected graph container
 layout = html.Div(
     [
-        dbc.Row(lf.make_NavBar()),  # Navigation Bar
+        dbc.Row(lf.make_NavBar()),  
         dbc.Row(
             [
-                dbc.Col(lf.make_pedo_2_sidebar(), width=4, lg=3, md=12),  # Fixiert die Größe der Sidebar auf 3 Spalten in großen Bildschirmen und 12 Spalten in mittleren
+                dbc.Col(lf.make_pedo_2_sidebar(), width=4, lg=3, md=12),  
                 dbc.Col(
                     [
                         lf.make_pedo_2_settings(),
                         dcc.Tabs([
                             dcc.Tab(label='Zeitraffer', children=[
                                 html.Div([
-                                    # Play, Stopp und Vorwärts-Buttons über dem Iframe
                                     dbc.Row([
                                         dbc.Col(html.H1("Zeitraffer", style={'textAlign': 'center'}), width=12),
                                         html.Hr(),
@@ -64,9 +52,7 @@ layout = html.Div(
                                             width='auto'
                                         ),
                                     ], justify='center', className='mb-3'),
-                                    # Iframe für die Anzeige des Bildes
                                     html.Iframe(id='image-display', style={'width': '80%', 'height': '96.5vh', 'border': '1px solid #000', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
-                                    # Intervall für die Play-Funktion
                                     dcc.Interval(id='play-interval', interval=300, n_intervals=0, disabled=True),
                                 ], style={'text-align': 'center'}),
                             ]),
@@ -86,11 +72,10 @@ layout = html.Div(
                                                     {'label': data['label'], 'value': data['value']} for data in satellite_data
                                                 ],
                                                 value='19910813_Crater.png',
-                                                labelStyle={'display': 'block', 'margin-bottom': '20px'},  # Erhöht den Abstand zwischen den Radio-Buttons
+                                                labelStyle={'display': 'block', 'margin-bottom': '20px'},  
                                             ),
                                         ], width=3),
                                         dbc.Col([
-                                            # Annahme, dass BeforeAfter ein benutzerdefiniertes Komponent ist
                                             BeforeAfter(id='image-slider', width=612, height=512, defaultProgress=0.5),
                                         ], width=6),
                                         dbc.Col([
@@ -101,7 +86,7 @@ layout = html.Div(
                                                     {'label': data['label'], 'value': data['value']} for data in satellite_data
                                                 ],
                                                 value='20220811_Crater.png',
-                                                labelStyle={'display': 'block', 'margin-bottom': '20px'},  # Erhöht den Abstand zwischen den Radio-Buttons
+                                                labelStyle={'display': 'block', 'margin-bottom': '20px'}, 
                                             ),
                                         ], width=3),
                                     ]),
@@ -109,17 +94,16 @@ layout = html.Div(
                             ]),
                          ]),
                     ],
-                    width=8, lg=9, md=12  # Fixiert die Größe der Hauptspalte auf 9 Spalten in großen Bildschirmen und 12 Spalten in mittleren
+                    width=8, lg=9, md=12  
                 ),
             ],
-            className="g-0",  # Ersetzt no_gutters für Bootstrap 5
+            className="g-0",  
         ),
         dbc.Row([lf.make_footer()]),
     ],
-    className="my-3",  # Fügt einen Außenabstand hinzu
+    className="my-3", 
 )
 
-# Callbacks für die Interaktivität des Dashboards
 @callback(
     Output('play-interval', 'disabled'),
     Output('image-display', 'srcDoc'),
@@ -159,7 +143,6 @@ def generate_iframe(selected_index):
     '''
     return iframe_code
 
-# Callback für den Vorher-Nachher-Vergleich
 @callback(
     Output('image-slider', 'after'),
     Output('image-slider', 'before'),

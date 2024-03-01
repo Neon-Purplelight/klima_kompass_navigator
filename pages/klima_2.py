@@ -10,15 +10,12 @@ from utils import layoutFunctions as lf
 # ------------------------------------------------------------------------------
 # Load the necessary data
 # ------------------------------------------------------------------------------
-    # # Example usage
 input_json_path = 'data/originalData/klima_2/world-countries.json'
 output_json_path = 'data/processedData/klima_2/processed_world-countries.json'
 dm.process_and_save_json(input_json_path, output_json_path)
 
-# Extract valid country names from the processed JSON
 country_names = dm.extract_country_names(output_json_path)
 
-# Process and save the CSV
 input_file_path_csv = 'data/originalData/klima_2/owid-co2-data.csv'
 output_file_path_csv = 'data/processedData/klima_2/processed_data.csv'
 dm.process_and_save_csv(input_file_path_csv, output_file_path_csv, country_names)
@@ -33,7 +30,6 @@ max_year = df['year'].max()
 # ------------------------------------------------------------------------------
 # Initialize utility objects and useful functions
 # ------------------------------------------------------------------------------
-# Erstellen Sie eine Liste aller einzigartigen Länder aus dem DataFrame
 countries = df['country'].unique()
 
 country_name_translation = {
@@ -243,10 +239,9 @@ chart_type_buttons = dbc.ButtonGroup(
         dbc.Button("Liniendiagramm", id='button-line', color="primary"),
     ],
     className="mb-3",
-    style={'color': 'white'}  # Setzen Sie die Schriftfarbe auf Weiß für nicht ausgewählte Buttons
+    style={'color': 'white'} 
 )
 
-# Informationen zu den CO2-Typen
 co2_info = {
     "population": "*Bevölkerung nach Ländern, verfügbar von 10.000 v. Chr. bis 2100, basierend auf Daten und Schätzungen aus verschiedenen Quellen.",
     "gdp": "*Bruttoinlandsprodukt in der Leitwährung Dollar (Bemessungsgrundlage 2011), um Preisänderungen im Laufe der Zeit (Inflation) und Preisunterschiede zwischen den Ländern zu berücksichtigen. Berechnet durch Multiplikation des Pro-Kopf-BIP mit der Bevölkerung.",
@@ -268,7 +263,6 @@ co2_info = {
     "total_ghg_excluding_lucf": "*Die Emissionen werden in Millionen Tonnen Kohlendioxid-Äquivalenten gemessen."
 }
 
-# Mapping von 'value' zu 'label' für Hover-Informationen
 value_to_label = {
     'population': 'Bevölkerung',
     'gdp': 'BIP',
@@ -293,7 +287,6 @@ value_to_label = {
 # LAYOUT
 # ------------------------------------------------------------------------------
 
-# Main layout structure with navigation bar, sidebar, settings, and selected graph container
 layout = html.Div(
     [
         dbc.Row(lf.make_NavBar()),  
@@ -326,14 +319,10 @@ layout = html.Div(
 def update_chart_type_and_button_styles(button_map, button_line, current_status):
     ctx = dash.callback_context
 
-    # Standardstyles für nicht ausgewählte Buttons
     default_style = {'color': 'white'}
-    # Style für den ausgewählten Button
     selected_style = {'color': '#7fff00'}
 
-    # Wenn der Callback zum ersten Mal ausgelöst wird, werden Standardwerte zurückgegeben
     if not ctx.triggered:
-        # Angenommen, die Weltkarte ist die Standardansicht
         return 'map', selected_style, default_style
 
     button_id = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -343,19 +332,17 @@ def update_chart_type_and_button_styles(button_map, button_line, current_status)
     else:
         return 'line', default_style, selected_style
 
-# Callback zum Aktualisieren des Diagramms
 @callback(
     Output('chart', 'figure'),
     [Input('co2-type-selector', 'value'),
      Input('year-slider', 'value'),
      Input('country-selector', 'value'),
-     Input('chart-type-status', 'children')]  # Direktes Lesen des Diagrammtyps aus dem Status
+     Input('chart-type-status', 'children')] 
 )
 def update_chart(selected_co2_type, selected_year_range, selected_countries, chart_type):
     min_year, max_year = selected_year_range
     filtered_df = df[(df['year'] >= min_year) & (df['year'] <= max_year)]
     
-    # Definition von Einheiten für verschiedene Beobachtungsgegenstände
     units = {
             'population': '',  
             'gdp': ' Dollar', 
@@ -379,9 +366,8 @@ def update_chart(selected_co2_type, selected_year_range, selected_countries, cha
     if selected_countries:
         filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
 
-    # Dynamische Festlegung der Einheit und übersetzten Bezeichnung basierend auf dem ausgewählten Beobachtungsgegenstand
-    unit = units.get(selected_co2_type, '')  # Standard: keine Einheit
-    translated_label = value_to_label.get(selected_co2_type, selected_co2_type)  # Übersetzung des Labels
+    unit = units.get(selected_co2_type, '')  
+    translated_label = value_to_label.get(selected_co2_type, selected_co2_type)  
 
     if chart_type == 'map':
         fig = px.choropleth(
@@ -389,10 +375,10 @@ def update_chart(selected_co2_type, selected_year_range, selected_countries, cha
             locations="iso_code",
             geojson=countries_json,
             color=selected_co2_type,
-            hover_name="translated_country",  # Anzeigename beim Hovern
-            hover_data={selected_co2_type: ':.2f' + unit, 'iso_code': False, 'translated_country': False},  # Anpassung der Hover-Daten mit Formatierung und Einheit
-            color_continuous_scale="YlOrRd",  # Farbskala
-            labels={selected_co2_type: translated_label}  # Verwendung der übersetzten Bezeichnung für die Legende und Hovertexte
+            hover_name="translated_country",  
+            hover_data={selected_co2_type: ':.2f' + unit, 'iso_code': False, 'translated_country': False}, 
+            color_continuous_scale="YlOrRd",  
+            labels={selected_co2_type: translated_label} 
         )
         fig.update_layout(
             margin={"r":0, "t":0, "l":0, "b":0},
@@ -420,10 +406,9 @@ def update_chart(selected_co2_type, selected_year_range, selected_countries, cha
             x='year',
             y=selected_co2_type,
             color='translated_country',
-            labels={selected_co2_type: translated_label + ' (' + unit.strip() + ')'},  # Dynamische Beschriftung der Achsen
+            labels={selected_co2_type: translated_label + ' (' + unit.strip() + ')'},  
         )
-        # Anpassung der Hoverformatierung mit dynamischer Einheit und Jahr
-        fig.update_traces(hovertemplate='%{x}: %{y:.2f}' + unit)  # Das Jahr wird mit dem Wert und der Einheit ergänzt
+        fig.update_traces(hovertemplate='%{x}: %{y:.2f}' + unit) 
         fig.update_layout(showlegend=False)
 
     return fig

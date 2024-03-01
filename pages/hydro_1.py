@@ -1,4 +1,3 @@
-# Import necessary libraries and modules
 from dash import html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 from utils import layoutFunctions as lf
@@ -6,11 +5,9 @@ from utils import layoutFunctions as lf
 # ------------------------------------------------------------------------------
 # Initialize utility objects and useful functions
 # ------------------------------------------------------------------------------
-# Define the full path of the data folder to load raw data
 shapefile_folder_months = 'data/originalData/hydro_1/ice_shields/ice_shields_2023_jan_dec/'
 shapefile_folder_years = 'data/originalData/hydro_1/ice_shields/ice_shields_2007_2023/'
 
-# Liste der verfügbaren Monate
 available_months = [
     'nic_autoc2023001n_pl_a',
     'nic_autoc2023032n_pl_a',
@@ -26,12 +23,10 @@ available_months = [
     'nic_autoc2023335n_pl_a',
 ]
 
-# Liste der Anzeigenamen für die Checkbox
 display_names_months = [
     'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
 ]
 
-# Liste der verfügbaren Jahre
 available_years = [
     'nic_autoc2007001n_pl_a',
     'nic_autoc2008001n_pl_a',
@@ -52,7 +47,6 @@ available_years = [
     'nic_autoc2023001n_pl_a',
 ]
 
-# Liste der Anzeigenamen für die Checkbox
 display_names_years = [
     '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014',
     '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'
@@ -66,10 +60,9 @@ display_names_years = [
 # ...
 # LAYOUT
 # ...
-# Define the layout structure with navigation bar, sidebar, settings, and selected graph container
 layout = html.Div(
     [
-        dbc.Row(lf.make_NavBar()),  # Navigation Bar
+        dbc.Row(lf.make_NavBar()),  
         dbc.Row(
             [
                 dbc.Col(lf.make_hydro_1_sidebar(), width=4),
@@ -92,34 +85,32 @@ layout = html.Div(
                                 id="info-card_hydro_1_settings",
                             ),
                         ]),
-                        # Move the card with month checklist here
                         dbc.Card(
                             dbc.CardBody([
                                 dbc.Checklist(
                                     id='month-checklist',
                                     options=[{'label': month, 'value': month} for month in display_names_months],
-                                    value=[],  # Keine Auswahl standardmäßig
+                                    value=[],  
                                     inline=True,
                                     style={'margin-bottom': '20px'}
                                 ),
                                 html.Iframe(
                                     id='map-iframe_months',
                                     style={
-                                        'width': '100%',  # Set the width to 100%
-                                        'height': '550px',  # Set the height to your desired value
-                                        'margin': 'auto',  # Center the iframe
+                                        'width': '100%',  
+                                        'height': '550px',  
+                                        'margin': 'auto',  
                                         'display': 'block',
                                     }
                                 ),
                             ]),
-                            style={'text-align': 'center'}  # Center the content within the card
+                            style={'text-align': 'center'}  
                         ),
                     ],
                     width=8,
                 ),
             ]
         ),
-        # License banner at the bottom
         dbc.Row([lf.make_footer()]),
     ],
 )
@@ -128,14 +119,13 @@ layout = html.Div(
 # ...
 # Callbacks
 # ...
-# Callback to update the selected graph and map based on the user's choice
 @callback(
     [Output('month-checklist', 'options'),
      Output('map-iframe_months', 'srcDoc')],
     [Input('hydro-1-plot-selector', 'value'),
      Input('month-checklist', 'value')],
     [State('month-checklist', 'value')],
-    prevent_initial_call=False  # Erlaubt das Auslösen des Callbacks beim ersten Laden
+    prevent_initial_call=False  
 )
 def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
     options = []
@@ -152,10 +142,8 @@ def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
         with open('data/originalData/hydro_1/map_with_selected_years.html', 'r') as file:
             map_html = file.read()
 
-    # Zurücksetzen der Checkboxen immer beim Wechsel der Ansicht
     return options, map_html
 
-# Add callback to show/hide the info modal for hydro_1
 @callback(
     Output("info-card_hydro_1", "style"),
     [Input("info-button_hydro_1", "n_clicks")],
@@ -164,7 +152,6 @@ def update_hydro_1_plot(selected_plot, selected_items, prev_checklist_value):
 def toggle_info_card(n_clicks):
     return {"display": "none"} if n_clicks % 2 == 0 else {"display": "block"}
 
-# Callback to toggle the collapse state of the more info section in hydro_1
 @callback(
     Output('collapse_more_info_hydro_1', 'is_open'),
     Input('more_info_button_hydro_1', 'n_clicks'),
@@ -174,7 +161,6 @@ def toggle_info_card(n_clicks):
 def toggle_collapse_more_info(n_clicks, is_open):
     return not is_open
 
-# Add callback to show/hide the info modal for hydro_1_settings
 @callback(
     Output("info-card_hydro_1_settings", "style"),
     [Input("info-button_hydro_1_settings", "n_clicks")],

@@ -3,32 +3,20 @@ import dash_bootstrap_components as dbc
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
-# ------------------------------------------------------------------------------
-# Load the necessary data
-# ------------------------------------------------------------------------------
+# Load necessary data
 df_temp = dm.read_temp_data('data/originalData/start_page_2/GLB.Ts+dSST.csv')
 df_co2 = dm.read_co2_data('data/originalData/start_page_2/owid-co2-data.csv')
 
-# ------------------------------------------------------------------------------
-# Perform some preprocessing
-# ------------------------------------------------------------------------------
+# Perform preprocessing
 df_co2 = dm.preprocess_co2_data(df_co2)
-#df_temp = dm.preprocess_temperature_data(df_temp)
 
-# ------------------------------------------------------------------------------
-# LAYOUT
-# ------------------------------------------------------------------------------
-
-# Main layout structure with navigation bar, sidebar, settings, and selected graph container
+# Layout
 layout = html.Div(
     [
-        dbc.Row(lf.make_NavBar()),  
+        dbc.Row(lf.make_NavBar()),
         dbc.Row(
             [
-                # Sidebar for the klima-1 page
                 dbc.Col(lf.make_start_page_2_sidebar(), width=4),
-                
-                # Main content area with settings and selected graph container
                 dbc.Col(
                     [
                         lf.make_start_page_2_settings(),
@@ -38,17 +26,11 @@ layout = html.Div(
                 ),
             ]
         ),
-        
-        # Row containing the Creative Commons license banner
         dbc.Row([lf.make_footer()]),
-    ],                                  
+    ],
 )
 
-# ...
 # Callbacks
-# ...
-
-# Callback to update the selected graph based on the user's choice
 @callback(
     Output('selected-graph-container', 'children'),
     Input('klima-1-plot-selector', 'value')
@@ -65,60 +47,25 @@ def update_selected_graph(selected_plot):
     else:
         return html.Div("No graph selected")
 
-# Callbacks for toggling the visibility of info cards and the more info section
-@callback(
-    Output("info-card_klima_1_co2", "style"),
-    Input("info-button_klima_1_co2", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_co2(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
+def toggle_info_card(info_button_id, info_card_id):
+    @callback(
+        Output(info_card_id, "style"),
+        Input(info_button_id, "n_clicks"),
+        prevent_initial_call=True
+    )
+    def toggle_info_card_style(n_clicks):
+        if n_clicks is None:
+            return {"display": "none"}
+        elif n_clicks % 2 == 0:
+            return {"display": "none"}
+        else:
+            return {}
 
-@callback(
-    Output("info-card_klima_1_temp", "style"),
-    Input("info-button_klima_1_temp", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_temp(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
+toggle_info_card("info-button_klima_1_co2", "info-card_klima_1_co2")
+toggle_info_card("info-button_klima_1_temp", "info-card_klima_1_temp")
+toggle_info_card("info-button_klima_1_cor", "info-card_klima_1_cor")
+toggle_info_card("info-button_klima_1_barplot", "info-card_klima_1_barplot")
 
-@callback(
-    Output("info-card_klima_1_cor", "style"),
-    Input("info-button_klima_1_cor", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_cor(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
-
-@callback(
-    Output("info-card_klima_1_barplot", "style"),
-    Input("info-button_klima_1_barplot", "n_clicks"),
-    prevent_initial_call=True
-)
-def toggle_info_card_barplot(n_clicks):
-    if n_clicks is None:
-        return {"display": "none"}
-    elif n_clicks % 2 == 0:
-        return {"display": "none"}
-    else:
-        return {}
-
-# Callback to toggle the collapse state of the more info section
 @callback(
     Output('collapse_more_info_klima_1', 'is_open'),
     Input('more_info_button_klima_1', 'n_clicks'),
@@ -128,24 +75,16 @@ def toggle_info_card_barplot(n_clicks):
 def toggle_collapse_more_info(n_clicks, is_open):
     return not is_open
 
-# Callback zum Öffnen des Modals
-@callback(
-    Output("modal", "is_open"),
-    [Input("open-modal-button", "n_clicks"), Input("close-modal-button", "n_clicks")],
-    [State("modal", "is_open")],
-)
-def toggle_modal(n1, n2, is_open):
-    if n1 or n2:
-        return not is_open
-    return is_open
+def toggle_modal(modal_button_id, modal_id):
+    @callback(
+        Output(modal_id, "is_open"),
+        [Input(modal_button_id, "n_clicks"), Input(f"close-{modal_button_id}-button", "n_clicks")],
+        [State(modal_id, "is_open")],
+    )
+    def toggle_modal_state(n1, n2, is_open):
+        if n1 or n2:
+            return not is_open
+        return is_open
 
-# Callback zum Öffnen und Schließen des GISTEMP-Modals
-@callback(
-    Output("gistemp-modal", "is_open"),
-    [Input("open-gistemp-modal-button", "n_clicks"), Input("close-gistemp-modal-button", "n_clicks")],
-    [State("gistemp-modal", "is_open")],
-)
-def toggle_gistemp_modal(n1, n2, is_open):
-    if n1 or n2:
-        return not is_open
-    return is_open
+toggle_modal("open-modal", "modal")
+toggle_modal("open-gistemp-modal", "gistemp-modal")

@@ -9,11 +9,9 @@ import numpy as np
 import os
 import base64
 
+
 # ------------------------------------------------------------------------------
-# make_ FUNCTIONS
-# These functions are called only once to create the backbone of the graphical
-# plots and elements. Then each element is updated based on callbacks that call
-# "update_" functions.
+# General
 # ------------------------------------------------------------------------------
 def make_NavBar():
     """
@@ -25,7 +23,6 @@ def make_NavBar():
             dbc.NavItem(dbc.NavLink('Klimatologie', href='/klima_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Hydrologie', href='/hydro_1', id='navlink')),
             dbc.NavItem(dbc.NavLink('Pedologie', href='/pedo_1', id='navlink')),
-            #dbc.NavItem(dbc.NavLink('Ökologie', href='/oeko_1', id='navlink')),
             dbc.DropdownMenu(
                 children=[
                     dbc.DropdownMenuItem('Link zum Quellcode', href='https://github.com/Neon-Purplelight/klima_kompass_navigator'),
@@ -64,70 +61,14 @@ def make_footer():
 
     return banner
 
-def make_owid_info_modal():
-    return html.Div(
-        children=[
-            dbc.Button(
-                [html.I(className="fas fa-info-circle"), " CO₂ Datensatz"], 
-                id="open-modal-button", 
-                className="mt-2 mb-2", 
-                color="primary"
-            ),
-            dbc.Modal(
-                [
-                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
-                    dbc.ModalBody(
-                        [
-                            html.P(
-                                [
-                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
-                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
-                                    " und basieren auf dem ",
-                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
-                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
-                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
-                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
-                                    "Die Daten sind unter der MIT-Lizenz verfügbar und unter Angabe der Quelle frei nutzbar:",
-                                    html.Hr(),
-                                    html.P(
-                                        "Global Carbon Budget (2023) – with major processing by Our World in Data",
-                                        style={'color': 'grey'} ),
-                                    html.Hr(),
-                                    " Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
-                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
-                                    " des Datensatzes.",
-                                ]
-                            ),
-                            html.P(
-                                [
-                                    "Der umfangreiche Owid- Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
-                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
-                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
-                                    "."
-                                ]
-                            ),
-                        ]
-                    ),
-                    dbc.ModalFooter(
-                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
-                    ),
-                ],
-                id="modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
-            ),
-        ]
-    )
 # ------------------------------------------------------------------------------
-# start_page_1 functions
+# start_page_1
 # ------------------------------------------------------------------------------
+
 def make_start_page_1_sidebar():
-    # Bootstrap Sidebar
-    # Verwenden Sie Font Awesome-Symbole für Links
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
     info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Hinweise zur Bedienung"],
@@ -148,7 +89,6 @@ def make_start_page_1_sidebar():
         className="d-flex justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -163,7 +103,6 @@ def make_start_page_1_sidebar():
                 ") überarbeitet, um das verbleibende globale Budget für Treibhausgasemissionen anzuzeigen. Dies verdeutlicht den Druck für politische Maßnahmen zur Begrenzung der globalen Erwärmung auf 1,5 und 2 Grad Celsius über dem vorindustriellen Niveau. Die aktualisierte Uhr veranschaulicht, dass das Zeitfenster für entscheidende Maßnahmen zur Begrenzung der Auswirkungen des Klimawandels immer knapper wird."]),
                ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -189,7 +128,6 @@ def make_start_page_1_sidebar():
                         make_mcc_carbon_clock_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -199,13 +137,11 @@ def make_start_page_1_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
 
 def make_iframe():
-    # Info Button und Info Card
     info_button_1 = dbc.Button("ℹ️ Info", id="info-button_start_page_iframe", color="primary", className="mr-1")
     info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
 
@@ -238,21 +174,18 @@ def make_iframe():
         style={"display": "none"},
     )
     
-    # Tooltip für den Info-Button
     info_button_tooltip = dbc.Tooltip("Klick mich !", target="info-button_start_page_iframe", placement="auto", style={'color': '#2e8b57'})
 
-    # Combine info button, info card and the iframe
     iframe_row = html.Div([
         info_button_1,
         info_button_tooltip,
         info_card_1,
-        dbc.Col(html.Iframe(src="https://www.mcc-berlin.net/fileadmin/data/clock/carbon_clock.htm?i=3267263", width="120%", height="800px", style={'margin': '0'}), width=10, align="start"),  # Set width=12 and adjust align
+        dbc.Col(html.Iframe(src="https://www.mcc-berlin.net/fileadmin/data/clock/carbon_clock.htm?i=3267263", width="120%", height="800px", style={'margin': '0'}), width=10, align="start"),
     ])
 
     return iframe_row
 
 def make_interactive_controls_example():
-    # Create exemplary control elements
     info_icon = html.I(className="fa fa-info-circle", style={'color': 'white', 'margin-right': '5px'})
 
     controls_example = dbc.CardGroup(
@@ -367,19 +300,17 @@ def make_mcc_carbon_clock_info_modal():
                     ),
                 ],
                 id="mcc-carbon-clock-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,  
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# start_page_2 functions
+# start_page_2
 # ------------------------------------------------------------------------------
 def make_start_page_2_sidebar():
-    # Bootstrap Sidebar
-    # Verwenden Sie Font Awesome-Symbole für Links
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Hinweise zur Bedienung"],
@@ -399,8 +330,6 @@ def make_start_page_2_sidebar():
         dark=True,
         className="d-flex justify-content-center",
     )
-
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -427,7 +356,6 @@ def make_start_page_2_sidebar():
                 ]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -457,7 +385,6 @@ def make_start_page_2_sidebar():
                     make_gistemp_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -468,13 +395,11 @@ def make_start_page_2_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
 
 def make_start_page_2_settings(default_value='average_temp', options=None):
-    # start_page_1 settings
     if options is None:
         options = [
             {'label': 'Durchschnittstemperatur', 'value': 'average_temp'},
@@ -483,7 +408,6 @@ def make_start_page_2_settings(default_value='average_temp', options=None):
             {'label': 'Aufbereitete Präsentation', 'value': 'final_presentation'}
         ]
 
-    # Card- Group
     plot_cards = dbc.CardGroup(
         [
             dbc.Card(
@@ -513,20 +437,15 @@ def plot_average_temp(df_temp):
     template = 'plotly_dark'
     graph_id = 'temperature-graph'
 
-    # Create a line plot using Plotly Express
     fig = px.line(df_temp, x='Year', y='JJA', template=template)
 
-    # Modify axis labels
     fig.update_layout(
         xaxis_title='Jahr',
         yaxis_title='Temperatur (°C)'
     )
 
-    # Convert Plotly figure to Dash Graph component with the specified ID
-    # Create "ℹ️ Info" button
     info_button_2 = dbc.Button("ℹ️ Info", id="info-button_klima_1_temp", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_2 = dbc.Card(
         dbc.CardBody(
             [
@@ -546,7 +465,6 @@ def plot_average_temp(df_temp):
         style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_2,
         info_card_2,
@@ -560,25 +478,19 @@ def plot_average_temp(df_temp):
     return graph_with_info_button
 
 def plot_co2_data(df_co2):
-    # Set default values for parameters
     y_column = "Annual CO₂ emissions"
     template = 'plotly_dark'
     graph_id = 'co2-graph'
 
-    # Create a line plot using Plotly Express
     fig = px.line(df_co2, x='Year', y=y_column, template=template)
 
-    # Update the layout to set the y-axis label
     fig.update_layout(
         yaxis_title="CO₂-Emissionen in Mio. t",
         xaxis_title="Jahr"
     )
 
-    # Convert Plotly figure to Dash Graph component with the specified ID
-    # Create "ℹ️ Info" button
     info_button_1 = dbc.Button("ℹ️ Info", id="info-button_klima_1_co2", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_1 = dbc.Card(
         dbc.CardBody(
             [
@@ -600,7 +512,6 @@ def plot_co2_data(df_co2):
         style={"display": "none"},  
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_1,
         info_card_1,
@@ -618,20 +529,15 @@ def plot_scatter_with_ols(df_co2, df_temp):
 
     common_years = set(df_co2['Year']).intersection(set(df_temp['Year']))
 
-    # Filter DataFrames to include only common years
     df_co2_filtered = df_co2[df_co2['Year'].isin(common_years)]
     df_temp_filtered = df_temp[df_temp['Year'].isin(common_years)]
 
-    # Now, use the filtered data for plotting
     fig = px.scatter(x=df_temp_filtered['JJA'], y=df_co2_filtered['Annual CO₂ emissions'], trendline='ols',
                      template='plotly_dark',
                      labels={"x": 'Temperaturänderung', "y": 'CO₂ Emissionen'})
 
-    # Convert Plotly figure to Dash Graph component with the specified ID
-    # Create "ℹ️ Info" button
     info_button_3 = dbc.Button("ℹ️ Info", id="info-button_klima_1_cor", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_3 = dbc.Card(
         dbc.CardBody(
             [
@@ -657,10 +563,9 @@ def plot_scatter_with_ols(df_co2, df_temp):
             className="card-text",
         ),
         id="info-card_klima_1_cor",
-        style={"display": "none"},  # Karte wird standardmäßig ausgeblendet
+        style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_3,
         info_card_3,
@@ -676,18 +581,13 @@ def plot_scatter_with_ols(df_co2, df_temp):
 def create_dual_axis_plot_bar_line(df_temp, df_co2):
     graph_id = 'dual-axis-plot-bar-line'
 
-    # Create figure with secondary y-axis
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Assuming both DataFrames have a 'Year' column
     common_years = set(df_temp['Year']).intersection(set(df_co2['Year']))
 
-    # Filter DataFrames to include only common years
     df_temp_filtered = df_temp[df_temp['Year'].isin(common_years)]
     df_co2_filtered = df_co2[df_co2['Year'].isin(common_years)]
 
-    # Add traces
-    # Bar trace for the first dataset with a color bar
     bar_trace = go.Bar(
         x=df_temp_filtered['Year'],
         y=df_temp_filtered['JJA'],
@@ -696,40 +596,31 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
         marker=dict(color=df_temp_filtered['JJA'], colorscale='inferno', colorbar=dict(x=0.48, y=-0.2, orientation='h')),
     )
 
-    # Line trace for the second dataset
     line_trace = go.Scatter(x=df_co2_filtered['Year'],
                             y=df_co2_filtered['Annual CO₂ emissions'],
                             name='CO₂-Emissionen in Mio. t',
                             showlegend=False,
                             line=dict(color='red'))
 
-    # Add traces to the figure
     fig.add_trace(bar_trace, secondary_y=False)
     fig.add_trace(line_trace, secondary_y=True)
 
-    # Add figure title
     fig.update_layout(
         title_text='Temperature / CO₂-Emissionen',
-        height=800,  # Set the height of the plot
+        height=800,
     )
 
-    # Set x-axis title
     fig.update_xaxes(title_text="Jahr")
 
-    # Set y-axes titles
     fig.update_yaxes(title_text='Temperatur (°C)', secondary_y=False)
     fig.update_yaxes(title_text='CO₂-Emissionen in Mio. t', secondary_y=True)
 
-    # Update layout
     fig.update_layout(
         template='plotly_dark',
     )
 
-    # Convert Plotly figure to Dash Graph component with the specified ID
-    # Create "ℹ️ Info" button
     info_button_4 = dbc.Button("ℹ️ Info", id="info-button_klima_1_barplot", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_4 = dbc.Card(
         dbc.CardBody(
             [
@@ -762,7 +653,6 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
         style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_4,
         info_card_4,
@@ -774,6 +664,61 @@ def create_dual_axis_plot_bar_line(df_temp, df_co2):
     ])
 
     return graph_with_info_button
+
+def make_owid_info_modal():
+    return html.Div(
+        children=[
+            dbc.Button(
+                [html.I(className="fas fa-info-circle"), " CO₂ Datensatz"], 
+                id="open-modal-button", 
+                className="mt-2 mb-2", 
+                color="primary"
+            ),
+            dbc.Modal(
+                [
+                    dbc.ModalHeader(dbc.ModalTitle("owid-co2-data.csv")),
+                    dbc.ModalBody(
+                        [
+                            html.P(
+                                [
+                                    "Die hier verwendeten Daten zu CO₂- und Treibhausgasemissionen stammen von ",
+                                    html.A("Our World in Data", href="https://ourworldindata.org", target="_blank", className="link-primary"),
+                                    " und basieren auf dem ",
+                                    html.A("Global Carbon Project", href="https://www.globalcarbonproject.org", target="_blank", className="link-primary"),
+                                    " (ausführlichere Informationen zu diesem Basisdatensatz finden sich ",
+                                    html.A("hier", href="https://figshare.com/articles/preprint/The_Global_Carbon_Project_s_fossil_CO2_emissions_dataset/16729084", target="_blank", className="link-primary"),
+                                    "). Visualisierungen und Texte sind unter der Creative Commons Lizenz (CC BY) lizenziert, die es Ihnen ermöglicht, die Materialien für jeglichen Zweck frei zu nutzen. ",
+                                    "Die Daten sind unter der MIT-Lizenz verfügbar und unter Angabe der Quelle frei nutzbar:",
+                                    html.Hr(),
+                                    html.P(
+                                        "Global Carbon Budget (2023) – with major processing by Our World in Data",
+                                        style={'color': 'grey'} ),
+                                    html.Hr(),
+                                    " Für eine detaillierte Nutzung und um die genauen Lizenzbedingungen einzusehen, besuchen Sie bitte direkt das ",
+                                    html.A("GitHub-Repository", href="https://github.com/owid/co2-data", target="_blank", className="link-primary"),
+                                    " des Datensatzes.",
+                                ]
+                            ),
+                            html.P(
+                                [
+                                    "Der umfangreiche Owid- Datensatz wurde in verschiedenen Dashboards benutzt und je nach Bedarf nur teilweise übernommen, umstrukturiert und um einige ",
+                                    html.A("Datenpunkte", href="https://github.com/owid/owid-datasets/tree/master/datasets/Countries%20Continents", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    " zur Zuordnung einzelner Länder zu ihren jeweiligen Kontinenten ergänzt. Ausführlichere Informationen zur Prozessierung der Datensätze finden sich im ",
+                                    html.A("Quellcode", href="https://github.com/Neon-Purplelight/klima_kompass_navigator/blob/main/utils/dataManager.py", target="_blank", style={"color": "black", "text-decoration": "underline"}),
+                                    "."
+                                ]
+                            ),
+                        ]
+                    ),
+                    dbc.ModalFooter(
+                        dbc.Button("Schließen", id="close-modal-button", className="ms-auto", n_clicks=0)
+                    ),
+                ],
+                id="modal",
+                is_open=False,  
+            ),
+        ]
+    )
 
 def make_gistemp_info_modal():
     return html.Div(
@@ -810,18 +755,17 @@ def make_gistemp_info_modal():
                     ),
                 ],
                 id="gistemp-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# klima_1 functions
+# klima_1
 # ------------------------------------------------------------------------------
 def make_klima_1_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emittenten"],
@@ -843,7 +787,6 @@ def make_klima_1_sidebar():
         className="d-flex justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -860,7 +803,6 @@ def make_klima_1_sidebar():
                         "Diese vielschichtigen Ansätze spiegeln die Herausforderungen wider, die mit der fairen Verteilung der Bürde zur Emissionsreduktion einhergehen. Internationale Bemühungen, ein ausgewogenes und gerechtes System zu schaffen, stehen im Fokus, um gemeinsam die globale Erwärmung zu begrenzen und die planetarische Gesundheit zu erhalten."]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}
             ),
 
             html.Div(
@@ -894,7 +836,6 @@ def make_klima_1_sidebar():
                         make_owid_info_modal_treemaps(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -905,7 +846,6 @@ def make_klima_1_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar and second row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -944,27 +884,20 @@ def make_klima_1_settings(default_value='co2_emissions_per_country', options=Non
     return plot_cards
 
 def create_co2_treemap(df_filtered):    
-    # Fixed height value
     height = 1000
 
-    # Filter the DataFrame to include the last 5 years
     last_5_years_data = df_filtered[df_filtered['year'] >= df_filtered['year'].max() - 4].copy()
 
-    # Create a new column for the top level (in this case, "world")
     last_5_years_data['world'] = 'Weltweit'
 
-    # Calculate the log transformation, handling NaN values
     last_5_years_data.loc[:, 'log_co2'] = np.log1p(last_5_years_data['co2'])
 
-    # Group by country and continent and calculate the mean for each group
     average_co2_data = last_5_years_data.groupby(['world', 'continent', 'country']).agg(
         {'co2': 'mean', 'log_co2': 'mean'}).reset_index()
 
-    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = average_co2_data[average_co2_data['world'] == 'Weltweit']['co2'].sum()
     average_co2_data['percentage_co2'] = (average_co2_data['co2'] / total_world_co2) * 100
 
-    # Create the Plotly Express treemap figure
     fig = px.treemap(average_co2_data, path=['world', 'continent', 'country'], values='co2',
                      labels={'co2': 'CO₂-Emissionen'},
                      color='log_co2',
@@ -974,22 +907,16 @@ def create_co2_treemap(df_filtered):
                      template='plotly',
     )
 
-    # Update traces to make corners round
     fig.update_traces(marker=dict(cornerradius=5))
 
-    # Update hover template to display continent name for continents and country name for countries
     fig.update_traces(hovertemplate='<b>%{label}</b><br>CO₂-Emissionen: %{customdata[2]:,.2f} Mrd. t<br>Prozentualer Anteil am weltweiten Ausstoß: %{customdata[3]:.2f} %', selector=dict(type='treemap'))
 
-    # Update hover template for the third level to an empty string
     fig.update_traces(hovertemplate='', selector=dict(type='treemap', level='current entries'))
 
-    # Remove colorscale bar
     fig.update_coloraxes(showscale=False)
 
-    # Create "ℹ️ Info" button
     info_button_1 = dbc.Button("ℹ️ Info", id="info-button_klima_2_co2_treemap", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_1 = dbc.Card(
         dbc.CardBody(
             [
@@ -1039,10 +966,9 @@ def create_co2_treemap(df_filtered):
             className="card-text",
         ),
         id="info-card_klima_2_co2_treemap",
-        style={"display": "none"},  # Karte wird standardmäßig ausgeblendet
+        style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_1,
         info_card_1,
@@ -1059,19 +985,14 @@ def create_co2_treemap_historic(df_filtered):
 
     height = 1000
 
-    # Find the last available year in the DataFrame
     last_year = df_filtered['year'].max()
 
-    # Filter the DataFrame to include only the data for the last available year
     last_year_data = df_filtered[df_filtered['year'] == last_year].copy()
 
-    # Create a new column for the top level (in this case, "world")
     last_year_data['world'] = 'Weltweit'
 
-    # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_cumulative_co2'] = np.log1p(last_year_data['cumulative_co2'])
 
-    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['cumulative_co2'].sum()
     last_year_data['percentage_cumulative_co2'] = (last_year_data['cumulative_co2'] / total_world_co2) * 100
 
@@ -1083,22 +1004,16 @@ def create_co2_treemap_historic(df_filtered):
                      height=height
     )
 
-    # Update traces to make corners round
     fig.update_traces(marker=dict(cornerradius=5))
 
-    # Update hover template to display continent name for continents and country name for countries
     fig.update_traces(hovertemplate='<b>%{label}</b><br>CO₂ Gesamt- Emissionen: %{customdata[2]:,.2f} Mrd. t<br>Prozentualer Anteil am weltweiten Ausstoß: %{customdata[3]:.2f}%', selector=dict(type='treemap'))
 
-    # Update hover template for the third level to an empty string
     fig.update_traces(hovertemplate='', selector=dict(type='treemap', level='current entries'))
 
-    # Remove colorscale bar
     fig.update_coloraxes(showscale=False)
 
-    # Create "ℹ️ Info" button
     info_button_2 = dbc.Button("ℹ️ Info", id="info-button_klima_2_historic_treemap", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_2 = dbc.Card(
         dbc.CardBody(
             [
@@ -1127,7 +1042,6 @@ def create_co2_treemap_historic(df_filtered):
         style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_2,
         info_card_2,
@@ -1144,19 +1058,14 @@ def create_co2_treemap_per_capita(df_filtered):
     
     height = 1000
 
-    # Find the last available year in the DataFrame
     last_year = df_filtered['year'].max()
 
-    # Filter the DataFrame to include only the data for the last available year
     last_year_data = df_filtered[df_filtered['year'] == last_year].copy()
 
-    # Create a new column for the top level (in this case, "world")
     last_year_data['world'] = 'Weltweit'
 
-    # Calculate the log transformation, handling NaN values
     last_year_data.loc[:, 'log_co2_per_capita'] = np.log1p(last_year_data['co2_per_capita'])
 
-    # Calculate the percentage of CO₂ contribution for each country and continent relative to the world
     total_world_co2 = last_year_data[last_year_data['world'] == 'Weltweit']['co2_per_capita'].sum()
     last_year_data['percentage_co2_per_capita'] = (last_year_data['co2_per_capita'] / total_world_co2) * 100
 
@@ -1168,22 +1077,16 @@ def create_co2_treemap_per_capita(df_filtered):
                      height=height
     )
 
-    # Update traces to make corners round
     fig.update_traces(marker=dict(cornerradius=5))
 
-    # Update hover template to display continent name for continents and country name for countries
     fig.update_traces(hovertemplate='<b>%{label}</b><br>CO₂ pro Kopf: %{customdata[2]:,.2f} t<br>Prozentualer Anteil am weltweiten Ausstoß: %{customdata[3]:.2f}%', selector=dict(type='treemap'))
 
-    # Update hover template for the third level to an empty string
     fig.update_traces(hovertemplate='', selector=dict(type='treemap', level='current entries'))
 
-    # Remove colorscale bar
     fig.update_coloraxes(showscale=False)
 
-    # Create "ℹ️ Info" button
     info_button_3 = dbc.Button("ℹ️ Info", id="info-button_klima_2_per_capita_treemap", color="primary", className="mr-1")
 
-    # Create the info_card
     info_card_3 = dbc.Card(
         dbc.CardBody(
             [
@@ -1211,7 +1114,6 @@ def create_co2_treemap_per_capita(df_filtered):
         style={"display": "none"},
     )
 
-    # Combine the button, info_card, and graph
     graph_with_info_button = html.Div([
         info_button_3,
         info_card_3,
@@ -1274,18 +1176,17 @@ def make_owid_info_modal_treemaps():
                     ),
                 ],
                 id="modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# klima_2 functions
+# klima_2
 # ------------------------------------------------------------------------------
 def make_klima_2_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " CO₂ Emittenten"],
@@ -1307,7 +1208,6 @@ def make_klima_2_sidebar():
         className="d-flex justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -1320,7 +1220,6 @@ def make_klima_2_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}
             ),
 
             html.Div(
@@ -1357,7 +1256,6 @@ def make_klima_2_sidebar():
                         make_world_countries_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}
                 ),
                 id='collapse_more_info_klima_2',
                 is_open=False,
@@ -1368,7 +1266,6 @@ def make_klima_2_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar and second row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -1406,14 +1303,14 @@ def make_co2_world_map(translated_country_options, min_year, max_year, chart_typ
                                 ],
                                 value='co2',
                                 className="mb-3",
-                                style={'color': 'black'}  # Textfarbe auf Schwarz ändern
+                                style={'color': 'black'}
                             ),
                             html.Div(id='co2-info-panel', style={'color': 'grey'}),
 
                             html.Label("Länderauswahl:", style={'color': 'white'}),
                             dcc.Dropdown(
                                 id='country-selector',
-                                options=translated_country_options,  # Verwenden der übersetzten Optionen
+                                options=translated_country_options,
                                 value=[],
                                 multi=True,
                                 className="mb-3",
@@ -1479,19 +1376,17 @@ def make_world_countries_info_modal():
                     ),
                 ],
                 id="world-countries-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# hydro_1 functions
+# hydro_1
 # ------------------------------------------------------------------------------
 def make_hydro_1_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
-    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
@@ -1513,7 +1408,6 @@ def make_hydro_1_sidebar():
         className="d-flex flex-column justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -1526,7 +1420,6 @@ def make_hydro_1_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1558,7 +1451,6 @@ def make_hydro_1_sidebar():
                         ]),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -1569,7 +1461,6 @@ def make_hydro_1_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -1607,7 +1498,6 @@ def make_hydro_1_settings(default_value='months', options=None):
     return plot_cards
 
 def create_static_map_html_months(selected_months=[], available_months=[], display_names_months=[], shapefile_folder_months=[]):
-    # Define the bounding box coordinates
     bounding_box = [
         [74, 4],
         [81, 4],
@@ -1615,7 +1505,6 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
         [74, 39]
     ]
 
-    # Define the Esri World Imagery basemap
     esri_imagery_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
     esri_imagery_options = {
         'attribution': 'Map data &copy; <a href="https://www.esri.com/">Esri</a>',
@@ -1623,7 +1512,6 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     }
     esri_imagery_layer = f'L.tileLayer("{esri_imagery_url}", {esri_imagery_options}).addTo(map)'
 
-    # Generate the Leaflet map HTML
     html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -1657,11 +1545,9 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
         L.control.zoom({{ position: 'topright' }}).addTo(map);
     """
 
-    # Add GeoJSON layers for the selected months
     for selected_month in selected_months:
-        # Find the corresponding filename from available_months
         if selected_month not in display_names_months:
-            continue  # Skip if the selected_month is not in the list
+            continue
 
         filename = available_months[display_names_months.index(selected_month)]
         shapefile_path = os.path.join(shapefile_folder_months, f'{filename}.shp')
@@ -1671,10 +1557,8 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
 
         gdf = gpd.read_file(shapefile_path)
 
-        # Convert the GeoDataFrame to GeoJSON
         geojson_data = gdf.to_crs(epsg='4326').to_json()
 
-        # Add the GeoJSON data as a GeoJSON layer to the Leaflet map with style options
         geojson_layer = f'''
         var geojsonLayer_{selected_month} = L.geoJSON({geojson_data}, {{
             style: {{
@@ -1707,7 +1591,6 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
         '''
         html_content += geojson_layer
 
-    # Complete the HTML content
     html_content += """
     </script>
 
@@ -1717,15 +1600,12 @@ def create_static_map_html_months(selected_months=[], available_months=[], displ
     </html>
     """
 
-    # Set the output file path within the data\originalData directory
     output_file = os.path.join('data', 'originalData', 'hydro_1', 'map_with_selected_months.html')
 
-    # Save the HTML content to a file
     with open(output_file, 'w') as file:
         file.write(html_content)
 
 def create_static_map_html_years(selected_years=[], available_years=[], display_names_years=[], shapefile_folder_years=[]):
-    # Define the bounding box coordinates
     bounding_box = [
         [74, 4],
         [81, 4],
@@ -1733,7 +1613,6 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
         [74, 39]
     ]
 
-    # Define the Esri World Imagery basemap
     esri_imagery_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
     esri_imagery_options = {
         'attribution': 'Map data &copy; <a href="https://www.esri.com/">Esri</a>',
@@ -1741,7 +1620,6 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     }
     esri_imagery_layer = f'L.tileLayer("{esri_imagery_url}", {esri_imagery_options}).addTo(map)'
 
-    # Generate the Leaflet map HTML
     html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -1772,11 +1650,9 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
         {esri_imagery_layer}
     """
 
-    # Add GeoJSON layers for the selected years
     for selected_year in selected_years:
-        # Find the corresponding filename from available_years
         if selected_year not in display_names_years:
-            continue  # Skip if the selected_year is not in the list
+            continue
 
         filename = available_years[display_names_years.index(selected_year)]
         shapefile_path = os.path.join(shapefile_folder_years, f'{filename}.shp')
@@ -1786,10 +1662,8 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
 
         gdf = gpd.read_file(shapefile_path)
 
-        # Convert the GeoDataFrame to GeoJSON
         geojson_data = gdf.to_crs(epsg='4326').to_json()
 
-        # Add the GeoJSON data as a GeoJSON layer to the Leaflet map with style options
         geojson_layer = f'''
         var geojsonLayer_{selected_year} = L.geoJSON({geojson_data}, {{
             style: {{
@@ -1822,7 +1696,6 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
         '''
         html_content += geojson_layer
 
-    # Complete the HTML content
     html_content += """
     </script>
 
@@ -1832,10 +1705,8 @@ def create_static_map_html_years(selected_years=[], available_years=[], display_
     </html>
     """
 
-    # Set the output file path within the data\originalData directory
     output_file = os.path.join('data', 'originalData', 'hydro_1', 'map_with_selected_years.html')
 
-    # Save the HTML content to a file
     with open(output_file, 'w') as file:
         file.write(html_content)
 
@@ -1872,39 +1743,19 @@ def make_nic_shp_info_modal():
                     ),
                 ],
                 id="nic-shp-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# hydro_2 functions
+# hydro_2
 # ------------------------------------------------------------------------------
 def make_hydro_2_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # # Video-Icon Button
-    # video_icon_button = dbc.Button(
-    #     children=[html.I(className="fa fa-play-circle")], 
-    #     id="toggle-video-button", 
-    #     color="info", 
-    #     className="mb-2",
-    #     style={"margin": "auto", "display": "block"}  # Zentriert den Button
-    # )
 
-    # # Video in dbc.Collapse
-    # video_collapse = dbc.Collapse(
-    #     dbc.Card(
-    #         dbc.CardBody(
-    #             html.Iframe(src="https://www.youtube.com/embed/UTP99X3e7-A", width="100%", height="315", style={"border": "none"})
-    #         )
-    #     ),
-    #     id="collapse-video",
-    #     is_open=False
-    # )
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
-    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Arktischer Eisschild"], 
@@ -1926,7 +1777,6 @@ def make_hydro_2_sidebar():
         className="d-flex flex-column justify-content-center",
     )
 
-    # Infotext und Video
     second_row = dbc.Container(
         [
             html.Div(
@@ -1936,17 +1786,12 @@ def make_hydro_2_sidebar():
                         html.A("Nationalpark Harz", href="https://www.youtube.com/watch?v=UTP99X3e7-A", target="_blank", style={"color": "white", "text-decoration": "underline"}),
                         ".",
                     ]),
-                    # html.Hr(),
-                    # video_icon_button,  # Fügen Sie den Button hier ein
-                    # video_collapse,     # und das ein-/ausklappbare Video
-                    # html.Hr(),
                     html.P([
                         "Diese Veränderungen im Wasserhaushalt wirken sich nicht nur auf das Wachstum und die Entwicklung der Bäume aus, sondern auch auf die Biodiversität und die Ökosystemdienstleistungen, die der Wald erbringt. Wasser ist dabei nicht nur Grundlage für die Photosynthese, sondern spielt darüber hinaus eine entscheidende Rolle für die allgemeine Gesundheit und Widerstandsfähigkeit gegenüber Schädlingen, wie dem Borkenkäfer, Unwetterereignissen oder Waldbränden.",
                         " Folgendes Dashboard veranschaulicht mittels unterschiedlicher Diagramme Statistiken zum Schadholzeinschlag. Unter Schadholzeinschlag versteht man die Entnahme von Bäumen aus einem Wald, die durch Schädlinge, Krankheiten, Sturm, Feuer oder andere schädigende Ereignisse beeinträchtigt oder zerstört wurden. ",
                     ]), 
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -1980,7 +1825,6 @@ def make_hydro_2_sidebar():
                         make_niederschlag_gebietsmittel_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -1991,7 +1835,6 @@ def make_hydro_2_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -2011,7 +1854,6 @@ def make_hydro_2_settings():
     return plot_cards
 
 def hydro_2_line_chart(df, colors):
-# Tab 1: Liniendiagramm
     return {
             'data': [
                 go.Scatter(
@@ -2076,10 +1918,8 @@ def hydro_2_line_chart(df, colors):
     }
 
 def hydro_2_stacked_bar_chart(df, colors):
-    # Berechnung der Gesamtsumme für jedes Jahr zur Bestimmung der prozentualen Anteile
     df['Gesamt'] = df[['Trockenheit', 'Sonstige Ursachen', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']].sum(axis=1)
     
-    # Erstellen der Balken für das gestapelte Balkendiagramm
     bar_data = [
         go.Bar(
             x=df['Jahr'], 
@@ -2091,7 +1931,6 @@ def hydro_2_stacked_bar_chart(df, colors):
         ) for ursache in ['Trockenheit', 'Sonstige Ursachen', 'Schnee/Duft', 'Wind/Sturm', 'Insekten']
     ]
 
-    # Hinzufügen der Linie für den Durchschnittsniederschlag
     line_data = go.Scatter(
         x=df['Jahr'], 
         y=df['Durchschnittsniederschlag'].round(2), 
@@ -2102,10 +1941,8 @@ def hydro_2_stacked_bar_chart(df, colors):
         yaxis='y2'
     )
 
-    # Kombinieren der Daten
     data = bar_data + [line_data]
 
-    # Anpassen der Layout-Einstellungen für das gestapelte Balkendiagramm
     layout = go.Layout(
         title='Schadholzeinschlag nach Einschlagsursachen',
         yaxis={'title': 'Mill. m³', 'side': 'right', 'range': [0, df['Gesamt'].max() * 1.1]},
@@ -2120,26 +1957,25 @@ def hydro_2_stacked_bar_chart(df, colors):
     return {'data': data, 'layout': layout}
 
 def hydro_2_stacked_line_chart(df, colors):
-# Tab 3: Gestapeltes Liniendiagramm
     return {
             'data': [
                 go.Scatter(
                     x=df['Jahr'], 
                     y=df['Durchschnittsniederschlag'], 
-                    mode='lines',  # Linie für den Niederschlag
+                    mode='lines',
                     name='Durchschnittsniederschlag', 
                     line={'color': 'Blue', 'dash': 'dashdot'},
-                    hovertemplate='<b>%{y:.2f} l/m²</b>',  # Hier werden Zahlen und Einheiten im Fettdruck angezeigt
-                    yaxis='y2'  # Verwenden Sie die rechte Y-Achse für den Niederschlag
+                    hovertemplate='<b>%{y:.2f} l/m²</b>',
+                    yaxis='y2'
                 ),                
                 go.Scatter(
                     x=df['Jahr'], 
                     y=df['Gesamt'], 
-                    mode='lines',  # Nur eine gestrichelte Linie für 'Gesamt'
+                    mode='lines',
                     name='Gesamteinschlag', 
-                    line={'color': 'black', 'dash': 'dot'},  # fein gestrichelte Linie
-                    hovertemplate='<b>%{y:.2f} Mill. m³</b>',  # Hier werden Zahlen und Einheiten im Fettdruck angezeigt
-                    visible=True,  # Die "Gesamt"-Linie wird initial sichtbar sein
+                    line={'color': 'black', 'dash': 'dot'},
+                    hovertemplate='<b>%{y:.2f} Mill. m³</b>',
+                    visible=True,
                 ),
                 go.Scatter(
                     x=df[df['Jahr'] >= 2020]['Jahr'],
@@ -2147,7 +1983,6 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers',
                     name='Trockenheit',
                     marker={'color': colors['Trockenheit'], 'size': 8}, 
-                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -2156,7 +1991,6 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Sonstige Ursachen', 
                     marker={'color': colors['Sonstige Ursachen'], 'size': 8}, 
-                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -2165,7 +1999,6 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Schnee/Duft', 
                     marker={'color': colors['Schnee/Duft'], 'size': 8}, 
-                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -2174,7 +2007,6 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Wind/Sturm', 
                     marker={'color': colors['Wind/Sturm'], 'size': 8}, 
-                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
                 go.Scatter(
@@ -2183,7 +2015,6 @@ def hydro_2_stacked_line_chart(df, colors):
                     mode='markers', 
                     name='Insekten', 
                     marker={'color': colors['Insekten'], 'size': 8}, 
-                    #visible='legendonly', 
                     stackgroup='one', 
                     hovertemplate='<b>%{y:.2f} Mill. m³</b>'),
             ],
@@ -2199,7 +2030,6 @@ def hydro_2_stacked_line_chart(df, colors):
     }
 
 def make_hydro_2_info_button():
-    # Info Button
     info_button_hydro_2 = dbc.Button(
         "ℹ️ Info", 
         id="info-button-hydro-2", 
@@ -2207,7 +2037,6 @@ def make_hydro_2_info_button():
         className="mr-1"
     )
 
-    # Info Card
     info_card_hydro_2 = dbc.Card(
         dbc.CardBody(
             [
@@ -2226,7 +2055,6 @@ def make_hydro_2_info_button():
         style={"display": "none"},
     )
 
-    # Statt einer Liste von Komponenten, geben Sie eine einzelne Komponente zurück, die eine Liste als children hat.
     return html.Div([info_button_hydro_2, info_card_hydro_2])
 
 def make_schadholz_info_modal():
@@ -2261,7 +2089,7 @@ def make_schadholz_info_modal():
                     ),
                 ],
                 id="schadholz-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
@@ -2296,19 +2124,17 @@ def make_niederschlag_gebietsmittel_info_modal():
                     ),
                 ],
                 id="niederschlag-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# pedo_1 functions
+# pedo_1
 # ------------------------------------------------------------------------------
 def make_pedo_1_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
-    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
@@ -2330,7 +2156,6 @@ def make_pedo_1_sidebar():
         className="d-flex flex-column justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -2354,7 +2179,6 @@ def make_pedo_1_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -2393,7 +2217,6 @@ def make_pedo_1_sidebar():
                         make_smi_info_modal()
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -2404,7 +2227,6 @@ def make_pedo_1_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -2424,10 +2246,8 @@ def make_pedo_1_settings():
     return plot_cards
 
 def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
-    # Reverse the order of date_values_gesamtboden
     reversed_date_values_gesamtboden = date_values_gesamtboden[::-1]
 
-    # Format dates in the desired format with German month names
     formatted_dates = [date.strftime("%B %Y").replace("January", "Januar").replace("February", "Februar").replace("March", "März").replace("April", "April").replace("May", "Mai").replace("June", "Juni").replace("July", "Juli").replace("August", "August").replace("September", "September").replace("October", "Oktober").replace("November", "November").replace("December", "Dezember") for date in reversed_date_values_gesamtboden]
 
     return dcc.Tabs(
@@ -2436,7 +2256,6 @@ def make_drought_tabs(date_values_oberboden, date_values_gesamtboden):
             dcc.Tab(
                 label='Zeitskala',
                 children=[
-                    # Hier setzen Sie Ihren dcc.Slider Code ein
                     dcc.Slider(
                         id='time-slider-drought',
                         min=0,
@@ -2526,19 +2345,17 @@ def make_smi_info_modal():
                     ),
                 ],
                 id="smi-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )
+
 # ------------------------------------------------------------------------------
-# pedo_2 functions
+# pedo_2
 # ------------------------------------------------------------------------------
 def make_pedo_2_sidebar():
-    # Bootstrap Sidebar
     link_icon = html.I(className="fa fa-arrow-circle-right", style={'color': '#7fff00'})
 
-    # Erstellen Sie die Sidebar mit den Links und Symbolen
-    # Verwenden Sie d-flex und justify-content-center, um Elemente zu zentrieren
     sidebar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink([link_icon, " Dürre Monitor"], 
@@ -2560,7 +2377,6 @@ def make_pedo_2_sidebar():
         className="d-flex flex-column justify-content-center",
     )
 
-    # Second row with sample text and collapse component
     second_row = dbc.Container(
         [
             html.Div(
@@ -2588,7 +2404,6 @@ def make_pedo_2_sidebar():
                     ]),
                 ],
                 className='mb-3',
-                #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
             ),
 
             html.Div(
@@ -2614,7 +2429,6 @@ def make_pedo_2_sidebar():
                         make_satellitendaten_info_modal(),
                     ],
                     className='mb-3',
-                    #style={'max-width': '600px'}  # Adjust the max-width to control the length of the div
                 ),
                 id='collapse_more_info_hydro_1',
                 is_open=False,
@@ -2625,7 +2439,6 @@ def make_pedo_2_sidebar():
         className="py-1 bg-primary rounded-1 text-white",
     )
 
-    # Combine the sidebar, second row, and the new settings row
     layout = dbc.Container([sidebar, second_row])
 
     return layout
@@ -2645,11 +2458,9 @@ def make_pedo_2_settings():
     return plot_cards
 
 def generate_initial_image_overlay(dataFolder, satellite_data):
-    # Pfad zum ersten Bild aus 'satellite_data'
     first_image_path = os.path.join(dataFolder, satellite_data[0]['value'])
     with open(first_image_path, 'rb') as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode('ascii')
-    # HTML-Struktur mit Bild und Overlay-Play-Symbol
     initial_image_html = html.Div([
         html.Img(src=f"data:image/png;base64,{encoded_image}", style={'width': '80%', 'height': '80vh'}),
         html.Div(html.I(className="fas fa-play-circle", style={'font-size': '4em', 'color': '#007bff', 'position': 'absolute', 'top': '50%', 'left': '50%', 'transform': 'translate(-50%, -50%)'}), style={'position': 'relative', 'text-align': 'center'}),
@@ -2660,7 +2471,6 @@ def create_tabs_layout(satellite_data):
     return dcc.Tabs([
         dcc.Tab(label='Zeitraffer', children=[
             html.Div([
-                # Play, Stopp und Vorwärts-Buttons über dem Iframe
                 dbc.Row([
                     dbc.Col(
                         dbc.Button('Play', id='play-button', n_clicks=0, color='primary', className='mr-2'),
@@ -2675,9 +2485,7 @@ def create_tabs_layout(satellite_data):
                         width='auto'
                     ),
                 ], justify='center', className='mb-3'),
-                # Iframe für die Anzeige des Bildes
                 html.Iframe(id='image-display', style={'width': '80%', 'height': '80vh', 'border': 'none'}),
-                # Intervall für die Play-Funktion
                 dcc.Interval(id='play-interval', interval=500, n_intervals=0, disabled=True),
             ], style={'text-align': 'center'}),
         ]),
@@ -2696,12 +2504,11 @@ def create_tabs_layout(satellite_data):
                             options=[
                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
                             ],
-                            value=satellite_data[0]['value'],  # Annahme, dass das erste Element als Standardwert gesetzt wird
+                            value=satellite_data[0]['value'],
                             labelStyle={'display': 'block'},
                         ),
                     ], width=3),
                     dbc.Col([
-                        # Hier wird angenommen, dass 'BeforeAfter' ein benutzerdefiniertes Dash-Component ist
                         html.Div(id='image-slider', style={'width': '612px', 'height': '512px'}),
                     ], width=6),
                     dbc.Col([
@@ -2711,7 +2518,7 @@ def create_tabs_layout(satellite_data):
                             options=[
                                 {'label': data['label'], 'value': data['value']} for data in satellite_data
                             ],
-                            value=satellite_data[-1]['value'],  # Annahme, dass das letzte Element als Standardwert gesetzt wird
+                            value=satellite_data[-1]['value'],
                             labelStyle={'display': 'block'},
                         ),
                     ], width=3),
@@ -2754,7 +2561,7 @@ def make_satellitendaten_info_modal():
                     ),
                 ],
                 id="satellitendaten-modal",
-                is_open=False,  # Modal ist standardmäßig geschlossen
+                is_open=False,
             ),
         ]
     )

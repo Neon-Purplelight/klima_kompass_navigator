@@ -1,22 +1,23 @@
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
-from pages import start_page_1,start_page_2, klima_1,klima_2, hydro_1, hydro_2, pedo_1, pedo_2, blankPage 
+from pages import (start_page_1, start_page_2, klima_1, klima_2, 
+                   hydro_1, hydro_2, pedo_1, pedo_2, blankPage)
 
+# Initialize Dash app
 app = Dash(__name__,
-    title="Klima Kompass Navigator",
-    external_stylesheets=[dbc.icons.FONT_AWESOME],
-    suppress_callback_exceptions=True  # Add this line to suppress ID not found errors
-)
+           title="Klima Kompass Navigator",
+           external_stylesheets=[dbc.icons.FONT_AWESOME],
+           suppress_callback_exceptions=True)
 
-indexLayout = html.Div([
+# Define index layout
+index_layout = html.Div([
     dcc.Location(id='url', pathname='/', refresh=False),
     html.Div(id='page-content')
 ])
 
-# Erstellung des 'kompletten' Layouts, um alle Callbacks zu validieren. Andernfalls wird Dash beim Versuch, sie zu
-# validieren, Fehler melden, da sie mit Komponenten verknüpft sind, die sich nicht auf der angezeigten Seite befinden und # daher nicht Teil des aktuellen Layouts sind.
+# Create the 'complete' layout to validate all callbacks
 app.validation_layout = html.Div([
-    indexLayout,
+    index_layout,
     start_page_1.layout,
     start_page_2.layout,
     klima_1.layout,
@@ -28,9 +29,10 @@ app.validation_layout = html.Div([
     blankPage.layout
 ])
 
-# Tatsächliches Seitenlayout
-app.layout = indexLayout
+# Define app layout
+app.layout = index_layout
 
+# Callback to display pages based on URL pathname
 @app.callback(
     Output('page-content', 'children'),
     Input('url', 'pathname')
@@ -55,10 +57,9 @@ def display_page(pathname):
     else:
         return blankPage.layout
     
-# Dieses Serverobjekt wird vom WSGI-Skript geladen, um als Webapplikation
-# auf einem Produktionsserver bereitgestellt zu werden
+# Define server object for deployment
 server = app.server
 
-# Bei lokaler Ausführung 
+# For local execution
 if __name__ == '__main__':
-    app.run_server(debug=True, )
+    app.run_server(debug=True)

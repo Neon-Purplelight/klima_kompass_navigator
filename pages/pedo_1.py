@@ -1,19 +1,20 @@
 import base64
 from io import BytesIO
 import matplotlib.pyplot as plt
-from dash import html, Input, Output, State, dcc, callback
+
 import dash_bootstrap_components as dbc
+from dash import html, Input, Output, State, dcc, callback
 from dash.exceptions import PreventUpdate
 import numpy as np
+
 from utils import dataManager as dm
 from utils import layoutFunctions as lf
 
-# Setzen Sie den Matplotlib-Backend für den nicht-interaktiven Gebrauch
 import matplotlib
 matplotlib.use('Agg')
 
 # ------------------------------------------------------------------------------
-# Laden Sie die erforderlichen Daten
+# Load the necessary data
 # ------------------------------------------------------------------------------
 topsoil_file_path = 'data/processedData/pedo_1/filtered_SMI_Oberboden_monatlich.nc'
 lats_oberboden, lons_oberboden, data_oberboden, date_values_oberboden = dm.preprocess_netcdf_data(topsoil_file_path)
@@ -27,19 +28,12 @@ lats_gesamtboden, lons_gesamtboden, data_gesamtboden, date_values_gesamtboden = 
 # ...
 layout = html.Div(
     [
-        # Navigationsleiste
         dbc.Row(lf.make_NavBar()),
-
-        # Hauptinhalt
         dbc.Row(
             [
-                # Seitenleiste
                 dbc.Col(lf.make_pedo_1_sidebar(), width=4),
-
-                # Hauptinhalt-Bereich
                 dbc.Col(
                     [
-                        # Einstellungen und Informationen
                         lf.make_pedo_1_settings(),
                         html.Div([
                             dbc.Button("ℹ️ Info", id="info-button_hydro_1_settings", color="primary", className="mr-1"),
@@ -59,7 +53,6 @@ layout = html.Div(
                                 id="info-card_hydro_1_settings",
                             ),
                         ]),
-                        # Tabs für Timescale und Vergleich
                         lf.make_drought_tabs(date_values_oberboden, date_values_gesamtboden),
                     ]
                 ),
@@ -72,7 +65,7 @@ layout = html.Div(
 # ...
 # Callbacks
 # ...
-# Callbacks
+
 @callback(
     Output('plots-container-timescale', 'children'),
     [Input('time-slider-drought', 'value')]
@@ -84,27 +77,24 @@ def update_timescale_tab(time_idx):
 
     fig, axs = plt.subplots(1, 2, figsize=(22, 11))  
 
-    # Oberboden
     data_slice_oberboden = data_oberboden[time_idx, :, :]
     img_oberboden = axs[0].imshow(data_slice_oberboden, 
                                    extent=(lons_oberboden.min(), lons_oberboden.max(), 
                                            lats_oberboden.min(), lats_oberboden.max()), 
                                    origin='lower', 
-                                   cmap='YlOrRd_r')  # Umgekehrtes Farbschema
+                                   cmap='YlOrRd_r')  
     axs[0].set_title(f'Oberboden - {dm.translate_month(date_values_oberboden[time_idx])}')
     axs[0].axis('off')  
 
-    # Gesamtboden
     data_slice_gesamtboden = data_gesamtboden[time_idx, :, :]
     img_gesamtboden = axs[1].imshow(data_slice_gesamtboden, 
                                      extent=(lons_gesamtboden.min(), lons_gesamtboden.max(), 
                                              lats_gesamtboden.min(), lats_gesamtboden.max()), 
                                      origin='lower', 
-                                     cmap='YlOrRd_r')  # Umgekehrtes Farbschema
+                                     cmap='YlOrRd_r')  
     axs[1].set_title(f'Gesamtboden - {dm.translate_month(date_values_gesamtboden[time_idx])}')
     axs[1].axis('off') 
 
-    # Colorbar für Oberboden
     cax = fig.add_axes([0.5, 0.1, 0.02, 0.8])
     fig.colorbar(img_oberboden, cax=cax, label='SMI-Werte')
 
@@ -115,9 +105,9 @@ def update_timescale_tab(time_idx):
 
     plots.append(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid"))  
 
-    plt.close()  # Close the Matplotlib figure
-
+    plt.close()  
     return plots
+
 
 @callback(
     Output('plots-container-gesamtboden', 'children'),
@@ -163,7 +153,6 @@ def update_comparison_tab(selected_datasets, selected_times):
             else:
                 continue
 
-            # Formatierung des Titels für die Karten
             selected_date = date_values_gesamtboden[time_idx]
             month_name = selected_date.strftime("%B").replace("January", "Januar").replace("February", "Februar").replace("March", "März").replace("April", "April").replace("May", "Mai").replace("June", "Juni").replace("July", "Juli").replace("August", "August").replace("September", "September").replace("October", "Oktober").replace("November", "November").replace("December", "Dezember")
             
@@ -181,11 +170,11 @@ def update_comparison_tab(selected_datasets, selected_times):
 
             plots.append(html.Div(html.Img(src=f'data:image/png;base64,{img_base64}', className="img-fluid")))
 
-            plt.close()  # Close the Matplotlib figure
-
+            plt.close()  
         plots_container.extend(plots)
 
     return [html.Div(plots_container, style={'display': 'flex', 'flexWrap': 'wrap'})]
+
 
 @callback(
     Output('smi-modal', 'is_open'),

@@ -6,52 +6,50 @@ from utils import layoutFunctions as lf
 # LAYOUT
 # ------------------------------------------------------------------------------
 
-# Main layout structure with navigation bar, sidebar, interactive controls, and license banner.
-layout = html.Div(
-    [   
-            dbc.Modal([
-                dbc.ModalHeader(html.H2("Willkommen auf dem Klima-Kompass-Navigator", style={'font-size': '28px', 'color': 'black'})),
-                dbc.ModalBody(
-                    html.P(
-                        [
-                            "Der Klima-Kompass-Navigator ist eine Sammlung verschiedener Dashboards, die sich mit dem Klimawandel "
-                            "und seinen Auswirkungen auf die Umwelt auseinandersetzen. Der Grundaufbau der jeweiligen Dashboards "
-                            "ist dabei immer derselbe. Über die Navigationsleiste am oberen Bildschirmrand können Sie zwischen den "
-                            "thematischen Hauptseiten Klimatologie (Luft), Hydrologie (Wasser) und Pedologie (Böden) wechseln. Über eine weitere Navigationsleiste oberhalb "
-                            "des Informationsbereichs am linken Bildschirmrand können Sie weiter zwischen verschiedenen Unterkategorien "
-                            "wechseln. Diese Einführungsseite enthält weitere Informationen zum Verständnis der wichtigsten Funktionen."
-                        ]
-                    )
-                ),
-                dbc.ModalFooter(
-                    dbc.Button("Okay", id="close-welcome-modal-button", className="ms-auto", n_clicks=0)
-                ),
-            ],
-            id="welcome-modal",
-            is_open=True,  # Automatisches Öffnen beim Laden der Seite
-            size="xl",  # Größe des Modals
+# Welcome Modal
+welcome_modal = dbc.Modal(
+    [
+        dbc.ModalHeader(html.H2("Willkommen auf dem Klima-Kompass-Navigator", style={'font-size': '28px', 'color': 'black'})),
+        dbc.ModalBody(
+            html.P(
+                [
+                    "Der Klima-Kompass-Navigator ist eine Sammlung verschiedener Dashboards, die sich mit dem Klimawandel "
+                    "und seinen Auswirkungen auf die Umwelt auseinandersetzen. Der Grundaufbau der jeweiligen Dashboards "
+                    "ist dabei immer derselbe. Über die Navigationsleiste am oberen Bildschirmrand können Sie zwischen den "
+                    "thematischen Hauptseiten Klimatologie (Luft), Hydrologie (Wasser) und Pedologie (Böden) wechseln. Über eine weitere Navigationsleiste oberhalb "
+                    "des Informationsbereichs am linken Bildschirmrand können Sie weiter zwischen verschiedenen Unterkategorien "
+                    "wechseln. Diese Einführungsseite enthält weitere Informationen zum Verständnis der wichtigsten Funktionen."
+                ]
+            )
         ),
-        dbc.Row(lf.make_NavBar()),  
+        dbc.ModalFooter(
+            dbc.Button("Okay", id="close-welcome-modal-button", className="ms-auto", n_clicks=0)
+        ),
+    ],
+    id="welcome-modal",
+    is_open=True,
+    size="xl",
+)
+
+# Layout
+layout = html.Div(
+    [
+        welcome_modal,
+        dbc.Row(lf.make_NavBar()),
         dbc.Row(
             [
-                # Sidebar for the start page
                 dbc.Col(lf.make_start_page_1_sidebar(), width=4),
-                
-                # Main content area with interactive controls and iframe
                 dbc.Col(
                     [
                         lf.make_interactive_controls_example(),
-                        lf.make_iframe(),  
+                        lf.make_iframe(),
                     ],
                     width=8,
                 ),
             ]
         ),
-        
-        # Row containing the Creative Commons license banner
         dbc.Row([lf.make_footer()]),
     ],
-    # Styling for the background image
     style={
         'background-image': 'url("/assets/wallpaper.jpg")',
         'background-size': 'cover', 'background-repeat': 'no-repeat',
@@ -60,11 +58,7 @@ layout = html.Div(
     },
 )
 
-# ...
 # Callbacks
-# ...
-
-# Callback for toggling the visibility of the info card iframe on the start page
 @callback(
     Output('welcome-modal', 'is_open'),
     [Input('close-welcome-modal-button', 'n_clicks')],
@@ -89,7 +83,6 @@ def toggle_info_card_iframe(n_clicks):
     else:
         return {}
 
-# Callback for toggling the collapse state of more info section on the start page
 @callback(
     Output('collapse_more_info_start_page', 'is_open'),
     Input('more_info_button_start_page', 'n_clicks'),
