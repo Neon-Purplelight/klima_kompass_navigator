@@ -75,16 +75,19 @@ toggle_info_card("info-button_klima_1_barplot", "info-card_klima_1_barplot")
 def toggle_collapse_more_info(n_clicks, is_open):
     return not is_open
 
-def toggle_modal(modal_button_id, modal_id):
+def toggle_modal(modal_id, modal_open_button_id, modal_close_button_id):
     @callback(
         Output(modal_id, "is_open"),
-        [Input(modal_button_id, "n_clicks"), Input(f"close-{modal_button_id}-button", "n_clicks")],
+        [Input(modal_open_button_id, "n_clicks"), Input(modal_close_button_id, "n_clicks")],
         [State(modal_id, "is_open")],
+        prevent_initial_call=True
     )
     def toggle_modal_state(n1, n2, is_open):
         if n1 or n2:
             return not is_open
         return is_open
 
-toggle_modal("open-modal", "modal")
-toggle_modal("open-gistemp-modal", "gistemp-modal")
+toggle_modal("modal", "open-modal-button", "close-modal-button")
+
+toggle_modal("gistemp-modal", "open-gistemp-modal-button", "close-gistemp-modal-button")
+
