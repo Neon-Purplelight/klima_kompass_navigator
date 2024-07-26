@@ -7,6 +7,11 @@ Ein **kostenloses** und **offenes** Muster-Dashboard, das sich mit den Auswirkun
 
 <img src="assets/KKN_Poster-1.png?raw=true"/>
 
+<img src="assets/strucure.png?raw=true"/>
+
+<img src="assets/flow_chart.png?raw=true"/>
+
+
 ## Wichtiger Hinweis zur Nutzung auf Render
 
 Um eine einfache und zugängliche Nutzung zu ermöglichen, wird das Dashboard auf der Plattform Render gehostet [https://klima-kompass-navigator.onrender.com/](https://klima-kompass-navigator.onrender.com/)(Die Erstinitialisierung der Anwendung kann einige Sekunden in Anspruch nehmen). Bitte beachten Sie jedoch, dass die Anwendung auf Render auf 512MB Arbeitsspeicher begrenzt ist. Wenn das Dashboard dieses Speicherlimit überschreitet, kann es zu einem Absturz kommen, und die Anwendung ist vorübergehend nicht verfügbar, bis das System sie automatisch neu startet. Dies kann insbesondere bei datenintensiven Abfragen oder einer hohen Nutzerlast auftreten.
