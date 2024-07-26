@@ -7,7 +7,7 @@ Ein **kostenloses** und **offenes** Muster-Dashboard, das sich mit den Auswirkun
 
 <img src="assets/KKN_Poster-1.png?raw=true"/>
 
-<img src="assets/strucure.png?raw=true"/>
+<img src="assets/structure.png?raw=true"/>
 
 <img src="assets/flow_chart.png?raw=true"/>
 
