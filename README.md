@@ -5,7 +5,7 @@
 
 Ein **kostenloses** und **offenes** Muster-Dashboard, das sich mit den Auswirkungen des Klimawandels auf unsere Umwelt befasst.
 
-<img src="images/KKN_Poster-1.png?raw=true"/>
+<img src="assets/KKN_Poster-1.png?raw=true"/>
 
 ## Wichtiger Hinweis zur Nutzung auf Render
 
